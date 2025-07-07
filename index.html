@@ -1287,9 +1287,15 @@
             <div class="search-group">
               <label style="display: block; margin-bottom: 0.5rem; color: #6b46c1; font-size: 0.95rem; font-weight: 600;">Punto de partida</label>
               <div id="startModeRadios" style="margin-bottom:0.5em;">
-                <label><input type="radio" name="startMode" value="ubicacion" checked> Usar ubicación en tiempo real</label>
-                <label style="margin-left:1em;"><input type="radio" name="startMode" value="direccion"> Escribir dirección</label>
-                <label style="margin-left:1em;"><input type="radio" name="startMode" value="paradero"> Escoger paradero</label>
+                <label style="display:block;"><input type="radio" name="startMode" value="ubicacion" checked> Usar ubicación en tiempo real</label>
+                <div style="display:flex; gap:2em; margin-top:0.3em;">
+                  <label style="display:flex; align-items:center;">
+                    <input type="radio" name="startMode" value="direccion"> Escribir dirección
+                  </label>
+                  <label style="display:flex; align-items:center;">
+                    <input type="radio" name="startMode" value="paradero"> Escoger paradero
+                  </label>
+                </div>
               </div>
               <div id="startUbicacion" style="display:block;">
                 <input type="text" id="startUbicacionInput" class="search-input" readonly style="margin-bottom:0.5em;">
@@ -1735,19 +1741,19 @@
       
       // Función para mostrar/ocultar inputs de punto de partida
       function toggleStartInputs() {
-        const selectedMode = document.querySelector('input[name="startMode"]:checked').value;
-        console.log('🔄 Cambiando modo de inicio a:', selectedMode);
-        
+        // Buscar el radio seleccionado de startMode
+        let selectedMode = null;
+        // Buscar todos los radios dentro de #startModeRadios
+        const radios = document.querySelectorAll('#startModeRadios input[name="startMode"]');
+        radios.forEach(radio => { if (radio.checked) selectedMode = radio.value; });
+        // Fallback si no se encuentra
+        if (!selectedMode) selectedMode = document.querySelector('input[name="startMode"]:checked')?.value;
+        const startUbicacion = document.getElementById('startUbicacion');
+        const startDireccionInput = document.getElementById('startDireccionInput');
+        const startParaderoSelect = document.getElementById('startParaderoSelect');
         startUbicacion.style.display = selectedMode === 'ubicacion' ? 'block' : 'none';
         startDireccionInput.style.display = selectedMode === 'direccion' ? 'block' : 'none';
         startParaderoSelect.style.display = selectedMode === 'paradero' ? 'block' : 'none';
-        
-        console.log('👁️ Visibilidad de elementos de inicio:', {
-          ubicacion: startUbicacion.style.display,
-          direccion: startDireccionInput.style.display,
-          paradero: startParaderoSelect.style.display
-        });
-        
         if(selectedMode === 'direccion') { startDireccionInput.focus(); }
       }
       

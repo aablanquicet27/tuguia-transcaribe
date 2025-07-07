@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Guia - Te lleva</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background: #f4f6fb;
+        }
+        header {
+            background: #ff6600;
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .search-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .search-info p {
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        .category-selector {
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-select:focus {
+            outline: none;
+            border-color: #6b46c1;
+            box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+        
+        .category-select option {
+            padding: 0.5rem;
+        }
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-end;
+        }
+        .search-row .search-button {
+            height: 48px;
+            min-width: 110px;
+            margin-bottom: 0;
+            align-self: flex-end;
+            font-size: 1rem;
+            padding: 0 1.5rem;
+            white-space: nowrap;
+        }
+        @media (max-width: 600px) {
+            .search-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+            }
+            .search-row .search-button {
+                width: 100%;
+                min-width: unset;
+                height: 44px;
+                margin-left: 0;
+            }
+        }
+        .input-container {
+            position: relative;
+            flex: 1;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #6b46c1;
+            box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+        .search-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6b46c1, #553c9a);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 70, 193, 0.3);
+        }
+        .or-divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #718096;
+            font-weight: 500;
+            position: relative;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        .or-divider::before {
+            left: 0;
+        }
+        .or-divider::after {
+            right: 0;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6b46c1, #553c9a);
+            color: white;
+        }
+        .btn-secondary {
+            background: white;
+            color: #6b46c1;
+            border: 2px solid #6b46c1;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 70, 193, 0.2);
+        }
+        .info {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(107, 70, 193, 0.1);
+            border-radius: 12px;
+            color: #553c9a;
+            font-weight: 500;
+        }
+        .legend {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+        }
+        
+        .legend h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .legend ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .legend li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+        
+        /* Estilos para contenedores lado a lado */
+        .info-containers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .stats-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-container h3 {
+            margin: 0 0 1.5rem 0;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .stats-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .info-containers {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .suggestion-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #f7fafc;
+            transition: background-color 0.2s ease;
+        }
+        .suggestion-item:hover {
+            background-color: #f7fafc;
+        }
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        #map {
+            width: 100vw;
+            height: 60vh;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        .controls button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary {
+            background: #ff6600;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #e65c00;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .info {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 5px;
+            margin: 1rem;
+        }
+        .legend {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            max-width: 350px;
+            margin: 2rem auto;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #ff6600;
+        }
+        .legend ul {
+            padding-left: 1.2rem;
+        }
+        .suggestions {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .suggestion-item {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+        .input-container {
+            position: relative;
+            flex: 1;
+        }
+        
+        @media (max-width: 600px) {
+            #map { height: 50vh; }
+            .search-row { flex-direction: column; }
+        }
+        
+        /* Estilos para la sección de rutas detalladas */
+        .routes-detail-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 4rem 2rem;
+            margin-top: 2rem;
+        }
+        
+        .routes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .routes-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .routes-subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .route-category {
+            margin-bottom: 3rem;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .route-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .route-header {
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .route-header h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        
+        .route-info {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .route-stations {
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .station-item {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: white;
+            transition: transform 0.2s ease;
+        }
+        
+        .station-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .station-item.portal {
+            background: #ff6600;
+        }
+        
+        .station-item.troncal {
+            background: #0074D9;
+        }
+        
+        .station-item.pretroncal {
+            background: #2ECC40;
+        }
+        
+        .station-item.alimentadora {
+            background: #FF4136;
+        }
+        
+        .station-item.complementaria {
+            background: #FF851B;
+        }
+        
+        .route-footer {
+            padding: 1rem 1.5rem;
+            background: #f7fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        .route-footer span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .routes-detail-section {
+                padding: 2rem 1rem;
+            }
+            
+            .routes-title {
+                font-size: 2rem;
+            }
+            
+            .route-stations {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .route-footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+        
+        .input-with-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .location-btn {
+            position: absolute;
+            right: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .location-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .location-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .location-btn.loading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .search-input {
+            padding-right: 60px;
+        }
+        #endInput {
+            width: 100%;
+            min-width: 180px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        @media (max-width: 600px) {
+            .search-row {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+            }
+            .search-row .input-container {
+                max-width: 100%;
+            }
+            #endInput {
+                max-width: 100%;
+            }
+        }
+        
+        /* Estilos para el vehículo en movimiento */
+        .vehicle-marker {
+            background: #ff6600;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: 0 0 8px rgba(255, 102, 0, 0.6);
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .vehicle-marker.moving {
+            background: #28a745;
+            box-shadow: 0 0 12px rgba(40, 167, 69, 0.8);
+            animation: pulse 1s infinite, bounce 0.8s infinite;
+        }
+        
+        .vehicle-marker.stopped {
+            background: #ff6600;
+            box-shadow: 0 0 8px rgba(255, 102, 0, 0.6);
+            animation: pulse 3s infinite;
+        }
+        
+        .vehicle-marker::before {
+            content: '🚗';
+            font-size: 12px;
+            animation: bounce 1s infinite;
+        }
+        
+        .vehicle-marker.moving::before {
+            animation: bounce 0.8s infinite;
+        }
+        
+        .vehicle-marker.stopped::before {
+            animation: none;
+        }
+        
+        /* Estilos para la ruta en tiempo real */
+        .realtime-route {
+            stroke: #ff6600;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 8, 4;
+            animation: dash 2s linear infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -12;
+            }
+        }
+        
+        /* Panel de control de la ruta */
+        .route-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        
+        .route-controls h4 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        
+        .route-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .route-stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .route-stat .value {
+            font-weight: bold;
+            color: #ff6600;
+        }
+        
+        .route-controls button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-play {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-pause {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-stop {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-play:hover { background: #218838; }
+        .btn-pause:hover { background: #e0a800; }
+        .btn-stop:hover { background: #c82333; }
+        
+        /* Indicador de progreso */
+        .progress-indicator {
+            width: 100%;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6600, #ff8533);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Estilos para el modo de seguimiento */
+        .tracking-mode {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 102, 0, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .tracking-mode.active {
+            display: block;
+            animation: fadeInOut 2s infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        /* Estilos para el panel de control automático */
+        .route-controls {
+            background: rgba(255,255,255,0.95) !important;
+            color: #222 !important;
+            border: 2px solid #bbb !important;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin: 1rem auto;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .route-controls h4 {
+            margin: 0 0 1rem 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .route-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .route-stat {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .route-stat .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .route-stat div:last-child {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .progress-indicator {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        
+        .auto-status {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: background 0.3s ease;
+        }
+        
+        .status-indicator {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+            color: #ffcc00;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auto-controls {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn-stop {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-stop:hover {
+            background: rgba(220, 53, 69, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+        
+        .tracking-mode {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 10px;
+            margin: 1rem auto;
+            max-width: 500px;
+            display: none;
+        }
+        
+        .tracking-mode.active {
+            display: block;
+        }
+        
+        /* Estilos para el sistema de botones de selección en mapa */
+        .map-selection-toggle {
+            background: linear-gradient(135deg, #6b46c1, #553c9a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 1rem auto;
+            display: block;
+        }
+        
+        .map-selection-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 70, 193, 0.3);
+        }
+        
+        .map-selection-controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 1rem auto;
+            max-width: 500px;
+            text-align: center;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+        
+        .map-selection-controls.active {
+            display: block;
+        }
+        
+        .map-selection-controls h4 {
+            margin: 0 0 1rem 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .map-selection-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .map-selection-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .map-selection-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .map-selection-btn.active {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .map-selection-info {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(107, 70, 193, 0.1);
+            border-radius: 8px;
+            color: #553c9a;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Estilos para la sección de rutas Transcaribe */
+        .routes-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 4rem 2rem;
+            margin-top: 2rem;
+        }
+        
+        .routes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .routes-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .routes-subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .route-category {
+            margin-bottom: 3rem;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .route-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .route-header {
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .route-header h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        
+        .route-info {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .route-stations {
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .station-item {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: white;
+            transition: transform 0.2s ease;
+        }
+        
+        .station-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .station-item.portal {
+            background: #ff6600;
+        }
+        
+        .station-item.troncal {
+            background: #0074D9;
+        }
+        
+        .station-item.pretroncal {
+            background: #2ECC40;
+        }
+        
+        .station-item.alimentadora {
+            background: #FF4136;
+        }
+        
+        .station-item.complementaria {
+            background: #FF851B;
+        }
+        
+        @media (max-width: 768px) {
+            .routes-section {
+                padding: 2rem 1rem;
+            }
+            
+            .routes-title {
+                font-size: 2rem;
+            }
+            
+            .routes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .route-stations {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+        /* Agregar estilos para las etiquetas de estación */
+        .estacion-label {
+            background: #fff;
+            color: #ff6600;
+            font-weight: bold;
+            border-radius: 6px;
+            border: 1px solid #ff6600;
+            padding: 2px 8px;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+    </style>
+    <script src="https://unpkg.com/@mapbox/polyline@1.1.1/src/polyline.js"></script>
+</head>
+<body>
+    <header id="headerTitle">Mi Ruta - Cartagena</header>
+    
+    <!-- Panel de control de ruta en tiempo real -->
+    <div class="route-controls" id="routeControls" style="display: none;">
+        <h4>🚗 Seguimiento Automático</h4>
+        <div class="route-stats">
+            <div class="route-stat">
+                <div class="value" id="distanceTraveled">0.0</div>
+                <div>km recorridos</div>
+            </div>
+            <div class="route-stat">
+                <div class="value" id="timeElapsed">00:00</div>
+                <div>tiempo</div>
+            </div>
+            <div class="route-stat">
+                <div class="value" id="currentSpeed">0.0</div>
+                <div>km/h</div>
+            </div>
+        </div>
+        <div class="progress-indicator">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="auto-status" id="autoStatus">
+            <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
+        </div>
+        <div class="auto-controls">
+            <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button>
+        </div>
+    </div>
+    
+    <!-- Indicador de modo de seguimiento -->
+    <div class="tracking-mode" id="trackingMode">
+        🚗 Seguimiento en tiempo real activo
+    </div>
+    
+    <div class="search-container">
+        <div class="search-info">
+            <p><strong>🌍 Área de Cobertura:</strong> Este sistema está optimizado para Cartagena de Indias. Las búsquedas y rutas están limitadas al área metropolitana de la ciudad.</p>
+        </div>
+        
+        <div class="search-controls">
+            <h3 style="text-align: center; color: #333; margin-bottom: 1.5rem; font-size: 1.3rem;">Planifica tu Ruta</h3>
+            
+            <!-- Selector de categorías -->
+            <div class="category-selector">
+                <label for="searchCategory" style="display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Tipo de búsqueda:</label>
+                <select id="searchCategory" class="category-select" onchange="updateSearchPlaceholders()">
+                    <option value="all">🔍 Todo (direcciones, restaurantes, hoteles, etc.)</option>
+                    <option value="restaurants">🍽️ Restaurantes y Cafés</option>
+                    <option value="hotels">🏨 Hoteles y Alojamiento</option>
+                    <option value="shops">🛒 Tiendas y Comercios</option>
+                    <option value="businesses">🏢 Empresas y Negocios</option>
+                    <option value="entertainment">🎭 Entretenimiento</option>
+                    <option value="healthcare">🏥 Salud y Farmacias</option>
+                    <option value="education">🎓 Educación</option>
+                    <option value="transport">🚌 Transporte</option>
+                </select>
+            </div>
+            
+            <div class="search-group">
+                <label for="startInput" style="display: block; margin-bottom: 0.5rem; color: #6b46c1; font-size: 0.95rem; font-weight: 600;">Punto de partida</label>
+                <div class="input-with-button">
+                    <input type="text" id="startInput" class="search-input" placeholder="Escribe tu punto de partida...">
+                    <button id="updateLocationBtn" class="location-btn" title="Usar ubicación actual">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="startSuggestions" class="suggestions"></div>
+            </div>
+            
+            <div class="search-row">
+                <div class="input-container" style="flex: 1;">
+                    <label for="endInput" style="display: block; margin-bottom: 0.5rem; color: #6b46c1; font-size: 0.95rem; font-weight: 600;">Punto Destino</label>
+                    <input type="text" id="endInput" class="search-input" placeholder="Escribe tu destino...">
+                    <div id="endSuggestions" class="suggestions" style="display: none;"></div>
+                </div>
+                <button class="search-button" onclick="searchLocation('end')">Buscar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls" style="justify-content: center; gap: 1rem;">
+        <button id="startRoute" class="btn-primary">Iniciar recorrido</button>
+        <button id="clearRoute" class="btn-secondary">Limpiar ruta</button>
+    </div>
+    
+    <div class="info" id="info">Escribe las direcciones, nombres de restaurantes, hoteles, tiendas o negocios, o selecciónalas en el mapa.</div>
+    
+    <button class="map-selection-toggle" id="toggleMapSelection">🗺️ Mostrar selección en mapa (origen/destino)</button>
+    <div class="map-selection-controls" id="mapSelectionControls" style="display: none !important;">
+        <h4>Selecciona en el mapa</h4>
+        <div class="map-selection-buttons">
+            <button id="setStart" class="map-selection-btn">Seleccionar en mapa (Origen)</button>
+            <button id="setEnd" class="map-selection-btn">Seleccionar en mapa (Destino)</button>
+        </div>
+        <div class="map-selection-info">Haz clic en el botón y luego selecciona el punto en el mapa.</div>
+    </div>
+    
+    <div id="map" style="width:100vw; height:60vh; min-height:300px;"></div>
+
+    <!-- Sección RUTAS_TRANSCARIBE -->
+    <section id="RUTAS_TRANSCARIBE" class="routes-section">
+        <div class="routes-container">
+            <h2 class="routes-title">🚌 Rutas Transcaribe</h2>
+            <p class="routes-subtitle">Sistema Integrado de Transporte Masivo de Cartagena</p>
+            
+            <!-- Rutas Troncales -->
+            <div class="route-category">
+                <h3 class="category-title">🟠 Rutas Troncales</h3>
+                <div class="routes-grid">
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #ff6600, #ff8533);">
+                            <h4>T100E</h4>
+                            <div class="route-info">PATIO PORTAL - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item troncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item troncal">CENTRO UNO</span>
+                            <span class="station-item troncal">MARIA AUXILIADORA</span>
+                            <span class="station-item troncal">CUATRO VIENTOS</span>
+                            <span class="station-item troncal">LA CASTELLANA</span>
+                            <span class="station-item troncal">MADRE BERNARDA</span>
+                            <span class="station-item troncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #ff6600, #ff8533);">
+                            <h4>T101</h4>
+                            <div class="route-info">PATIO PORTAL - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item troncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item troncal">CENTRO UNO</span>
+                            <span class="station-item troncal">CHAMBACU</span>
+                            <span class="station-item troncal">PIE DE LA POPA</span>
+                            <span class="station-item troncal">MERCADO BAZURTO</span>
+                            <span class="station-item troncal">EL PRADO</span>
+                            <span class="station-item troncal">ESPAÑA</span>
+                            <span class="station-item troncal">CUATRO VIENTOS</span>
+                            <span class="station-item troncal">VILLA OLIMPICA</span>
+                            <span class="station-item troncal">LOS EJECUTIVOS</span>
+                            <span class="station-item troncal">LA CASTELLANA</span>
+                            <span class="station-item troncal">MADRE BERNARDA</span>
+                            <span class="station-item troncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #ff6600, #ff8533);">
+                            <h4>T102</h4>
+                            <div class="route-info">PATIO PORTAL - CRESPO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item troncal">CENTRO UNO</span>
+                            <span class="station-item troncal">CHAMBACU</span>
+                            <span class="station-item troncal">MERCADO BAZURTO</span>
+                            <span class="station-item troncal">EL PRADO</span>
+                            <span class="station-item troncal">MARIA AUXILIADORA</span>
+                            <span class="station-item troncal">REPUBLICA DEL LIBANO</span>
+                            <span class="station-item troncal">VILLA OLIMPICA</span>
+                            <span class="station-item troncal">LOS ANGELES</span>
+                            <span class="station-item troncal">MADRE BERNARDA</span>
+                            <span class="station-item troncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #ff6600, #ff8533);">
+                            <h4>T103</h4>
+                            <div class="route-info">PATIO PORTAL - BOCAGRANDE</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item troncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item troncal">CHAMBACU</span>
+                            <span class="station-item troncal">PIE DE LA POPA</span>
+                            <span class="station-item troncal">MERCADO BAZURTO</span>
+                            <span class="station-item troncal">ESPAÑA</span>
+                            <span class="station-item troncal">CUATRO VIENTOS</span>
+                            <span class="station-item troncal">LOS EJECUTIVOS</span>
+                            <span class="station-item troncal">LOS ANGELES</span>
+                            <span class="station-item troncal">LA CASTELLANA</span>
+                            <span class="station-item troncal">MADRE BERNARDA</span>
+                            <span class="station-item troncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rutas Pretroncales -->
+            <div class="route-category">
+                <h3 class="category-title">🟢 Rutas Pretroncales</h3>
+                <div class="routes-grid">
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X101</h4>
+                            <div class="route-info">SAN JOSE DE LOS CAMPANOS - 13 DE JUNIO - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">CHAMBACU</span>
+                            <span class="station-item pretroncal">MERCADO BAZURTO</span>
+                            <span class="station-item pretroncal">MARIA AUXILIADORA</span>
+                            <span class="station-item pretroncal">ESPAÑA</span>
+                            <span class="station-item pretroncal">REPUBLICA DEL LIBANO</span>
+                            <span class="station-item pretroncal">CUATRO VIENTOS</span>
+                            <span class="station-item pretroncal">VILLA OLIMPICA</span>
+                            <span class="station-item pretroncal">LOS EJECUTIVOS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X102</h4>
+                            <div class="route-info">PATIO PORTAL - BOSQUE - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">LO AMADOR</span>
+                            <span class="station-item pretroncal">LAS DELICIAS</span>
+                            <span class="station-item pretroncal">MERCADO BAZURTO</span>
+                            <span class="station-item pretroncal">MADRE BERNARDA</span>
+                            <span class="station-item pretroncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X103</h4>
+                            <div class="route-info">PATIO PORTAL - CONSULADO - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">LAS DELICIAS</span>
+                            <span class="station-item pretroncal">MERCADO BAZURTO</span>
+                            <span class="station-item pretroncal">EL PRADO</span>
+                            <span class="station-item pretroncal">MADRE BERNARDA</span>
+                            <span class="station-item pretroncal">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X104</h4>
+                            <div class="route-info">TERMINAL DE TRANSPORTE - PEDRO ROMERO - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">CHAMBACU</span>
+                            <span class="station-item pretroncal">PIE DE LA POPA</span>
+                            <span class="station-item pretroncal">MERCADO BAZURTO</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X105</h4>
+                            <div class="route-info">CIUDADELA 2000 - CRISANTO LUQUE - BOCAGRANDE</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">LO AMADOR</span>
+                            <span class="station-item pretroncal">LAS DELICIAS</span>
+                            <span class="station-item pretroncal">MERCADO BAZURTO</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #2ECC40, #27AE60);">
+                            <h4>X106</h4>
+                            <div class="route-info">VARIANTE - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item pretroncal">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item pretroncal">CENTRO UNO</span>
+                            <span class="station-item pretroncal">LO AMADOR</span>
+                            <span class="station-item pretroncal">PIE DE LA POPA</span>
+                            <span class="station-item pretroncal">LAS DELICIAS</span>
+                            <span class="station-item pretroncal">MARIA AUXILIADORA</span>
+                            <span class="station-item pretroncal">REPUBLICA DEL LIBANO</span>
+                            <span class="station-item pretroncal">LOS EJECUTIVOS</span>
+                            <span class="station-item pretroncal">LA CASTELLANA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rutas Alimentadoras -->
+            <div class="route-category">
+                <h3 class="category-title">🔴 Rutas Alimentadoras</h3>
+                <div class="routes-grid">
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A101</h4>
+                            <div class="route-info">CIUDAD JARDIN - PATIO PORTAL</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A102</h4>
+                            <div class="route-info">PATIO PORTAL - UNIVERSIDAD TECNOLOGICA DE BOLIVAR</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A103</h4>
+                            <div class="route-info">NELSON MANDELA - SAN FERNANDO - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A104</h4>
+                            <div class="route-info">NELSON MANDELA - SOCORRO - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A105</h4>
+                            <div class="route-info">SIMON BOLIVAR - SOCORRO - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A107</h4>
+                            <div class="route-info">BLAS DE LEZO - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A108</h4>
+                            <div class="route-info">CAMPESTRE - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A111</h4>
+                            <div class="route-info">NUEVO BOSQUE - SANTA LUCIA</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">MADRE BERNARDA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A114</h4>
+                            <div class="route-info">FLOR DEL CAMPO - PATIO PORTAL</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF4136, #E74C3C);">
+                            <h4>A117</h4>
+                            <div class="route-info">POZON - VILLA ESTRELLA - PORTAL</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item alimentadora">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rutas Complementarias -->
+            <div class="route-category">
+                <h3 class="category-title">🟡 Rutas Complementarias</h3>
+                <div class="routes-grid">
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF851B, #FF6B35);">
+                            <h4>C001</h4>
+                            <div class="route-info">CIUDADELA 2000 - MANGA - CENTRO</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item complementaria">Ruta complementaria</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF851B, #FF6B35);">
+                            <h4>C016</h4>
+                            <div class="route-info">PATIO PORTAL - TERMINAL DE TRANSPORTE</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item complementaria">PATIO PORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF851B, #FF6B35);">
+                            <h4>C017</h4>
+                            <div class="route-info">MUELLE DE LA BODEGUITA - ZONA NORTE</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item complementaria">MUELLE DE LA BODEGUITA</span>
+                            <span class="station-item complementaria">CENTRO UNO</span>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-header" style="background: linear-gradient(135deg, #FF851B, #FF6B35);">
+                            <h4>C018</h4>
+                            <div class="route-info">MUELLE DE LA BODEGUITA - TORICES</div>
+                        </div>
+                        <div class="route-stations">
+                            <span class="station-item complementaria">MUELLE DE LA BODEGUITA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GRILLA DE ESTACIONES Y DIRECCIONES CORRECTAS -->
+    <section id="grilla-estaciones" style="margin: 3rem auto; max-width: 900px;">
+        <h2 style="text-align:center; color:#ff6600;">🗺️ Estaciones Transcaribe y su Dirección Real</h2>
+        <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+            <thead>
+                <tr style="background:#ff6600; color:#fff;">
+                    <th style="padding:1rem;">Estación</th>
+                    <th style="padding:1rem;">Tipo</th>
+                    <th style="padding:1rem;">Dirección</th>
+                    <th style="padding:1rem;">Rutas</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-estaciones">
+                <!-- Las filas se llenarán dinámicamente por JavaScript -->
+            </tbody>
+        </table>
+    </section>
+    <!-- FIN GRILLA ESTATICA -->
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+    // =================== CONFIGURACIÓN ===================
+    const ORS_API_KEY = '5b3ce3597851110001cf6248e92a24fdb4744773ab33cab2c808de44';
+    const OVERPASS_URL = 'https://overpass-api.de/api/interpreter';
+    const NOMINATIM_URL = 'https://nominatim.openstreetmap.org';
+    const CORS_PROXY = 'https://corsproxy.io/?';
+    const CARTAGENA_BOUNDS = [10.35, -75.56, 10.48, -75.44];
+    let estaciones = [];
+    let paraderos = [];
+    let map, startMarker, endMarker, routeLine, vehicleMarker, trackingWatchId;
+    let isTracking = false, startTime, distanceTraveled = 0, lastPosition = null;
+    // =================== INICIALIZACIÓN ===================
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Inicializar mapa
+      map = L.map('map').setView([10.42312, -75.54802], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+      // Cargar estaciones y paraderos
+      await cargarEstacionesYParaderos();
+      // Detectar ubicación actual
+      detectarUbicacionActual();
+      // Mover aquí el handler de clic en el mapa
+      map.on('click', async function(e) {
+        const latlng = e.latlng;
+        // Buscar estación/paradero más cercano
+        let nearest = null, minDist = Infinity, tipo = '';
+        estaciones.concat(paraderos).forEach(p => {
+          const d = map.distance(latlng, L.latLng(p.lat, p.lon));
+          if (d < minDist) { minDist = d; nearest = p; }
+        });
+        // Refuerza la diferenciación:
+        if (nearest) {
+          // Es estación si tiene network Transcaribe/operator Transcaribe S.A./name incluye 'Estación' o 'Portal'
+          const isEstacion = (nearest.tags && (
+            nearest.tags.network === 'Transcaribe' ||
+            nearest.tags.operator === 'Transcaribe S.A.' ||
+            (nearest.tags.name && (nearest.tags.name.includes('Estación') || nearest.tags.name.includes('Portal')))
+          ));
+          // Es paradero si tiene highway bus_stop o public_transport platform
+          const isParadero = (nearest.tags && (
+            nearest.tags.highway === 'bus_stop' ||
+            nearest.tags.public_transport === 'platform'
+          ));
+          if (isEstacion) {
+            mostrarInfoEstacion(nearest);
+          } else if (isParadero) {
+            mostrarInfoParadero(nearest);
+          } else {
+            // Si no es ninguno, muestra solo coordenadas y dirección
+            let popupContent = `<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br>`;
+            popupContent += '<span style="color:#888">Buscando dirección...</span>';
+            const popup = L.popup().setLatLng(latlng).setContent(popupContent).openOn(map);
+            try {
+              const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
+              const data = await resp.json();
+              if (data.display_name) {
+                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
+              } else {
+                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
+              }
+            } catch {
+              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
+            }
+          }
+        } else {
+          // Buscar dirección aproximada
+          let popupContent = `<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br>`;
+          popupContent += '<span style="color:#888">Buscando dirección...</span>';
+          const popup = L.popup().setLatLng(latlng).setContent(popupContent).openOn(map);
+          try {
+            const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
+            const data = await resp.json();
+            if (data.display_name) {
+              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
+            } else {
+              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
+            }
+          } catch {
+            popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
+          }
+        }
+      });
+    });
+    // =================== FUNCIONES DE MAPA Y DATOS ===================
+    async function cargarEstacionesYParaderos() {
+      // Consulta Overpass mejorada para nodos, ways y relaciones
+      const bbox = CARTAGENA_BOUNDS.join(',');
+      const query = `[out:json][timeout:25];
+      (
+        node["network"~"Transcaribe",i](${bbox});
+        node["operator"~"Transcaribe",i](${bbox});
+        node["name"~"Transcaribe|Portal|Estación|Auxiliadora|Bodeguita|Castellana|Bernarda|Bazurto|Popa|Prado|España|Cuatro Vientos|Olímpica|Ejecutivos|Crespo|Socorro|Mandela|Bosque|Consulado|Romero|Campanos|Junio|Lezo|Campo|Pozon|Estrella|Manga|Torices|Terminal",i](${bbox});
+        node["highway"="bus_stop"](${bbox});
+        node["public_transport"="platform"](${bbox});
+        way["network"~"Transcaribe",i](${bbox});
+        way["operator"~"Transcaribe",i](${bbox});
+        way["name"~"Transcaribe|Portal|Estación|Auxiliadora|Bodeguita|Castellana|Bernarda|Bazurto|Popa|Prado|España|Cuatro Vientos|Olímpica|Ejecutivos|Crespo|Socorro|Mandela|Bosque|Consulado|Romero|Campanos|Junio|Lezo|Campo|Pozon|Estrella|Manga|Torices|Terminal",i](${bbox});
+        way["highway"="bus_stop"](${bbox});
+        way["public_transport"="platform"](${bbox});
+        relation["network"~"Transcaribe",i](${bbox});
+        relation["operator"~"Transcaribe",i](${bbox});
+        relation["name"~"Transcaribe|Portal|Estación|Auxiliadora|Bodeguita|Castellana|Bernarda|Bazurto|Popa|Prado|España|Cuatro Vientos|Olímpica|Ejecutivos|Crespo|Socorro|Mandela|Bosque|Consulado|Romero|Campanos|Junio|Lezo|Campo|Pozon|Estrella|Manga|Torices|Terminal",i](${bbox});
+        relation["highway"="bus_stop"](${bbox});
+        relation["public_transport"="platform"](${bbox});
+      );
+      out center;`;
+      const response = await fetch(OVERPASS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'data=' + encodeURIComponent(query)
+      });
+      const data = await response.json();
+
+      // Unifica lat/lon para node, way y relation
+      const elementos = data.elements.map(e => {
+        if (e.type === 'node') {
+          return { ...e, lat: e.lat, lon: e.lon };
+        } else if ((e.type === 'way' || e.type === 'relation') && e.center) {
+          return { ...e, lat: e.center.lat, lon: e.center.lon };
+        }
+        return null;
+      }).filter(e => e && e.lat && e.lon);
+
+      // Filtra estaciones y paraderos
+      estaciones = elementos.filter(e => e.tags && (
+        e.tags.network === 'Transcaribe' ||
+        e.tags.operator === 'Transcaribe S.A.' ||
+        (e.tags.name && (e.tags.name.includes('Portal') || e.tags.name.includes('Estación')))
+      ));
+      paraderos = elementos.filter(e => e.tags && (
+        e.tags.highway === 'bus_stop' ||
+        e.tags.public_transport === 'platform'
+      ));
+
+      // Mostrar en el mapa
+      mostrarEstacionesYParaderosEnMapa();
+    }
+    function mostrarEstacionesYParaderosEnMapa() {
+      estaciones.forEach(est => {
+        const marker = L.marker([est.lat, est.lon], {
+          icon: L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
+            iconSize: [24, 24], iconAnchor: [12, 24]
+          })
+        }).addTo(map).on('click', () => mostrarInfoEstacion(est));
+      });
+      paraderos.forEach(stop => {
+        const marker = L.marker([stop.lat, stop.lon], {
+          icon: L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252033.png',
+            iconSize: [20, 20], iconAnchor: [10, 20]
+          })
+        }).addTo(map).on('click', () => mostrarInfoParadero(stop));
+      });
+    }
+    function mostrarInfoEstacion(est) {
+      const rutas = est.tags.ref || 'N/A';
+      const nombre = est.tags.name || 'Estación';
+      const popup = `<b>${nombre}</b><br>Rutas: ${rutas}<br>Red: ${est.tags.network || est.tags.operator || 'Transcaribe'}<br>Horario: 5:00am - 11:00pm`;
+      L.popup().setLatLng([est.lat, est.lon]).setContent(popup).openOn(map);
+    }
+    function mostrarInfoParadero(stop) {
+      // Restaurar popup original para paraderos
+      const nombre = stop.tags.name || 'Paradero';
+      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}`;
+      L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
+    }
+    // =================== UBICACIÓN Y AUTOCOMPLETADO ===================
+    function detectarUbicacionActual() {
+      if (!navigator.geolocation) {
+        document.getElementById('startInput').value = 'Geolocalización no soportada';
+        return;
+      }
+      document.getElementById('startInput').value = 'Detectando ubicación...';
+      navigator.geolocation.getCurrentPosition(async pos => {
+        const lat = pos.coords.latitude, lon = pos.coords.longitude;
+        if (window.startMarker) map.removeLayer(window.startMarker);
+        const marker = L.marker([lat, lon], {
+          icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+        }).addTo(map);
+        map.setView([lat, lon], 15);
+        window.startMarker = marker;
+        // Obtener dirección real
+        try {
+          const url = `${NOMINATIM_URL}/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
+          const res = await fetch(url);
+          const data = await res.json();
+          const address = data.display_name ? data.display_name.split(',').slice(0,3).join(', ') : `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+          document.getElementById('startInput').value = address;
+        } catch {
+          document.getElementById('startInput').value = `${lat.toFixed(5)}, ${lon.toFixed(5)}`;
+        }
+      }, err => {
+        document.getElementById('startInput').value = 'No se pudo obtener ubicación';
+      }, { enableHighAccuracy: true, timeout: 10000 });
+    }
+    // === AUTOCOMPLETADO DE ORIGEN (agregar si no existe)
+    document.addEventListener('DOMContentLoaded', function() {
+      const startInput = document.getElementById('startInput');
+      const startSuggestions = document.getElementById('startSuggestions');
+      if (startInput && startSuggestions) {
+        startInput.addEventListener('input', async function() {
+          const query = this.value.trim();
+          if (query.length > 2) {
+            // Buscar sugerencias en Nominatim
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
+            const data = await response.json();
+            startSuggestions.innerHTML = '';
+            if (data.length > 0) {
+              data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
+                div.onclick = () => {
+                  startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+                  startSuggestions.style.display = 'none';
+                  // Colocar marcador en el mapa
+                  if (window.startMarker) map.removeLayer(window.startMarker);
+                  const marker = L.marker([item.lat, item.lon], {
+                    icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+                  }).addTo(map).bindPopup('Origen: ' + startInput.value).openPopup();
+                  map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
+                  window.startMarker = marker;
+                };
+                startSuggestions.appendChild(div);
+              });
+              startSuggestions.style.display = 'block';
+            } else {
+              startSuggestions.style.display = 'none';
+            }
+          } else {
+            startSuggestions.style.display = 'none';
+          }
+        });
+        // Ocultar sugerencias al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!startInput.contains(e.target) && !startSuggestions.contains(e.target)) {
+            startSuggestions.style.display = 'none';
+          }
+        });
+      }
+    });
+    // En selección en mapa (agregar lógica para setStart y setEnd):
+    document.addEventListener('DOMContentLoaded', function() {
+      let mapSelecting = null;
+      const setStartBtn = document.getElementById('setStart');
+      const setEndBtn = document.getElementById('setEnd');
+      if (setStartBtn) {
+        setStartBtn.addEventListener('click', function() {
+          mapSelecting = 'start';
+          document.getElementById('info').textContent = 'Haz clic en el mapa para seleccionar el punto de partida.';
+        });
+      }
+      if (setEndBtn) {
+        setEndBtn.addEventListener('click', function() {
+          mapSelecting = 'end';
+          document.getElementById('info').textContent = 'Haz clic en el mapa para seleccionar el destino.';
+        });
+      }
+      if (typeof map !== 'undefined') {
+        map.on('click', function(e) {
+          if (mapSelecting === 'start') {
+            if (window.startMarker) map.removeLayer(window.startMarker);
+            const marker = L.marker([e.latlng.lat, e.latlng.lng], {
+              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+            }).addTo(map).bindPopup('Origen: Seleccionado en mapa').openPopup();
+            window.startMarker = marker;
+            document.getElementById('startInput').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
+            mapSelecting = null;
+          } else if (mapSelecting === 'end') {
+            if (window.endMarker) map.removeLayer(window.endMarker);
+            const marker = L.marker([e.latlng.lat, e.latlng.lng], {
+              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+            }).addTo(map).bindPopup('Destino: Seleccionado en mapa').openPopup();
+            window.endMarker = marker;
+            document.getElementById('endInput').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
+            mapSelecting = null;
+          }
+        });
+      }
+    });
+    // === FUNCIONALIDAD BOTONES INICIAR RECORRIDO Y LIMPIAR RUTA ===
+    document.addEventListener('DOMContentLoaded', function() {
+      const startRouteBtn = document.getElementById('startRoute');
+      const clearRouteBtn = document.getElementById('clearRoute');
+      if (startRouteBtn) {
+        startRouteBtn.addEventListener('click', async function() {
+          // Mostrar SIEMPRE el contenedor de seguimiento automático al iniciar recorrido
+          const routeControls = document.getElementById('routeControls');
+          const trackingMode = document.getElementById('trackingMode');
+          if (routeControls) routeControls.style.display = 'block';
+          if (trackingMode) trackingMode.style.display = 'block';
+          if (window.startMarker && window.endMarker) {
+            // Eliminar línea anterior y vehículo anterior si existen
+            if (window.routeLine) map.removeLayer(window.routeLine);
+            if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); window.vehicleMarker = null; }
+            // Obtener coordenadas
+            let start = window.startMarker.getLatLng();
+            let end = window.endMarker.getLatLng();
+            // --- AJUSTE AL CAMINO MÁS CERCANO DESACTIVADO POR LIMITACIÓN DE API GRATUITA ---
+            // Las coordenadas seleccionadas se usarán directamente en la petición a directions
+            // --- INICIO BLOQUE DESACTIVADO POR LICENCIA ORS ---
+            try {
+              // SOLO PARA PRUEBAS: usar proxy local, eliminar en producción
+              const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`;
+              const body = JSON.stringify({
+                coordinates: [
+                  [start.lng, start.lat],
+                  [end.lng, end.lat]
+                ]
+              });
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body
+              });
+              let text = await response.text();
+              let data = {};
+              try {
+                data = JSON.parse(text);
+              } catch (e) {
+                data = { error: text };
+              }
+              if (!response.ok) {
+                console.error('Error ORS directions:', response.status, data);
+                document.getElementById('info').textContent = `Error ORS directions: ${response.status} - ${data.error ? data.error : JSON.stringify(data)}`;
+                return;
+              }
+              console.log('ORS response:', data); // <-- LOG PARA DEPURACIÓN
+              if (data.error) {
+                document.getElementById('info').textContent = 'Error ORS: ' + (data.error.message || JSON.stringify(data.error));
+                return;
+              }
+              if (data && data.routes && data.routes[0]) {
+                // Decodificar la geometría polilínea a coordenadas reales
+                const decodedCoords = polyline.decode(data.routes[0].geometry);
+                // Dibuja la ruta en el mapa
+                if (window.routeLine) map.removeLayer(window.routeLine);
+                window.routeLine = L.polyline(decodedCoords, { color: 'green', weight: 5 }).addTo(map);
+                map.fitBounds(window.routeLine.getBounds(), {padding: [50, 50]});
+                document.getElementById('info').textContent = '¡Recorrido real trazado!';
+                // === Mostrar distancia total y tiempo estimado en el panel de seguimiento automático ===
+                const summary = data.routes[0].summary;
+                if (summary) {
+                  // Distancia en km
+                  const distanciaKm = (summary.distance / 1000).toFixed(2);
+                  // Tiempo en segundos a horas:minutos
+                  const dur = summary.duration;
+                  const horas = Math.floor(dur / 3600);
+                  const minutos = Math.round((dur % 3600) / 60);
+                  let tiempoStr = '';
+                  if (horas > 0) {
+                    tiempoStr = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
+                  } else {
+                    tiempoStr = minutos.toString().padStart(2, '0') + ':00';
+                  }
+                  document.getElementById('distanceTraveled').textContent = distanciaKm;
+                  document.getElementById('timeElapsed').textContent = tiempoStr;
+                }
+                // --- ANIMACIÓN DEL VEHÍCULO Y VELOCIDAD EN TIEMPO REAL ---
+                let i = 0;
+                if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); }
+                window.vehicleMarker = L.marker(decodedCoords[0], {
+                  icon: L.icon({
+                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                    iconSize: [32,32],
+                    iconAnchor: [16,32]
+                  })
+                }).addTo(map);
+                let lastTime = Date.now();
+                function animateVehicle() {
+                  if (i < decodedCoords.length - 1) {
+                    const from = L.latLng(decodedCoords[i][0], decodedCoords[i][1]);
+                    const to = L.latLng(decodedCoords[i+1][0], decodedCoords[i+1][1]);
+                    const dist = from.distanceTo(to); // en metros
+                    // Velocidad promedio de bus urbano (puedes ajustar)
+                    const BUS_SPEED_KMH = 25;
+                    const BUS_SPEED_MS = BUS_SPEED_KMH * 1000 / 3600;
+                    const delay = Math.max(80, (dist / BUS_SPEED_MS)); // mínimo 80ms para fluidez
+                    window.vehicleMarker.setLatLng(decodedCoords[i]);
+                    // Calcular velocidad real entre puntos
+                    const now = Date.now();
+                    const elapsed = (now - lastTime) / 1000; // segundos
+                    const speedKmh = (dist / 1000) / (elapsed / 3600);
+                    document.getElementById('currentSpeed').textContent = speedKmh.toFixed(1);
+                    lastTime = now;
+                    i++;
+                    setTimeout(animateVehicle, delay);
+                  } else {
+                    window.vehicleMarker.setLatLng(decodedCoords[decodedCoords.length-1]);
+                    document.getElementById('currentSpeed').textContent = '0.0';
+                    document.getElementById('info').textContent = '¡Recorrido finalizado!';
+                  }
+                }
+                animateVehicle();
+              } else {
+                document.getElementById('info').textContent = 'No se pudo calcular la ruta real.';
+              }
+            } catch (err) {
+              document.getElementById('info').textContent = 'Error al calcular la ruta real.';
+              console.error('Error al calcular la ruta real:', err); // <-- LOG DE ERROR
+            }
+            // --- FIN BLOQUE DESACTIVADO POR LICENCIA ORS ---
+            // --- MENSAJE ALTERNATIVO POR LICENCIA ---
+            document.getElementById('info').textContent = 'La funcionalidad de cálculo de rutas reales está temporalmente desactivada. Pronto estará disponible con una licencia premium de OpenRouteService.';
+          } else {
+            document.getElementById('info').textContent = 'Selecciona ambos puntos primero (origen y destino).';
+          }
+        });
+      }
+      if (clearRouteBtn) {
+        clearRouteBtn.addEventListener('click', function() {
+          if (window.startMarker) { map.removeLayer(window.startMarker); window.startMarker = null; }
+          if (window.endMarker) { map.removeLayer(window.endMarker); window.endMarker = null; }
+          if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
+          document.getElementById('startInput').value = '';
+          document.getElementById('endInput').value = '';
+          document.getElementById('info').textContent = 'Ruta limpiada. Puedes seleccionar nuevos puntos.';
+          // Ocultar el contenedor de seguimiento automático
+          const routeControls = document.getElementById('routeControls');
+          const trackingMode = document.getElementById('trackingMode');
+          if (routeControls) routeControls.style.display = 'none';
+          if (trackingMode) trackingMode.style.display = 'none';
+          // Limpiar y ocultar sugerencias de autocompletado
+          const startSuggestions = document.getElementById('startSuggestions');
+          const endSuggestions = document.getElementById('endSuggestions');
+          if (startSuggestions) { startSuggestions.innerHTML = ''; startSuggestions.style.display = 'none'; }
+          if (endSuggestions) { endSuggestions.innerHTML = ''; endSuggestions.style.display = 'none'; }
+          console.log('Limpieza completa de ruta y sugerencias.');
+        });
+      }
+    });
+    // === AUTOCOMPLETADO DE DESTINO (idéntico a origen) ===
+    document.addEventListener('DOMContentLoaded', function() {
+      const endInput = document.getElementById('endInput');
+      const endSuggestions = document.getElementById('endSuggestions');
+      if (endInput && endSuggestions) {
+        endInput.addEventListener('input', async function() {
+          const query = this.value.trim();
+          if (query.length > 2) {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
+            const data = await response.json();
+            endSuggestions.innerHTML = '';
+            if (data.length > 0) {
+              data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
+                div.onclick = () => {
+                  endInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+                  endSuggestions.style.display = 'none';
+                  if (window.endMarker) map.removeLayer(window.endMarker);
+                  const marker = L.marker([item.lat, item.lon], {
+                    icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+                  }).addTo(map).bindPopup('Destino: ' + endInput.value).openPopup();
+                  map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
+                  window.endMarker = marker;
+                };
+                endSuggestions.appendChild(div);
+              });
+              endSuggestions.style.display = 'block';
+            } else {
+              endSuggestions.style.display = 'none';
+            }
+          } else {
+            endSuggestions.style.display = 'none';
+          }
+        });
+        // Ocultar sugerencias al hacer clic fuera
+        document.addEventListener('click', function(e) {
+          if (!endInput.contains(e.target) && !endSuggestions.contains(e.target)) {
+            endSuggestions.style.display = 'none';
+          }
+        });
+      }
+    });
+    // === AUTOCOMPLETADO Y SELECCIÓN DE ORIGEN Y DESTINO ===
+    document.addEventListener('DOMContentLoaded', function() {
+      // --- Origen ---
+      const startInput = document.getElementById('startInput');
+      const startSuggestions = document.getElementById('startSuggestions');
+      if (startInput && startSuggestions) {
+        let startLastSuggestions = [];
+        startInput.addEventListener('input', async function() {
+          const query = this.value.trim();
+          if (query.length > 2) {
+            try {
+              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
+              const data = await response.json();
+              startLastSuggestions = data;
+              startSuggestions.innerHTML = '';
+              if (data.length > 0) {
+                data.forEach(item => {
+                  const div = document.createElement('div');
+                  div.className = 'suggestion-item';
+                  div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
+                  div.onclick = () => selectStartSuggestion(item);
+                  startSuggestions.appendChild(div);
+                });
+                startSuggestions.style.display = 'block';
+              } else {
+                startSuggestions.style.display = 'none';
+              }
+            } catch (err) { console.error('Error autocompletado origen:', err); }
+          } else {
+            startSuggestions.style.display = 'none';
+          }
+        });
+        startInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && startLastSuggestions.length > 0) {
+            selectStartSuggestion(startLastSuggestions[0]);
+            e.preventDefault();
+          }
+        });
+        function selectStartSuggestion(item) {
+          startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          startSuggestions.style.display = 'none';
+          if (window.startMarker) map.removeLayer(window.startMarker);
+          const marker = L.marker([item.lat, item.lon], {
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Origen: ' + startInput.value).openPopup();
+          map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
+          window.startMarker = marker;
+        }
+        document.addEventListener('click', function(e) {
+          if (!startInput.contains(e.target) && !startSuggestions.contains(e.target)) {
+            startSuggestions.style.display = 'none';
+          }
+        });
+      }
+      // --- Destino ---
+      const endInput = document.getElementById('endInput');
+      const endSuggestions = document.getElementById('endSuggestions');
+      const searchEndBtn = document.querySelector('.search-row .search-button');
+      if (endInput && endSuggestions) {
+        let endLastSuggestions = [];
+        endInput.addEventListener('input', async function() {
+          const query = this.value.trim();
+          if (query.length > 2) {
+            try {
+              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
+              const data = await response.json();
+              endLastSuggestions = data;
+              endSuggestions.innerHTML = '';
+              if (data.length > 0) {
+                data.forEach(item => {
+                  const div = document.createElement('div');
+                  div.className = 'suggestion-item';
+                  div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
+                  div.onclick = () => selectEndSuggestion(item);
+                  endSuggestions.appendChild(div);
+                });
+                endSuggestions.style.display = 'block';
+              } else {
+                endSuggestions.style.display = 'none';
+              }
+            } catch (err) { console.error('Error autocompletado destino:', err); }
+          } else {
+            endSuggestions.style.display = 'none';
+          }
+        });
+        endInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && endLastSuggestions.length > 0) {
+            selectEndSuggestion(endLastSuggestions[0]);
+            e.preventDefault();
+          }
+        });
+        if (searchEndBtn) {
+          searchEndBtn.onclick = function() {
+            if (endLastSuggestions.length > 0) selectEndSuggestion(endLastSuggestions[0]);
+          };
+        }
+        function selectEndSuggestion(item) {
+          endInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          endSuggestions.style.display = 'none';
+          if (window.endMarker) map.removeLayer(window.endMarker);
+          const marker = L.marker([item.lat, item.lon], {
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Destino: ' + endInput.value).openPopup();
+          map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
+          window.endMarker = marker;
+        }
+        document.addEventListener('click', function(e) {
+          if (!endInput.contains(e.target) && !endSuggestions.contains(e.target)) {
+            endSuggestions.style.display = 'none';
+          }
+        });
+      }
+    });
+    // --- LIMPIAR RUTA ROBUSTO ---
+    document.addEventListener('DOMContentLoaded', function() {
+      const clearRouteBtn = document.getElementById('clearRoute');
+      if (clearRouteBtn) {
+        clearRouteBtn.addEventListener('click', function() {
+          if (window.startMarker) { map.removeLayer(window.startMarker); window.startMarker = null; }
+          if (window.endMarker) { map.removeLayer(window.endMarker); window.endMarker = null; }
+          if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
+          document.getElementById('startInput').value = '';
+          document.getElementById('endInput').value = '';
+          document.getElementById('info').textContent = 'Ruta limpiada. Puedes seleccionar nuevos puntos.';
+          // Ocultar el contenedor de seguimiento automático
+          const routeControls = document.getElementById('routeControls');
+          const trackingMode = document.getElementById('trackingMode');
+          if (routeControls) routeControls.style.display = 'none';
+          if (trackingMode) trackingMode.style.display = 'none';
+          // Limpiar y ocultar sugerencias de autocompletado
+          const startSuggestions = document.getElementById('startSuggestions');
+          const endSuggestions = document.getElementById('endSuggestions');
+          if (startSuggestions) { startSuggestions.innerHTML = ''; startSuggestions.style.display = 'none'; }
+          if (endSuggestions) { endSuggestions.innerHTML = ''; endSuggestions.style.display = 'none'; }
+          console.log('Limpieza completa de ruta y sugerencias.');
+        });
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const updateLocationBtn = document.getElementById('updateLocationBtn');
+      if (updateLocationBtn) {
+        updateLocationBtn.addEventListener('click', function() {
+          detectarUbicacionActual();
+        });
+      }
+    });
+    </script>
+</body>
+</html> 

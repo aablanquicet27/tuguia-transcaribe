@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Coordenadas - Transcaribe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .progress {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 6px;
+            display: none;
+        }
+        .results {
+            margin-top: 30px;
+        }
+        .summary {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .summary h3 {
+            margin-top: 0;
+            color: #155724;
+        }
+        .differences {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .differences h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .paradero-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .paradero-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .coordinates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .coord-group {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .coord-group h4 {
+            margin: 0 0 8px 0;
+            color: #495057;
+        }
+        .coord-value {
+            font-family: monospace;
+            color: #6c757d;
+        }
+        .difference {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 8px;
+            margin-top: 10px;
+        }
+        .difference h5 {
+            margin: 0 0 5px 0;
+            color: #721c24;
+        }
+        .download-btn {
+            background: #28a745;
+            margin-top: 20px;
+        }
+        .download-btn:hover {
+            background: #218838;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 15px;
+            color: #721c24;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Comparador de Coordenadas - Transcaribe</h1>
+        
+        <div class="controls">
+            <p>Este comparador analiza las diferencias entre las coordenadas de los paraderos en el archivo GeoJSON local y las coordenadas en tiempo real de OpenStreetMap.</p>
+            <button onclick="iniciarComparacion()">Iniciar Comparación</button>
+            <button onclick="descargarReporte()" id="download-btn" style="display:none;">Descargar Reporte</button>
+        </div>
+
+        <div class="progress" id="progress">
+            <p>Procesando... <span id="progress-text">Iniciando comparación...</span></p>
+        </div>
+
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        let reporteData = null;
+
+        // Función para calcular distancia entre dos puntos
+        function haversine(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radio de la Tierra en metros
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                     Math.cos(φ1) * Math.cos(φ2) *
+                     Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // Distancia en metros
+        }
+
+        // Función para procesar el nombre del paradero
+        function procesarNombreParadero(nombreCompleto) {
+            if (!nombreCompleto) return { nombreParadero: 'Sin nombre', ruta: '' };
+            
+            const match = nombreCompleto.match(/^([A-Z]\d+[A-Z]?)\s+para\s+(.+)$/i);
+            if (match) {
+                return {
+                    nombreParadero: match[2].trim(),
+                    ruta: match[1].trim()
+                };
+            }
+            
+            return {
+                nombreParadero: nombreCompleto,
+                ruta: ''
+            };
+        }
+
+        async function iniciarComparacion() {
+            const progress = document.getElementById('progress');
+            const progressText = document.getElementById('progress-text');
+            const results = document.getElementById('results');
+            
+            progress.style.display = 'block';
+            results.innerHTML = '';
+            
+            try {
+                // Paso 1: Cargar datos del GeoJSON local
+                progressText.textContent = 'Cargando datos del archivo GeoJSON local...';
+                const geojsonResponse = await fetch('transcaribe_completo_actualizado.geojson');
+                const geojsonData = await geojsonResponse.json();
+                
+                // Filtrar solo paraderos de Transcaribe
+                const paraderosGeoJSON = geojsonData.features.filter(f => 
+                    f.properties && (
+                        f.properties.highway === 'bus_stop' ||
+                        f.properties.public_transport === 'platform' ||
+                        (f.properties.name && f.properties.name.includes('para'))
+                    )
+                );
+
+                // Paso 2: Cargar datos en tiempo real de OpenStreetMap
+                progressText.textContent = 'Cargando datos en tiempo real de OpenStreetMap...';
+                const bbox = '10.35,-75.56,10.48,-75.44';
+                const query = `[out:json][timeout:25];
+                (
+                    node["highway"="bus_stop"](${bbox});
+                    node["public_transport"="platform"](${bbox});
+                    node["network"~"Transcaribe",i](${bbox});
+                    node["operator"~"Transcaribe",i](${bbox});
+                );
+                out body;`;
+
+                const overpassResponse = await fetch('https://overpass-api.de/api/interpreter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'data=' + encodeURIComponent(query)
+                });
+                const overpassData = await overpassResponse.json();
+
+                // Paso 3: Procesar y comparar datos
+                progressText.textContent = 'Comparando coordenadas...';
+                
+                const comparaciones = [];
+                const diferencias = [];
+                let totalComparados = 0;
+                let totalConDiferencias = 0;
+
+                // Crear mapa de datos en tiempo real por nombre
+                const osmDataMap = new Map();
+                overpassData.elements.forEach(element => {
+                    if (element.type === 'node' && element.tags && element.tags.name) {
+                        osmDataMap.set(element.tags.name, {
+                            lat: element.lat,
+                            lon: element.lon,
+                            tags: element.tags
+                        });
+                    }
+                });
+
+                // Comparar cada paradero del GeoJSON
+                paraderosGeoJSON.forEach(paradero => {
+                    const nombre = paradero.properties.name;
+                    if (!nombre) return;
+
+                    totalComparados++;
+                    const osmData = osmDataMap.get(nombre);
+                    
+                    if (osmData) {
+                        const [geojsonLon, geojsonLat] = paradero.geometry.coordinates;
+                        const osmLat = osmData.lat;
+                        const osmLon = osmData.lon;
+                        
+                        const distancia = haversine(geojsonLat, geojsonLon, osmLat, osmLon);
+                        
+                        const comparacion = {
+                            nombre: nombre,
+                            geojson: {
+                                lat: geojsonLat,
+                                lon: geojsonLon
+                            },
+                            osm: {
+                                lat: osmLat,
+                                lon: osmLon
+                            },
+                            distancia: distancia,
+                            tieneDiferencia: distancia > 10 // Más de 10 metros de diferencia
+                        };
+
+                        comparaciones.push(comparacion);
+                        
+                        if (comparacion.tieneDiferencia) {
+                            diferencias.push(comparacion);
+                            totalConDiferencias++;
+                        }
+                    }
+                });
+
+                // Paso 4: Generar reporte
+                progressText.textContent = 'Generando reporte...';
+                
+                const reporte = {
+                    timestamp: new Date().toISOString(),
+                    resumen: {
+                        totalComparados: totalComparados,
+                        totalConDiferencias: totalConDiferencias,
+                        porcentajeDiferencias: totalComparados > 0 ? (totalConDiferencias / totalComparados * 100).toFixed(2) : 0
+                    },
+                    comparaciones: comparaciones,
+                    diferencias: diferencias
+                };
+
+                reporteData = reporte;
+                mostrarResultados(reporte);
+                
+                progress.style.display = 'none';
+                document.getElementById('download-btn').style.display = 'inline-block';
+
+            } catch (error) {
+                progress.style.display = 'none';
+                results.innerHTML = `<div class="error">
+                    <h3>Error durante la comparación:</h3>
+                    <p>${error.message}</p>
+                    <p>Detalles: ${error.stack}</p>
+                </div>`;
+            }
+        }
+
+        function mostrarResultados(reporte) {
+            const results = document.getElementById('results');
+            
+            let html = `
+                <div class="summary">
+                    <h3>📊 Resumen de la Comparación</h3>
+                    <p><strong>Total de paraderos comparados:</strong> ${reporte.resumen.totalComparados}</p>
+                    <p><strong>Paraderos con diferencias significativas (>10m):</strong> ${reporte.resumen.totalConDiferencias}</p>
+                    <p><strong>Porcentaje de diferencias:</strong> ${reporte.resumen.porcentajeDiferencias}%</p>
+                    <p><strong>Fecha y hora de la comparación:</strong> ${new Date(reporte.timestamp).toLocaleString('es-ES')}</p>
+                </div>
+            `;
+
+            if (reporte.diferencias.length > 0) {
+                html += `
+                    <div class="differences">
+                        <h3>⚠️ Paraderos con Diferencias Significativas</h3>
+                        <p>Se encontraron ${reporte.diferencias.length} paraderos con diferencias de más de 10 metros entre el archivo local y OpenStreetMap:</p>
+                    </div>
+                `;
+
+                reporte.diferencias.forEach(diff => {
+                    const nombreInfo = procesarNombreParadero(diff.nombre);
+                    const nombreMostrar = diff.nombre;
+                    
+                    html += `
+                        <div class="paradero-item">
+                            <div class="paradero-name">${nombreMostrar}</div>
+                            <div class="coordinates">
+                                <div class="coord-group">
+                                    <h4>📁 Archivo GeoJSON Local</h4>
+                                    <div class="coord-value">Latitud: ${diff.geojson.lat.toFixed(6)}</div>
+                                    <div class="coord-value">Longitud: ${diff.geojson.lon.toFixed(6)}</div>
+                                </div>
+                                <div class="coord-group">
+                                    <h4>🌐 OpenStreetMap (Tiempo Real)</h4>
+                                    <div class="coord-value">Latitud: ${diff.osm.lat.toFixed(6)}</div>
+                                    <div class="coord-value">Longitud: ${diff.osm.lon.toFixed(6)}</div>
+                                </div>
+                            </div>
+                            <div class="difference">
+                                <h5>📏 Diferencia Detectada</h5>
+                                <p><strong>Distancia entre coordenadas:</strong> ${diff.distancia.toFixed(2)} metros</p>
+                                <p><strong>Observación:</strong> ${diff.distancia > 50 ? 'Diferencia muy significativa - posible error de ubicación' : 'Diferencia moderada - posible actualización en OSM'}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `
+                    <div class="differences">
+                        <h3>✅ No se encontraron diferencias significativas</h3>
+                        <p>Todos los paraderos comparados tienen coordenadas similares entre el archivo local y OpenStreetMap (diferencias menores a 10 metros).</p>
+                    </div>
+                `;
+            }
+
+            results.innerHTML = html;
+        }
+
+        function descargarReporte() {
+            if (!reporteData) {
+                alert('No hay datos de reporte para descargar. Ejecuta primero la comparación.');
+                return;
+            }
+
+            const reporteTexto = generarReporteTexto(reporteData);
+            const blob = new Blob([reporteTexto], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reporte_coordenadas_transcaribe_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function generarReporteTexto(reporte) {
+            let texto = `REPORTE DE COMPARACIÓN DE COORDENADAS - TRANSCARIBE
+================================================================
+Fecha y hora: ${new Date(reporte.timestamp).toLocaleString('es-ES')}
+
+RESUMEN:
+- Total de paraderos comparados: ${reporte.resumen.totalComparados}
+- Paraderos con diferencias significativas (>10m): ${reporte.resumen.totalConDiferencias}
+- Porcentaje de diferencias: ${reporte.resumen.porcentajeDiferencias}%
+
+${reporte.diferencias.length > 0 ? 'DIFERENCIAS DETECTADAS:' : 'NO SE DETECTARON DIFERENCIAS SIGNIFICATIVAS'}
+
+`;
+
+            if (reporte.diferencias.length > 0) {
+                reporte.diferencias.forEach((diff, index) => {
+                    texto += `
+${index + 1}. ${diff.nombre}
+   Archivo GeoJSON Local:
+     - Latitud: ${diff.geojson.lat.toFixed(6)}
+     - Longitud: ${diff.geojson.lon.toFixed(6)}
+   
+   OpenStreetMap (Tiempo Real):
+     - Latitud: ${diff.osm.lat.toFixed(6)}
+     - Longitud: ${diff.osm.lon.toFixed(6)}
+   
+   Diferencia: ${diff.distancia.toFixed(2)} metros
+   Observación: ${diff.distancia > 50 ? 'Diferencia muy significativa - posible error de ubicación' : 'Diferencia moderada - posible actualización en OSM'}
+   
+`;
+                });
+            }
+
+            texto += `
+================================================================
+Este reporte fue generado automáticamente por el comparador de coordenadas.
+Las diferencias se calculan usando la fórmula de Haversine para distancias geodésicas.
+`;
+
+            return texto;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,573 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-07-01T22:51:00Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/891268909",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Parque María Mulata-Cl.15",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5501331,
+          10.4141609
+        ]
+      },
+      "id": "node/891268909"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/892055018",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Hospital Naval",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5508144,
+          10.4159034
+        ]
+      },
+      "id": "node/892055018"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2223103676",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Terrazas de San Sebastian - parada de Transcribe",
+        "public_transport": "platform",
+        "source": "bing"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5316431,
+          10.4386514
+        ]
+      },
+      "id": "node/2223103676"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3887891251",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "CitySightseeing Cartagena",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5508261,
+          10.3954026
+        ]
+      },
+      "id": "node/3887891251"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4626901291",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Bus para Pasacaballos",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.544528,
+          10.4272041
+        ]
+      },
+      "id": "node/4626901291"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4961883128",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Villas de la Candelaria",
+        "network": "TransCaribe",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4618838,
+          10.4019912
+        ]
+      },
+      "id": "node/4961883128"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5357684739",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "BUS.T103",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5503361,
+          10.4147869
+        ]
+      },
+      "id": "node/5357684739"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5529407622",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Parada a Pasacaballos",
+        "name:en": "Bus to Pasacaballos",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.53945,
+          10.4255363
+        ]
+      },
+      "id": "node/5529407622"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5912359788",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "BUS.T103",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.550465,
+          10.4104491
+        ]
+      },
+      "id": "node/5912359788"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5912359886",
+        "bench": "yes",
+        "bin": "yes",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "BUS.T103",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5506436,
+          10.4104596
+        ]
+      },
+      "id": "node/5912359886"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6541330685",
+        "highway": "bus_stop",
+        "name": "Taxi colectivo al centro 2200COP",
+        "name:en": "Colectivo to the centre 2200COP",
+        "name:fr": "Taxi colectivo pour le centre 2200COP"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5153316,
+          10.4518807
+        ]
+      },
+      "id": "node/6541330685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7127192917",
+        "description": "Not confirmed If it's possible to embarque",
+        "highway": "bus_stop",
+        "name": "Bus a Playa Blanco?"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4977629,
+          10.3032602
+        ]
+      },
+      "id": "node/7127192917"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7278506485",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "moto-taxi to terminal de transporte",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5446273,
+          10.4263258
+        ]
+      },
+      "id": "node/7278506485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9951683259",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "A105",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4816197,
+          10.379757
+        ]
+      },
+      "id": "node/9951683259"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9951701812",
+        "bench": "yes",
+        "bin": "no",
+        "bus": "yes",
+        "description": "A102\nX106",
+        "highway": "bus_stop",
+        "lit": "no",
+        "name": "La princesa",
+        "public_transport": "platform",
+        "ref:signed": "no",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4646084,
+          10.3811843
+        ]
+      },
+      "id": "node/9951701812"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10572562210",
+        "highway": "bus_stop",
+        "name": "Transcribe",
+        "name:en": "\"Glorimar Store\" Transcribe Stop",
+        "name:es": "Parada de Transcribe \"Tienda Glorimar\""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.517212,
+          10.4492323
+        ]
+      },
+      "id": "node/10572562210"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11218814647",
+        "bus": "yes",
+        "departures_board": "yes",
+        "highway": "bus_stop",
+        "name": "A107 - Blase de Lezo / Santa Lucía",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "7",
+        "shelter": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4859004,
+          10.3849473
+        ]
+      },
+      "id": "node/11218814647"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11219143631",
+        "bus": "yes",
+        "departures_board": "yes",
+        "highway": "bus_stop",
+        "name": "A107 - Blase de Lezo / Santa Lucía",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "8"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.486454,
+          10.3832607
+        ]
+      },
+      "id": "node/11219143631"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11219143632",
+        "bus": "yes",
+        "departures_board": "yes",
+        "highway": "bus_stop",
+        "name": "A107 - Blase de Lezo / Santa Lucía",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "35"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4862873,
+          10.3832304
+        ]
+      },
+      "id": "node/11219143632"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11327594232",
+        "bus": "yes",
+        "departures_board": "yes",
+        "highway": "bus_stop",
+        "name": "A104 | A105",
+        "network": "Transcaribe",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "3 | 3"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4814168,
+          10.3887336
+        ]
+      },
+      "id": "node/11327594232"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11753733979",
+        "bus": "yes",
+        "departures_board": "yes",
+        "highway": "bus_stop",
+        "name": "X102",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "38"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.502027,
+          10.3884127
+        ]
+      },
+      "id": "node/11753733979"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11762212699",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "X102: Portal / Bosque / Centro",
+        "operator": "Transcaribe",
+        "public_transport": "platform",
+        "ref": "39"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4998093,
+          10.3887949
+        ]
+      },
+      "id": "node/11762212699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12059944269",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "T102 para Chambacú",
+        "name:en": "T102 to Chambacú station",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5178701,
+          10.4435967
+        ]
+      },
+      "id": "node/12059944269"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12059944369",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "X104 para",
+        "name:en": "X104 to the bus terminal",
+        "name:es": "X104 para Terminal de Transporte",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5466339,
+          10.4250282
+        ]
+      },
+      "id": "node/12059944369"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12059944569",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "X104 para Centro/ Terminal de Transporte",
+        "name:en": "X104 to Centro/ to the bus terminal",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5405296,
+          10.4259039
+        ]
+      },
+      "id": "node/12059944569"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12115589561",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "La Bodeguita",
+        "network": "Transcaribe",
+        "note": "Parada de autobús para las rutas complementarias de Transcaribe frente al parque de la marina.",
+        "operator": "Transcaribe S.A.",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5509983,
+          10.4205079
+        ]
+      },
+      "id": "node/12115589561"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12319662369",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "La Plazuela",
+        "network": "TracsCaribe",
+        "public_transport": "platform",
+        "shelter": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.478567,
+          10.3904335
+        ]
+      },
+      "id": "node/12319662369"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12319713039",
+        "bus": "yes",
+        "highway": "bus_stop",
+        "name": "Cementerio",
+        "network": "TransCaribe",
+        "public_transport": "platform"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4741242,
+          10.3876635
+        ]
+      },
+      "id": "node/12319713039"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12966410401",
+        "highway": "bus_stop",
+        "name": "Bus X104"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.4590527,
+          10.4010424
+        ]
+      },
+      "id": "node/12966410401"
+    }
+  ]
+}

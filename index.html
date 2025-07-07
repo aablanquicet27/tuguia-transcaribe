@@ -2410,7 +2410,7 @@
                   document.getElementById('distanceTraveled').textContent = distanciaKm;
                   document.getElementById('timeElapsed').textContent = tiempoStr;
                 }
-                // --- ANIMACIÓN DEL VEHÍCULO Y SEGUIMIENTO EN TIEMPO REAL (igual que en JUL03_SEGUIMIENTO_AUTOMATICO) ---
+                // === ANIMACIÓN DEL VEHÍCULO Y SEGUIMIENTO EN TIEMPO REAL (igual que en JUL03_SEGUIMIENTO_AUTOMATICO) ===
                 let i = 0;
                 if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); }
                 window.vehicleMarker = L.marker(decodedCoords[0], {
@@ -2422,6 +2422,22 @@
                 }).addTo(map);
                 const BUS_SPEED_KMH = 25; // Velocidad promedio de bus urbano
                 const BUS_SPEED_MS = BUS_SPEED_KMH * 1000 / 3600; // m/s
+                let totalDistance = 0;
+                let lastLatLng = L.latLng(decodedCoords[0][0], decodedCoords[0][1]);
+
+                // Crear o mostrar la etiqueta de barrio
+                let barrioLabel = document.getElementById('barrioLabel');
+                if (!barrioLabel) {
+                  barrioLabel = document.createElement('div');
+                  barrioLabel.id = 'barrioLabel';
+                  barrioLabel.style = 'background: #fff; color: #ff6600; font-weight: bold; border-radius: 8px; padding: 6px 16px; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); position: absolute; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1200;';
+                  barrioLabel.textContent = 'Vamos por: ...';
+                  document.body.appendChild(barrioLabel);
+                } else {
+                  barrioLabel.style.display = 'block';
+                  barrioLabel.textContent = 'Vamos por: ...';
+                }
+
                 function animateVehicle() {
                   if (i < decodedCoords.length - 1) {
                     window.vehicleMarker.setLatLng(decodedCoords[i]);
@@ -2430,11 +2446,52 @@
                     const to = L.latLng(decodedCoords[i+1][0], decodedCoords[i+1][1]);
                     const dist = from.distanceTo(to); // en metros
                     const delay = Math.max(80, (dist / BUS_SPEED_MS)); // mínimo 80ms para fluidez
+
+                    // 1. Actualizar estado a "En movimiento"
+                    document.getElementById('statusIndicator').textContent = '🟢 Vehículo en movimiento';
+
+                    // 2. Calcular y mostrar velocidad (en km/h)
+                    const speedKmh = (dist / (delay / 1000)) * 3.6; // m/s a km/h
+                    document.getElementById('currentSpeed').textContent = speedKmh.toFixed(1);
+
+                    // 3. Actualizar barra de progreso
+                    const progress = (i / (decodedCoords.length - 1)) * 100;
+                    document.getElementById('progressBar').style.width = progress + '%';
+
+                    // 4. Calcular distancia total recorrida y mostrar
+                    totalDistance += dist;
+                    document.getElementById('distanceTraveled').textContent = (totalDistance / 1000).toFixed(2);
+
+                    // 5. Actualizar tiempo transcurrido (simulado)
+                    let elapsed = (totalDistance / (BUS_SPEED_KMH * 1000 / 60)); // minutos
+                    let min = Math.floor(elapsed);
+                    let sec = Math.floor((elapsed - min) * 60);
+                    document.getElementById('timeElapsed').textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+
+                    // 6. Actualizar barrio en tiempo real
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${from.lat}&lon=${from.lng}&zoom=16&addressdetails=1`)
+                      .then(resp => resp.json())
+                      .then(data => {
+                        let barrio = '...';
+                        if (data && data.address) {
+                          barrio = data.address.neighbourhood || data.address.suburb || data.address.village || data.address.town || data.address.city || data.address.county || '...';
+                        }
+                        barrioLabel.textContent = `Vamos por: ${barrio}`;
+                      })
+                      .catch(() => {
+                        barrioLabel.textContent = 'Vamos por: ...';
+                      });
+
                     i++;
                     setTimeout(animateVehicle, delay);
                   } else {
                     window.vehicleMarker.setLatLng(decodedCoords[decodedCoords.length-1]);
                     document.getElementById('info').textContent = '¡Recorrido finalizado!';
+                    // Estado final
+                    document.getElementById('statusIndicator').textContent = '⏹️ Recorrido finalizado';
+                    document.getElementById('currentSpeed').textContent = '0.0';
+                    document.getElementById('progressBar').style.width = '100%';
+                    if (barrioLabel) barrioLabel.style.display = 'none';
                   }
                 }
                 animateVehicle();

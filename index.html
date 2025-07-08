@@ -1216,6 +1216,7 @@
             .footer-agapai { font-size: 0.95em; padding-bottom: 0.5em; }
         }
     </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
 </head>
 <body>
     <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;">
@@ -1254,7 +1255,7 @@
             <span id="vamosPorText">📍 Vamos por: ...</span>
         </div>
         <div class="auto-controls">
-            <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button>
+            <!-- <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button> -->
         </div>
     </div>
     
@@ -2813,7 +2814,10 @@
       document.getElementById('currentSpeed').textContent = '0.0';
       document.getElementById('progressBar').style.width = '0%';
       document.getElementById('statusIndicator').textContent = '📍 Seguimiento real activo';
-      
+      // Asegurar que la barra de progreso esté visible al iniciar
+      var progressBar = document.getElementById('progressBar');
+      if (progressBar) progressBar.parentElement.style.display = '';
+
       // Iniciar seguimiento de ubicación real
       if (realTrackingWatchId) navigator.geolocation.clearWatch(realTrackingWatchId);
       
@@ -2846,7 +2850,14 @@
           document.getElementById('currentSpeed').textContent = speedKmh > 0 ? speedKmh.toFixed(1) : '0.0';
           
           // Estado
-          document.getElementById('statusIndicator').textContent = speedKmh > 0.5 ? '🟢 En movimiento' : '⏸️ Detenido';
+          var statusIndicator = document.getElementById('statusIndicator');
+          if (speedKmh > 0.5) {
+            statusIndicator.textContent = '🟢 En movimiento';
+            statusIndicator.style.color = '';
+          } else {
+            statusIndicator.textContent = '⏸️ Detenido';
+            statusIndicator.style.color = 'red';
+          }
           
           // Mostrar/ocultar etiqueta "Vamos por:" basado en el estado de movimiento
           const locationDisplay = document.getElementById('locationDisplay');
@@ -2887,9 +2898,10 @@
             let totalDist = realTrackingDistance + distRestante;
             let progress = totalDist > 0 ? (realTrackingDistance / totalDist) * 100 : 0;
             document.getElementById('progressBar').style.width = progress + '%';
-            
+            // Mostrar barra de progreso si está oculta
+            if (progressBar) progressBar.parentElement.style.display = '';
             // Alarma a 300m
-            if (!realTrackingAlarmaActivada && distRestante <= 300) {
+            if (!realTrackingAlarmaActivada && distRestante <= 300 && distRestante > 30) {
               realTrackingAlarmaActivada = true;
               let alarmaDiv = document.getElementById('realTrackingAlarma300m');
               if (!alarmaDiv) {
@@ -2913,6 +2925,20 @@
                 o.start();
                 setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
               } catch(e) {}
+            }
+            // --- NUEVO: Detectar llegada al destino (menos de 30 metros) ---
+            if (distRestante <= 30) {
+              // Ocultar alarma de 300m si existe
+              let alarmaDiv = document.getElementById('realTrackingAlarma300m');
+              if (alarmaDiv) alarmaDiv.style.display = 'none';
+              // Ocultar barra de progreso
+              if (progressBar) progressBar.parentElement.style.display = 'none';
+              // Mostrar mensaje especial en el panel de estado
+              var statusIndicator = document.getElementById('statusIndicator');
+              statusIndicator.textContent = '🎉 ¡Has llegado a tu destino! Recorrido finalizado.';
+              statusIndicator.style.color = '';
+              // Opcional: detener el seguimiento automáticamente
+              // detenerSeguimientoReal(); // Si quieres detener el seguimiento automáticamente, descomenta esta línea
             }
           }
         },
@@ -2939,7 +2965,9 @@
       const locationDisplay = document.getElementById('locationDisplay');
       if (locationDisplay) locationDisplay.style.display = 'none';
       
-      document.getElementById('statusIndicator').textContent = '⏸️ Seguimiento detenido';
+      var statusIndicator = document.getElementById('statusIndicator');
+      statusIndicator.textContent = '⏸️ Seguimiento detenido';
+      statusIndicator.style.color = 'red';
     }
 
     // Event listener para el botón de detener seguimiento
@@ -3006,5 +3034,47 @@
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>
     </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Autocompletado Google Places para ORIGEN
+      var startInput = document.getElementById('startDireccionInput');
+      if (startInput && window.google && google.maps && google.maps.places) {
+        var autocompleteStart = new google.maps.places.Autocomplete(startInput, {
+          types: ['geocode'],
+          componentRestrictions: { country: 'co' }
+        });
+        autocompleteStart.addListener('place_changed', function() {
+          var place = autocompleteStart.getPlace();
+          if (!place.geometry) return;
+          var lat = place.geometry.location.lat();
+          var lng = place.geometry.location.lng();
+          if (window.startMarker) map.removeLayer(window.startMarker);
+          window.startMarker = L.marker([lat, lng], {
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Origen: ' + startInput.value).openPopup();
+          map.setView([lat, lng], 15);
+        });
+      }
+      // Autocompletado Google Places para DESTINO
+      var endInput = document.getElementById('endDireccionInput');
+      if (endInput && window.google && google.maps && google.maps.places) {
+        var autocompleteEnd = new google.maps.places.Autocomplete(endInput, {
+          types: ['geocode'],
+          componentRestrictions: { country: 'co' }
+        });
+        autocompleteEnd.addListener('place_changed', function() {
+          var place = autocompleteEnd.getPlace();
+          if (!place.geometry) return;
+          var lat = place.geometry.location.lat();
+          var lng = place.geometry.location.lng();
+          if (window.endMarker) map.removeLayer(window.endMarker);
+          window.endMarker = L.marker([lat, lng], {
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Destino: ' + endInput.value).openPopup();
+          map.setView([lat, lng], 15);
+        });
+      }
+    });
+    </script>
 </body>
 </html> 

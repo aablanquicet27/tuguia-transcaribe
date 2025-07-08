@@ -2366,37 +2366,10 @@
             // Obtener coordenadas
             let start = window.startMarker.getLatLng();
             let end = window.endMarker.getLatLng();
-
-            // --- SOLO AJUSTAR SI AMBOS SON PARADEROS OFICIALES ---
-            let paraderosOficiales = [];
-            try {
-              paraderosOficiales = await fetch('paraderos.json').then(r => r.json());
-            } catch (e) {
-              document.getElementById('info').textContent = 'No se pudo cargar la lista de paraderos oficiales.';
-              return;
-            }
-            function isParaderoOficial(lat, lng) {
-              return paraderosOficiales.some(p => Math.abs(lat - p.coords[0]) < 1e-5 && Math.abs(lng - p.coords[1]) < 1e-5);
-            }
-            let startIsParadero = isParaderoOficial(start.lat, start.lng);
-            let endIsParadero = isParaderoOficial(end.lat, end.lng);
-            // Si ambos son paraderos, ajustar a sus coordenadas exactas
-            if (startIsParadero && endIsParadero) {
-              let startParadero = paraderosOficiales.find(p => Math.abs(start.lat - p.coords[0]) < 1e-5 && Math.abs(start.lng - p.coords[1]) < 1e-5);
-              let endParadero = paraderosOficiales.find(p => Math.abs(end.lat - p.coords[0]) < 1e-5 && Math.abs(end.lng - p.coords[1]) < 1e-5);
-              if (!startParadero || !endParadero) {
-                document.getElementById('info').textContent = 'No se encontró un paradero oficial cercano para el origen o destino.';
-                return;
-              }
-              start = { lat: startParadero.coords[0], lng: startParadero.coords[1] };
-              end = { lat: endParadero.coords[0], lng: endParadero.coords[1] };
-            }
-            // --- FIN AJUSTE SOLO PARADERO A PARADERO ---
-
-            // --- AJUSTAR AL CAMINO MÁS CERCANO (mantener para fallback ORS) ---
+            // --- AJUSTAR AL CAMINO MÁS CERCANO ---
             async function getNearestPoint(lat, lon) {
               try {
-                const url = `https://api.openrouteservice.org/v2/nearest/driving-car?api_key=${ORS_API_KEY}`;
+                const url = `https://api.openrouteservice.org/v2/nearest/foot-walking?api_key=${ORS_API_KEY}`;
                 const body = JSON.stringify({ coordinates: [[lon, lat]] });
                 const response = await fetch(url, {
                   method: 'POST',
@@ -2412,8 +2385,7 @@
                 }
               } catch (err) { return null; }
             }
-            document.getElementById('info').textContent = 'Calculando ruta...';
-            // Usar los puntos seleccionados (dirección o paradero) tal cual
+            document.getElementById('info').textContent = 'Ajustando puntos al camino más cercano...';
             const nearestStart = await getNearestPoint(start.lat, start.lng);
             const nearestEnd = await getNearestPoint(end.lat, end.lng);
             if (!nearestStart) start = { lat: start.lat, lng: start.lng };
@@ -2421,7 +2393,7 @@
             if (!nearestEnd) end = { lat: end.lat, lng: end.lng };
             else end = nearestEnd;
             try {
-              const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`;
+              const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${ORS_API_KEY}`;
               const body = JSON.stringify({
                 coordinates: [
                   [start.lng, start.lat],

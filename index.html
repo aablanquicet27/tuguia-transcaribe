@@ -2366,7 +2366,68 @@
             // Obtener coordenadas
             let start = window.startMarker.getLatLng();
             let end = window.endMarker.getLatLng();
-            // --- AJUSTAR AL CAMINO MÁS CERCANO ---
+
+            // --- Refuerzo: Solo ajustar el punto que NO es paradero oficial ---
+            let paraderosOficiales = [];
+            try {
+              paraderosOficiales = await fetch('paraderos.json').then(r => r.json());
+            } catch (e) {
+              document.getElementById('info').textContent = 'No se pudo cargar la lista de paraderos oficiales.';
+              return;
+            }
+            function getNearestParadero(lat, lng) {
+              let minDist = Infinity, nearest = null;
+              paraderosOficiales.forEach(p => {
+                const d = Math.sqrt(Math.pow(lat - p.coords[0], 2) + Math.pow(lng - p.coords[1], 2));
+                if (d < minDist) { minDist = d; nearest = p; }
+              });
+              return nearest;
+            }
+            function isParaderoOficial(lat, lng) {
+              return paraderosOficiales.some(p => Math.abs(lat - p.coords[0]) < 1e-5 && Math.abs(lng - p.coords[1]) < 1e-5);
+            }
+            let startIsParadero = isParaderoOficial(start.lat, start.lng);
+            let endIsParadero = isParaderoOficial(end.lat, end.lng);
+            let startParadero = startIsParadero ? paraderosOficiales.find(p => Math.abs(start.lat - p.coords[0]) < 1e-5 && Math.abs(start.lng - p.coords[1]) < 1e-5) : getNearestParadero(start.lat, start.lng);
+            let endParadero = endIsParadero ? paraderosOficiales.find(p => Math.abs(end.lat - p.coords[0]) < 1e-5 && Math.abs(end.lng - p.coords[1]) < 1e-5) : getNearestParadero(end.lat, end.lng);
+            // Si alguno no tiene paradero cercano, mostrar mensaje y salir
+            if (!startParadero || !endParadero) {
+              document.getElementById('info').textContent = 'No se encontró un paradero oficial cercano para el origen o destino.';
+              return;
+            }
+            // Solo ajustar el punto que NO es paradero oficial
+            if (!startIsParadero && endIsParadero) {
+              if (window.startMarker) map.removeLayer(window.startMarker);
+              window.startMarker = L.marker(startParadero.coords, {
+                icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+              }).addTo(map).bindPopup('Origen ajustado: ' + startParadero.nombre).openPopup();
+              map.setView(startParadero.coords, 15);
+              start = { lat: startParadero.coords[0], lng: startParadero.coords[1] };
+              document.getElementById('info').textContent = 'Simulación ajustada: el origen se usará como el paradero oficial más cercano.';
+            } else if (startIsParadero && !endIsParadero) {
+              if (window.endMarker) map.removeLayer(window.endMarker);
+              window.endMarker = L.marker(endParadero.coords, {
+                icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+              }).addTo(map).bindPopup('Destino ajustado: ' + endParadero.nombre).openPopup();
+              map.setView(endParadero.coords, 15);
+              end = { lat: endParadero.coords[0], lng: endParadero.coords[1] };
+              document.getElementById('info').textContent = 'Simulación ajustada: el destino se usará como el paradero oficial más cercano.';
+            } else if (!startIsParadero && !endIsParadero) {
+              if (window.startMarker) map.removeLayer(window.startMarker);
+              window.startMarker = L.marker(startParadero.coords, {
+                icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+              }).addTo(map).bindPopup('Origen ajustado: ' + startParadero.nombre).openPopup();
+              if (window.endMarker) map.removeLayer(window.endMarker);
+              window.endMarker = L.marker(endParadero.coords, {
+                icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+              }).addTo(map).bindPopup('Destino ajustado: ' + endParadero.nombre).openPopup();
+              map.setView(startParadero.coords, 15);
+              start = { lat: startParadero.coords[0], lng: startParadero.coords[1] };
+              end = { lat: endParadero.coords[0], lng: endParadero.coords[1] };
+              document.getElementById('info').textContent = 'Simulación ajustada: se usarán los paraderos oficiales más cercanos para origen y destino.';
+            }
+            // --- FIN Refuerzo ---
+            // --- AJUSTAR AL CAMINO MÁS CERCANO (mantener para fallback ORS) ---
             async function getNearestPoint(lat, lon) {
               try {
                 const url = `https://api.openrouteservice.org/v2/nearest/foot-walking?api_key=${ORS_API_KEY}`;
@@ -2385,7 +2446,7 @@
                 }
               } catch (err) { return null; }
             }
-            document.getElementById('info').textContent = 'Ajustando puntos al camino más cercano...';
+            document.getElementById('info').textContent = 'Calculando ruta...';
             const nearestStart = await getNearestPoint(start.lat, start.lng);
             const nearestEnd = await getNearestPoint(end.lat, end.lng);
             if (!nearestStart) start = { lat: start.lat, lng: start.lng };

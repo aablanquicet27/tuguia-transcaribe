@@ -3076,7 +3076,10 @@
         });
         autocompleteEnd.addListener('place_changed', function() {
           var place = autocompleteEnd.getPlace();
-          if (!place.geometry) return;
+          if (!place.geometry) {
+            endInput.value = '';
+            return;
+          }
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();
           if (window.endMarker) map.removeLayer(window.endMarker);

@@ -1225,7 +1225,11 @@
     
     <!-- Panel de control de ruta en tiempo real -->
     <div class="route-controls" id="routeControls" style="display: none;">
-        <h4>🚗 Seguimiento Automático</h4>
+        <!-- <h4>🚗 Seguimiento Automático en Tiempo Real</h4> -->
+        <div class="tracking-mode-inside" id="trackingModeInside"
+             style="background: #e3fcec; color: #218838; border-radius: 8px; padding: 6px 0; margin-bottom: 10px; font-weight: 600; font-size: 1.05rem; text-align: center; box-shadow: 0 1px 4px rgba(33,136,56,0.07);">
+            <span>🟢 ¡Estás siendo guiado en tiempo real!</span>
+        </div>
         <div class="route-stats">
             <div class="route-stat">
                 <div class="value" id="distanceTraveled">0.0</div>
@@ -1246,6 +1250,9 @@
         <div class="auto-status" id="autoStatus">
             <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
         </div>
+        <div class="location-display" id="locationDisplay" style="display: none; background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 12px 16px; border-radius: 12px; margin: 12px 0; text-align: center; font-weight: 600; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(40,167,69,0.2);">
+            <span id="vamosPorText">📍 Vamos por: ...</span>
+        </div>
         <div class="auto-controls">
             <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button>
         </div>
@@ -1253,7 +1260,7 @@
     
     <!-- Indicador de modo de seguimiento -->
     <div class="tracking-mode" id="trackingMode">
-        🚗 Seguimiento en tiempo real activo
+        🚗 Seguimiento automático en tiempo real activo
     </div>
     
     <div class="search-container">
@@ -1713,7 +1720,7 @@
     const CARTAGENA_BOUNDS = [10.35, -75.56, 10.48, -75.44];
     let estaciones = [];
     let paraderos = [];
-    let map, startMarker, endMarker, routeLine, vehicleMarker, trackingWatchId;
+    let map, startMarker, endMarker, routeLine, vehicleMarker;
     let isTracking = false, startTime, distanceTraveled = 0, lastPosition = null;
     // === NUEVO: LayerGroup para aislar marcadores de estaciones/paraderos ===
     let paraderosLayerGroup = null;
@@ -1983,10 +1990,13 @@
         maxZoom: 19,
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
+      
       // Cargar estaciones y paraderos
       await cargarEstacionesYParaderos();
+      
       // Detectar ubicación actual
       detectarUbicacionActual();
+      
       // Mover aquí el handler de clic en el mapa
       map.on('click', async function(e) {
         const latlng = e.latlng;
@@ -2193,8 +2203,26 @@
               localStorage.setItem('tuguia_start', input.value);
             }
           });
-      }, function() {
-        input.value = 'No se pudo obtener ubicación';
+      }, function(error) {
+        console.error('Error de geolocalización:', error);
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            input.value = 'Permiso de ubicación denegado';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            input.value = 'Ubicación no disponible';
+            break;
+          case error.TIMEOUT:
+            input.value = 'Tiempo de espera agotado';
+            break;
+          default:
+            input.value = 'Error desconocido';
+            break;
+        }
+      }, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000
       });
     }
     document.addEventListener('DOMContentLoaded', function() {
@@ -2301,25 +2329,31 @@
     document.addEventListener('DOMContentLoaded', function() {
       const startRouteBtn = document.getElementById('startRoute');
       const clearRouteBtn = document.getElementById('clearRoute');
+      let simulationTimeouts = [];
+      let simulationActive = false;
+
+      function limpiarSimulacion() {
+        simulationActive = false;
+        simulationTimeouts.forEach(t => clearTimeout(t));
+        simulationTimeouts = [];
+        if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); window.vehicleMarker = null; }
+        if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
+      }
+
       if (startRouteBtn) {
         startRouteBtn.addEventListener('click', async function() {
-          // Mostrar SIEMPRE el contenedor de seguimiento automático al iniciar recorrido
+          // Mostrar el panel de seguimiento automático
           const routeControls = document.getElementById('routeControls');
-          const trackingMode = document.getElementById('trackingMode');
           if (routeControls) routeControls.style.display = 'block';
-          if (trackingMode) trackingMode.style.display = 'block';
+          limpiarSimulacion();
           if (window.startMarker && window.endMarker) {
-            // Eliminar línea anterior y vehículo anterior si existen
-            if (window.routeLine) map.removeLayer(window.routeLine);
-            if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); window.vehicleMarker = null; }
             // Obtener coordenadas
             let start = window.startMarker.getLatLng();
             let end = window.endMarker.getLatLng();
             // --- AJUSTAR AL CAMINO MÁS CERCANO ---
             async function getNearestPoint(lat, lon) {
               try {
-                // Usar la URL oficial de ORS para nearest
-                const url = `https://api.openrouteservice.org/v2/nearest/driving-car?api_key=${ORS_API_KEY}`;
+                const url = `https://api.openrouteservice.org/v2/nearest/foot-walking?api_key=${ORS_API_KEY}`;
                 const body = JSON.stringify({ coordinates: [[lon, lat]] });
                 const response = await fetch(url, {
                   method: 'POST',
@@ -2327,42 +2361,23 @@
                   body
                 });
                 const data = await response.json().catch(() => ({}));
-                if (!response.ok) {
-                  console.error('Error ORS nearest:', response.status, data);
-                  return null;
-                }
+                if (!response.ok) return null;
                 if (data && data.coordinates && data.coordinates[0]) {
                   return { lat: data.coordinates[0][1], lng: data.coordinates[0][0] };
                 } else {
                   return null;
                 }
-              } catch (err) {
-                console.error('Excepción ORS nearest:', err);
-                return null;
-              }
+              } catch (err) { return null; }
             }
-            // Ajustar ambos puntos
             document.getElementById('info').textContent = 'Ajustando puntos al camino más cercano...';
             const nearestStart = await getNearestPoint(start.lat, start.lng);
             const nearestEnd = await getNearestPoint(end.lat, end.lng);
-            // Si el ajuste falla, usar el punto original y mostrar advertencia
-            if (!nearestStart) {
-              document.getElementById('info').textContent = 'No se pudo ajustar el punto de partida a la red vial. Se usará el punto original.';
-              start = { lat: start.lat, lng: start.lng };
-            } else {
-              start = nearestStart;
-            }
-            if (!nearestEnd) {
-              document.getElementById('info').textContent = 'No se pudo ajustar el destino a la red vial. Se usará el punto original.';
-              end = { lat: end.lat, lng: end.lng };
-            } else {
-              end = nearestEnd;
-            }
-            // --- FIN AJUSTE ---
-            // --- INICIO BLOQUE DESACTIVADO POR LICENCIA ORS ---
+            if (!nearestStart) start = { lat: start.lat, lng: start.lng };
+            else start = nearestStart;
+            if (!nearestEnd) end = { lat: end.lat, lng: end.lng };
+            else end = nearestEnd;
             try {
-              // Usar la URL oficial de ORS
-              const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${ORS_API_KEY}`;
+              const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${ORS_API_KEY}`;
               const body = JSON.stringify({
                 coordinates: [
                   [start.lng, start.lat],
@@ -2376,154 +2391,75 @@
               });
               let text = await response.text();
               let data = {};
-              try {
-                data = JSON.parse(text);
-              } catch (e) {
-                data = { error: text };
+              try { 
+                data = JSON.parse(text); 
+              } catch (e) { 
+                console.error('Error parsing JSON:', text);
+                data = { error: text }; 
               }
               if (!response.ok) {
-                console.error('Error ORS directions:', response.status, data);
-                document.getElementById('info').textContent = `Error ORS directions: ${response.status} - ${data.error ? data.error : JSON.stringify(data)}`;
+                console.error('Error de API:', response.status, data);
+                document.getElementById('info').textContent = 'Error de API: ' + response.status;
                 return;
               }
-              console.log('ORS response:', data); // <-- LOG PARA DEPURACIÓN
-              if (data.error) {
-                document.getElementById('info').textContent = 'Error ORS: ' + (data.error.message || JSON.stringify(data.error));
+              if (!data.routes || !data.routes[0]) {
+                console.error('No se encontraron rutas:', data);
+                document.getElementById('info').textContent = 'No se encontró ruta entre los puntos seleccionados.';
                 return;
               }
-              if (data && data.routes && data.routes[0]) {
-                // Decodificar la geometría polilínea a coordenadas reales
-                const decodedCoords = polyline.decode(data.routes[0].geometry);
-                if (window.routeLine) map.removeLayer(window.routeLine);
-                window.routeLine = L.polyline(decodedCoords, { color: 'green', weight: 5 }).addTo(map);
-                map.fitBounds(window.routeLine.getBounds(), {padding: [50, 50]});
-                document.getElementById('info').textContent = '¡Recorrido real trazado!';
-                // === Mostrar distancia total y tiempo estimado en el panel de seguimiento automático ===
-                const summary = data.routes[0].summary;
-                if (summary) {
-                  // Distancia en km
-                  const distanciaKm = (summary.distance / 1000).toFixed(2);
-                  // Tiempo en segundos a horas:minutos
-                  const dur = summary.duration;
-                  const horas = Math.floor(dur / 3600);
-                  const minutos = Math.round((dur % 3600) / 60);
-                  let tiempoStr = '';
-                  if (horas > 0) {
-                    tiempoStr = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
-                  } else {
-                    tiempoStr = minutos.toString().padStart(2, '0') + ':00';
-                  }
-                  document.getElementById('distanceTraveled').textContent = distanciaKm;
-                  document.getElementById('timeElapsed').textContent = tiempoStr;
-                }
-                // === ANIMACIÓN DEL VEHÍCULO Y SEGUIMIENTO EN TIEMPO REAL (igual que en JUL03_SEGUIMIENTO_AUTOMATICO) ===
-                let i = 0;
-                if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); }
-                window.vehicleMarker = L.marker(decodedCoords[0], {
-                  icon: L.icon({
-                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                    iconSize: [32,32],
-                    iconAnchor: [16,32]
-                  })
-                }).addTo(map);
-                const BUS_SPEED_KMH = 25; // Velocidad promedio de bus urbano
-                const BUS_SPEED_MS = BUS_SPEED_KMH * 1000 / 3600; // m/s
-                let totalDistance = 0;
-                let lastLatLng = L.latLng(decodedCoords[0][0], decodedCoords[0][1]);
-
-                // Crear o mostrar la etiqueta de barrio
-                let barrioLabel = document.getElementById('barrioLabel');
-                if (!barrioLabel) {
-                  barrioLabel = document.createElement('div');
-                  barrioLabel.id = 'barrioLabel';
-                  barrioLabel.style = 'background: #fff; color: #ff6600; font-weight: bold; border-radius: 8px; padding: 6px 16px; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); position: absolute; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1200;';
-                  barrioLabel.textContent = 'Vamos por: ...';
-                  document.body.appendChild(barrioLabel);
+              // Decodificar la geometría polilínea a coordenadas reales
+              const decodedCoords = polyline.decode(data.routes[0].geometry);
+              if (window.routeLine) map.removeLayer(window.routeLine);
+              window.routeLine = L.polyline(decodedCoords, { color: '#ff6600', weight: 6, opacity: 0.8 }).addTo(map);
+              map.fitBounds(window.routeLine.getBounds(), {padding: [50, 50]});
+              document.getElementById('info').textContent = '¡Recorrido simulado!';
+              // Animación del bus (solo visual)
+              let i = 0;
+              if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); }
+              window.vehicleMarker = L.marker(decodedCoords[0], {
+                icon: L.icon({
+                  iconUrl: 'bus_moderno.png',
+                  iconSize: [60, 28],
+                  iconAnchor: [30, 14]
+                })
+              }).addTo(map);
+              const BUS_SPEED_KMH = 25;
+              const BUS_SPEED_MS = BUS_SPEED_KMH * 1000 / 3600;
+              simulationActive = true;
+              function animateVehicle() {
+                if (!simulationActive) return;
+                if (i < decodedCoords.length - 1) {
+                  window.vehicleMarker.setLatLng(decodedCoords[i]);
+                  const from = L.latLng(decodedCoords[i][0], decodedCoords[i][1]);
+                  const to = L.latLng(decodedCoords[i+1][0], decodedCoords[i+1][1]);
+                  const dist = from.distanceTo(to);
+                  const delay = Math.max(80, (dist / BUS_SPEED_MS));
+                  i++;
+                  simulationTimeouts.push(setTimeout(animateVehicle, delay));
                 } else {
-                  barrioLabel.style.display = 'block';
-                  barrioLabel.textContent = 'Vamos por: ...';
+                  window.vehicleMarker.setLatLng(decodedCoords[decodedCoords.length-1]);
+                  document.getElementById('info').textContent = '¡Simulación finalizada!';
+                  simulationActive = false;
                 }
-
-                function animateVehicle() {
-                  if (i < decodedCoords.length - 1) {
-                    window.vehicleMarker.setLatLng(decodedCoords[i]);
-                    // Calcular distancia al siguiente punto
-                    const from = L.latLng(decodedCoords[i][0], decodedCoords[i][1]);
-                    const to = L.latLng(decodedCoords[i+1][0], decodedCoords[i+1][1]);
-                    const dist = from.distanceTo(to); // en metros
-                    const delay = Math.max(80, (dist / BUS_SPEED_MS)); // mínimo 80ms para fluidez
-
-                    // 1. Actualizar estado a "En movimiento"
-                    document.getElementById('statusIndicator').textContent = '🟢 Vehículo en movimiento';
-
-                    // 2. Calcular y mostrar velocidad (en km/h)
-                    const speedKmh = (dist / (delay / 1000)) * 3.6; // m/s a km/h
-                    document.getElementById('currentSpeed').textContent = speedKmh.toFixed(1);
-
-                    // 3. Actualizar barra de progreso
-                    const progress = (i / (decodedCoords.length - 1)) * 100;
-                    document.getElementById('progressBar').style.width = progress + '%';
-
-                    // 4. Calcular distancia total recorrida y mostrar
-                    totalDistance += dist;
-                    document.getElementById('distanceTraveled').textContent = (totalDistance / 1000).toFixed(2);
-
-                    // 5. Actualizar tiempo transcurrido (simulado)
-                    let elapsed = (totalDistance / (BUS_SPEED_KMH * 1000 / 60)); // minutos
-                    let min = Math.floor(elapsed);
-                    let sec = Math.floor((elapsed - min) * 60);
-                    document.getElementById('timeElapsed').textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-
-                    // 6. Actualizar barrio en tiempo real
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${from.lat}&lon=${from.lng}&zoom=16&addressdetails=1`)
-                      .then(resp => resp.json())
-                      .then(data => {
-                        let barrio = '...';
-                        if (data && data.address) {
-                          barrio = data.address.neighbourhood || data.address.suburb || data.address.village || data.address.town || data.address.city || data.address.county || '...';
-                        }
-                        barrioLabel.textContent = `Vamos por: ${barrio}`;
-                      })
-                      .catch(() => {
-                        barrioLabel.textContent = 'Vamos por: ...';
-                      });
-
-                    i++;
-                    setTimeout(animateVehicle, delay);
-                  } else {
-                    window.vehicleMarker.setLatLng(decodedCoords[decodedCoords.length-1]);
-                    document.getElementById('info').textContent = '¡Recorrido finalizado!';
-                    // Estado final
-                    document.getElementById('statusIndicator').textContent = '⏹️ Recorrido finalizado';
-                    document.getElementById('currentSpeed').textContent = '0.0';
-                    document.getElementById('progressBar').style.width = '100%';
-                    if (barrioLabel) barrioLabel.style.display = 'none';
-                  }
-                }
-                animateVehicle();
-              } else {
-                document.getElementById('info').textContent = 'No se pudo calcular la ruta real.';
               }
+              animateVehicle();
             } catch (err) {
               document.getElementById('info').textContent = 'Error al calcular la ruta real.';
-              console.error('Error al calcular la ruta real:', err); // <-- LOG DE ERROR
             }
-            // --- FIN BLOQUE DESACTIVADO POR LICENCIA ORS ---
-            // --- MENSAJE ALTERNATIVO POR LICENCIA (COMENTADO PARA ACTIVAR FUNCIONALIDAD) ---
-            // document.getElementById('info').textContent = 'La funcionalidad de cálculo de rutas reales está temporalmente desactivada. Pronto estará disponible con una licencia premium de OpenRouteService.';
           } else {
             document.getElementById('info').textContent = 'Selecciona ambos puntos primero (origen y destino).';
           }
+          // Al final de la simulación o al iniciar, activar el seguimiento real:
+          iniciarSeguimientoAutomatico();
         });
       }
       if (clearRouteBtn) {
         clearRouteBtn.addEventListener('click', function() {
+          limpiarSimulacion();
           if (window.startMarker) { map.removeLayer(window.startMarker); window.startMarker = null; }
           if (window.endMarker) { map.removeLayer(window.endMarker); window.endMarker = null; }
-          if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
           document.getElementById('startDireccionInput').value = '';
           document.getElementById('endDireccionInput').value = '';
-          // Limpiar selección de paraderos
           const startParaderoSelect = document.getElementById('startParaderoSelect');
           const endParaderoSelect = document.getElementById('endParaderoSelect');
           if (startParaderoSelect) startParaderoSelect.selectedIndex = 0;
@@ -2544,7 +2480,14 @@
           const endRutasInfo = document.getElementById('endRutasInfo');
           if (startRutasInfo) startRutasInfo.innerHTML = '';
           if (endRutasInfo) endRutasInfo.innerHTML = '';
-          console.log('Limpieza completa de ruta, sugerencias y chips de rutas.');
+          // Limpiar etiqueta de barrio y alarmas
+          const barrioLabel = document.getElementById('barrioLabel');
+          const alarmaDiv = document.getElementById('alarma300m');
+          if (barrioLabel) barrioLabel.style.display = 'none';
+          if (alarmaDiv) alarmaDiv.style.display = 'none';
+          // Detener seguimiento automático si está activo
+          detenerSeguimientoReal();
+          console.log('Limpieza completa de ruta, sugerencias, chips de rutas, etiquetas y alarmas.');
         });
       }
     });
@@ -2833,6 +2776,232 @@
         });
     });
 
+    // =================== SEGUIMIENTO AUTOMÁTICO EN TIEMPO REAL ===================
+    let realTrackingWatchId = null;
+    let realTrackingStartTime = null;
+    let realTrackingLastPosition = null;
+    let realTrackingDistance = 0;
+    let realTrackingAlarmaActivada = false;
+    let realTrackingDestino = null;
+
+    let isRealTrackingActive = false;
+
+    // Función que se activa automáticamente después de la simulación
+    function iniciarSeguimientoAutomatico() {
+      // Obtener coordenadas del destino si existe
+      let destinoCoords = null;
+      if (window.endMarker) {
+        const endLatLng = window.endMarker.getLatLng();
+        destinoCoords = [endLatLng.lat, endLatLng.lng];
+      }
+      iniciarSeguimientoReal(destinoCoords);
+    }
+
+    function iniciarSeguimientoReal(destinoCoords) {
+      if (isRealTrackingActive) return; // Evitar múltiples seguimientos
+      
+      isRealTrackingActive = true;
+      realTrackingDistance = 0;
+      realTrackingAlarmaActivada = false;
+      realTrackingStartTime = Date.now();
+      realTrackingLastPosition = null;
+      realTrackingDestino = destinoCoords ? L.latLng(destinoCoords[0], destinoCoords[1]) : null;
+      
+      // Resetear valores del contenedor
+      document.getElementById('distanceTraveled').textContent = '0.0';
+      document.getElementById('timeElapsed').textContent = '00:00';
+      document.getElementById('currentSpeed').textContent = '0.0';
+      document.getElementById('progressBar').style.width = '0%';
+      document.getElementById('statusIndicator').textContent = '📍 Seguimiento real activo';
+      
+      // Iniciar seguimiento de ubicación real
+      if (realTrackingWatchId) navigator.geolocation.clearWatch(realTrackingWatchId);
+      
+      realTrackingWatchId = navigator.geolocation.watchPosition(
+        function(pos) {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          const current = L.latLng(lat, lon);
+          
+          // Calcular distancia recorrida
+          if (realTrackingLastPosition) {
+            const d = realTrackingLastPosition.distanceTo(current);
+            if (d > 2) { // Solo sumar si el movimiento es real (>2m)
+              realTrackingDistance += d;
+            }
+          }
+          realTrackingLastPosition = current;
+          
+          // Actualizar distancia
+          document.getElementById('distanceTraveled').textContent = (realTrackingDistance / 1000).toFixed(2);
+          
+          // Actualizar tiempo
+          const elapsed = (Date.now() - realTrackingStartTime) / 1000;
+          const min = Math.floor(elapsed / 60);
+          const sec = Math.floor(elapsed % 60);
+          document.getElementById('timeElapsed').textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+          
+          // Calcular velocidad
+          const speedKmh = pos.coords.speed && pos.coords.speed > 0 ? (pos.coords.speed * 3.6) : (realTrackingDistance / elapsed) * 3.6;
+          document.getElementById('currentSpeed').textContent = speedKmh > 0 ? speedKmh.toFixed(1) : '0.0';
+          
+          // Estado
+          document.getElementById('statusIndicator').textContent = speedKmh > 0.5 ? '🟢 En movimiento' : '⏸️ Detenido';
+          
+          // Mostrar/ocultar etiqueta "Vamos por:" basado en el estado de movimiento
+          const locationDisplay = document.getElementById('locationDisplay');
+          const vamosPorText = document.getElementById('vamosPorText');
+          
+          if (speedKmh > 0.5) {
+            // En movimiento - ocultar etiqueta
+            if (locationDisplay) locationDisplay.style.display = 'none';
+          } else {
+            // Detenido - mostrar etiqueta con barrio actual
+            if (locationDisplay) locationDisplay.style.display = 'block';
+            
+            // Obtener nombre del barrio/dirección en tiempo real
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=16&addressdetails=1`)
+              .then(resp => resp.json())
+              .then(data => {
+                let barrio = '...';
+                if (data && data.address) {
+                  // Priorizar nombres de barrios turísticos de Cartagena
+                  barrio = data.address.neighbourhood || 
+                           data.address.suburb || 
+                           data.address.village || 
+                           data.address.town || 
+                           data.address.city || 
+                           data.address.county || 
+                           '...';
+                }
+                if (vamosPorText) vamosPorText.textContent = `📍 Vamos por: ${barrio}`;
+              })
+              .catch(() => {
+                if (vamosPorText) vamosPorText.textContent = '📍 Vamos por: ...';
+              });
+          }
+          
+          // Barra de progreso (si hay destino)
+          if (realTrackingDestino) {
+            const distRestante = current.distanceTo(realTrackingDestino);
+            let totalDist = realTrackingDistance + distRestante;
+            let progress = totalDist > 0 ? (realTrackingDistance / totalDist) * 100 : 0;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Alarma a 300m
+            if (!realTrackingAlarmaActivada && distRestante <= 300) {
+              realTrackingAlarmaActivada = true;
+              let alarmaDiv = document.getElementById('realTrackingAlarma300m');
+              if (!alarmaDiv) {
+                alarmaDiv = document.createElement('div');
+                alarmaDiv.id = 'realTrackingAlarma300m';
+                alarmaDiv.style = 'position:fixed;top:30px;left:50%;transform:translateX(-50%);background:#ff4136;color:#fff;font-size:1.5rem;font-weight:bold;padding:18px 36px;border-radius:16px;z-index:2000;box-shadow:0 4px 24px rgba(255,65,54,0.25);animation:parpadeoAlarma 1s infinite;';
+                alarmaDiv.innerHTML = '🚨 ¡Faltan menos de 300 metros para llegar a tu destino! 🚨';
+                document.body.appendChild(alarmaDiv);
+              } else {
+                alarmaDiv.style.display = 'block';
+              }
+              // Sonido: beep simple
+              try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const o = ctx.createOscillator();
+                const g = ctx.createGain();
+                o.type = 'sine';
+                o.frequency.value = 880;
+                o.connect(g); g.connect(ctx.destination);
+                g.gain.value = 0.2;
+                o.start();
+                setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
+              } catch(e) {}
+            }
+          }
+        },
+        function(err) {
+          document.getElementById('statusIndicator').textContent = '❌ Error de geolocalización';
+        },
+        { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 }
+      );
+    }
+
+    function detenerSeguimientoReal() {
+      if (realTrackingWatchId) {
+        navigator.geolocation.clearWatch(realTrackingWatchId);
+        realTrackingWatchId = null;
+      }
+      isRealTrackingActive = false;
+      
+      // Ocultar elementos del seguimiento real
+      let alarmaDiv = document.getElementById('realTrackingAlarma300m');
+      if (alarmaDiv) alarmaDiv.style.display = 'none';
+      realTrackingAlarmaActivada = false;
+      
+      // Ocultar etiqueta "Vamos por:"
+      const locationDisplay = document.getElementById('locationDisplay');
+      if (locationDisplay) locationDisplay.style.display = 'none';
+      
+      document.getElementById('statusIndicator').textContent = '⏸️ Seguimiento detenido';
+    }
+
+    // Event listener para el botón de detener seguimiento
+    document.addEventListener('DOMContentLoaded', function() {
+      const stopRouteBtn = document.getElementById('stopRoute');
+      
+      if (stopRouteBtn) {
+        stopRouteBtn.addEventListener('click', function() {
+          detenerSeguimientoReal();
+        });
+      }
+    });
+
+    // Animación CSS para alarma (si no existe)
+    if (!document.getElementById('parpadeoAlarmaStyle')) {
+      const style = document.createElement('style');
+      style.id = 'parpadeoAlarmaStyle';
+      style.innerHTML = `@keyframes parpadeoAlarma {0%{opacity:1;}50%{opacity:0.3;}100%{opacity:1;}}`;
+      document.head.appendChild(style);
+    }
+
+    // ... existente ...
+    let rutasTranscaribe = [];
+
+    async function cargarRutasTranscaribe() {
+      try {
+        const response = await fetch('rutas_transcaribe.geojson');
+        const data = await response.json();
+        rutasTranscaribe = data.features;
+        console.log('Rutas Transcaribe cargadas:', rutasTranscaribe.length);
+      } catch (e) {
+        console.error('Error cargando rutas Transcaribe:', e);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', cargarRutasTranscaribe);
+
+    function distanciaPuntoLinea(punto, linea) {
+      // punto: [lat, lng], linea: array de [lng, lat]
+      let minDist = Infinity;
+      for (let i = 0; i < linea.length; i++) {
+        const d = L.latLng(punto[0], punto[1]).distanceTo(L.latLng(linea[i][1], linea[i][0]));
+        if (d < minDist) minDist = d;
+      }
+      return minDist;
+    }
+
+    function encontrarRutaOficialMasCercana(origen, destino) {
+      // origen/destino: [lat, lng]
+      let mejorRuta = null;
+      let mejorScore = Infinity;
+      rutasTranscaribe.forEach(ruta => {
+        const coords = ruta.geometry.coordinates;
+        const distOrigen = distanciaPuntoLinea(origen, coords);
+        const distDestino = distanciaPuntoLinea(destino, coords);
+        const score = distOrigen + distDestino;
+        if (score < mejorScore) {
+          mejorScore = score;
+          mejorRuta = ruta;
+        }
+      });
+      return mejorRuta;
+    }
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>

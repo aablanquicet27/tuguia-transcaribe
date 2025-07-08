@@ -2193,12 +2193,18 @@
                 comp.types.includes('locality')
               );
               if (barrioComp) barrio = barrioComp.long_name;
-              direccion = barrio || data.results[0].formatted_address.split(',').slice(0, 3).join(', ');
+              if (data.results[0].formatted_address) {
+                direccion = data.results[0].formatted_address;
+              } else if (barrio) {
+                direccion = barrio;
+              } else {
+                direccion = 'Ubicación detectada';
+              }
               input.value = direccion;
               // Guardar coordenadas en localStorage para uso interno
               localStorage.setItem('tuguia_start_coords', `${lat}, ${lon}`);
             } else {
-              input.value = `${lat}, ${lon}`;
+              input.value = 'Ubicación detectada';
             }
             // Guarda en localStorage si el modo seleccionado es ubicación
             if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
@@ -2207,7 +2213,7 @@
           })
           .catch(error => {
             console.error('Error obteniendo dirección:', error);
-            input.value = `${lat}, ${lon}`;
+            input.value = 'Ubicación detectada';
             // Guarda en localStorage si el modo seleccionado es ubicación
             if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
               localStorage.setItem('tuguia_start', input.value);

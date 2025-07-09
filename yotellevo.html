@@ -428,7 +428,7 @@
         }
         let html = '';
         let chipOrigen = '';
-        if (startMode === 'paradero' && start) {
+        if (start && startMode === 'paradero') {
           try {
             const obj = typeof start === 'string' ? JSON.parse(start) : start;
             chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #6b46c122;margin-bottom:3px;">📍 Paradero: ${obj.nombre}</span>`;
@@ -501,7 +501,7 @@
             .slice(0, 3);
         }
         let chipDestino = '';
-        if (endMode === 'paradero' && end) {
+        if (end && endMode === 'paradero') {
           try {
             const obj = typeof end === 'string' ? JSON.parse(end) : end;
             chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #ff980022;margin-bottom:3px;">🎯 Paradero: ${obj.nombre}</span>`;

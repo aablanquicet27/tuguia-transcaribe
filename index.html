@@ -1951,11 +1951,18 @@
       // Agregar event listeners para los selects
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
+          console.log('🎯 Paradero de inicio seleccionado:', this.value);
           if (this.value) {
-            const idx = this.options[this.selectedIndex].getAttribute('data-index');
-            const paradero = idx !== null ? paraderosData[parseInt(idx)] : null;
-            if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
-              localStorage.setItem('tuguia_start', JSON.stringify(paradero));
+            try {
+              const paradero = JSON.parse(this.value);
+              console.log('📍 Paradero parseado:', paradero);
+              // Guardar en localStorage con el modo correcto
+              localStorage.setItem('tuguia_start', JSON.stringify({
+                nombre: paradero.nombre,
+                coords: paradero.coords
+              }));
+              localStorage.setItem('tuguia_start_mode', 'paradero');
+              
               // Crear marcador en el mapa
               if (window.startMarker) map.removeLayer(window.startMarker);
               window.startMarker = L.marker(paradero.coords, {
@@ -1965,9 +1972,11 @@
                   iconAnchor: [16, 32]
                 })
               }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
+              
+              // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
-            } else {
-              alert('Error: El paradero seleccionado no tiene coordenadas válidas.');
+            } catch (error) {
+              console.error('❌ Error parseando paradero de inicio:', error);
             }
           }
         });
@@ -1975,23 +1984,19 @@
       
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
+          console.log('🎯 Paradero de destino seleccionado:', this.value);
           if (this.value) {
-            const idx = this.options[this.selectedIndex].getAttribute('data-index');
-            const paradero = idx !== null ? paraderosData[parseInt(idx)] : null;
-            // Mostrar coordenadas en el cuadro de texto provisional (si existiera)
-            const coordsPreview = document.getElementById('endParaderoCoordsPreview');
-            if (coordsPreview) {
-              if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
-                coordsPreview.value = paradero.coords.join(', ');
-              } else {
-                coordsPreview.value = 'Coordenadas no válidas';
-              }
-            }
-            if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
+            try {
+              const paradero = JSON.parse(this.value);
               // Limpiar el input de dirección de destino
               const endDireccionInput = document.getElementById('endDireccionInput');
               if (endDireccionInput) endDireccionInput.value = '';
-              localStorage.setItem('tuguia_end', JSON.stringify(paradero));
+              // Guardar en localStorage con el modo correcto
+              localStorage.setItem('tuguia_end', JSON.stringify({
+                nombre: paradero.nombre,
+                coords: paradero.coords
+              }));
+              localStorage.setItem('tuguia_end_mode', 'paradero');
               // Crear marcador en el mapa
               if (window.endMarker) map.removeLayer(window.endMarker);
               window.endMarker = L.marker(paradero.coords, {
@@ -2001,14 +2006,11 @@
                   iconAnchor: [16, 32]
                 })
               }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
+              // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
-            } else {
-              alert('Error: El paradero seleccionado no tiene coordenadas válidas.');
+            } catch (error) {
+              console.error('❌ Error parseando paradero de destino:', error);
             }
-          } else {
-            // Si no hay selección, limpiar el cuadro
-            const coordsPreview = document.getElementById('endParaderoCoordsPreview');
-            if (coordsPreview) coordsPreview.value = '';
           }
         });
       }

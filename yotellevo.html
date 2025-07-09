@@ -615,78 +615,28 @@
         
         // Función para obtener y mostrar rutas caminando
         async function obtenerRutaCaminando(origen, destino, mapa, color, weight = 3, opacity = 0.8, tipo = 'origen') {
-          try {
-            const apiKey = '5b3ce3597851110001cf6248e92a24fdb4744773ab33cab2c808de44';
-            const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${apiKey}`;
-            const body = {
-              coordinates: [
-                [origen[1], origen[0]], // [lon, lat]
-                [destino[1], destino[0]]
+          // DIBUJO FORZADO DE LÍNEA RECTA CON FLECHA PARA DEPURACIÓN
+          const polyline = L.polyline([origen, destino], {
+            color: color,
+            weight: weight,
+            opacity: opacity,
+            dashArray: ''
+          }).addTo(mapa);
+          // Agregar flecha de dirección en la línea recta
+          if (window.L && window.L.polylineDecorator) {
+            L.polylineDecorator(polyline, {
+              patterns: [
+                {
+                  offset: '50%',
+                  repeat: 0,
+                  symbol: L.Symbol.arrowHead({
+                    pixelSize: 18,
+                    polygon: false,
+                    pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
+                  })
+                }
               ]
-            };
-            
-            const response = await fetch(url, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(body)
-            });
-            
-            const data = await response.json();
-            if (data && data.features && data.features[0]) {
-              const coordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-              const polyline = L.polyline(coordinates, {
-                color: color,
-                weight: weight,
-                opacity: opacity
-              }).addTo(mapa);
-              // Agregar flecha de dirección en el centro de la línea
-              if (window.L && window.L.polylineDecorator) {
-                L.polylineDecorator(polyline, {
-                  patterns: [
-                    {
-                      offset: '50%',
-                      repeat: 0,
-                      symbol: L.Symbol.arrowHead({
-                        pixelSize: 18,
-                        polygon: false,
-                        pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
-                      })
-                    }
-                  ]
-                }).addTo(mapa);
-              }
-            }
-          } catch (error) {
-            console.error('Error obteniendo ruta:', error);
-            // Si falla la API, mostrar línea recta
-            const polyline = L.polyline([origen, destino], {
-              color: color,
-              weight: weight,
-              opacity: opacity,
-              dashArray: '5, 5'
             }).addTo(mapa);
-            // Agregar flecha de dirección en la línea recta
-            if (window.L && window.L.polylineDecorator) {
-              L.polylineDecorator(polyline, {
-                patterns: [
-                  {
-                    offset: '50%',
-                    repeat: 0,
-                    symbol: L.Symbol.arrowHead({
-                      pixelSize: 18,
-                      polygon: false,
-                      pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
-                    })
-                  }
-                ]
-              }).addTo(mapa);
-            }
-            // Mostrar mensaje visual
-            const msgId = tipo === 'origen' ? 'mensaje-error-mapa-origen' : 'mensaje-error-mapa-destino';
-            const msgDiv = document.getElementById(msgId);
-            if (msgDiv) {
-              msgDiv.textContent = 'No se pudo calcular la ruta a pie para uno o más paraderos. Se muestra una línea recta como alternativa.';
-            }
           }
         }
         

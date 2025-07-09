@@ -1839,7 +1839,7 @@
         startParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
         paraderosData.forEach(paradero => {
           const option = document.createElement('option');
-          option.value = paradero.nombre;
+          option.value = JSON.stringify({ nombre: paradero.nombre, coords: paradero.coords });
           option.textContent = paradero.nombre;
           startParaderoSelect.appendChild(option);
         });
@@ -1854,7 +1854,7 @@
         endParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
         paraderosData.forEach(paradero => {
           const option = document.createElement('option');
-          option.value = paradero.nombre;
+          option.value = JSON.stringify({ nombre: paradero.nombre, coords: paradero.coords });
           option.textContent = paradero.nombre;
           endParaderoSelect.appendChild(option);
         });
@@ -1866,60 +1866,41 @@
       // Agregar event listeners para los selects
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
-          console.log('🎯 Paradero de inicio seleccionado:', this.value);
           if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              console.log('📍 Paradero encontrado:', paradero);
-              // Guardar en localStorage
-              localStorage.setItem('tuguia_start', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-              
-              // Crear marcador en el mapa
-              if (window.startMarker) map.removeLayer(window.startMarker);
-              window.startMarker = L.marker(paradero.coords, {
-                icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                  iconSize: [32, 32],
-                  iconAnchor: [16, 32]
-                })
-              }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
-              
-              // Centrar mapa en el paradero
-              map.setView(paradero.coords, 15);
-            }
+            const paradero = JSON.parse(this.value);
+            localStorage.setItem('tuguia_start', JSON.stringify(paradero));
+            // Crear marcador en el mapa
+            if (window.startMarker) map.removeLayer(window.startMarker);
+            window.startMarker = L.marker(paradero.coords, {
+              icon: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
+            map.setView(paradero.coords, 15);
           }
         });
       }
       
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
-          console.log('🎯 Paradero de destino seleccionado:', this.value);
           if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              // Limpiar el input de dirección de destino
-              const endDireccionInput = document.getElementById('endDireccionInput');
-              if (endDireccionInput) endDireccionInput.value = '';
-              // Guardar en localStorage
-              localStorage.setItem('tuguia_end', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-              // Crear marcador en el mapa
-              if (window.endMarker) map.removeLayer(window.endMarker);
-              window.endMarker = L.marker(paradero.coords, {
-                icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png',
-                  iconSize: [32, 32],
-                  iconAnchor: [16, 32]
-                })
-              }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
-              // Centrar mapa en el paradero
-              map.setView(paradero.coords, 15);
-            }
+            const paradero = JSON.parse(this.value);
+            // Limpiar el input de dirección de destino
+            const endDireccionInput = document.getElementById('endDireccionInput');
+            if (endDireccionInput) endDireccionInput.value = '';
+            localStorage.setItem('tuguia_end', JSON.stringify(paradero));
+            // Crear marcador en el mapa
+            if (window.endMarker) map.removeLayer(window.endMarker);
+            window.endMarker = L.marker(paradero.coords, {
+              icon: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
+            map.setView(paradero.coords, 15);
           }
         });
       }
@@ -1958,26 +1939,16 @@
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
           if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              localStorage.setItem('tuguia_start', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-            }
+            const paradero = JSON.parse(this.value);
+            localStorage.setItem('tuguia_start', JSON.stringify(paradero));
           }
         });
       }
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
           if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              localStorage.setItem('tuguia_end', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-            }
+            const paradero = JSON.parse(this.value);
+            localStorage.setItem('tuguia_end', JSON.stringify(paradero));
           }
         });
       }

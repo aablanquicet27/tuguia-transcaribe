@@ -542,7 +542,7 @@
                 const color = colores[index % colores.length];
                 const weight = index === 0 ? 6 : 3;
                 const opacity = index === 0 ? 1 : 0.7;
-                obtenerRutaCaminando(startCoords, [paradero.lat, paradero.lon], mapaOrigen, color, weight, opacity);
+                obtenerRutaCaminando(startCoords, [paradero.lat, paradero.lon], mapaOrigen, color, weight, opacity, 'origen');
               });
               
               // Ajustar vista para mostrar todos los puntos
@@ -584,7 +584,7 @@
                 const color = colores[index % colores.length];
                 const weight = index === 0 ? 6 : 3;
                 const opacity = index === 0 ? 1 : 0.7;
-                obtenerRutaCaminando([paradero.lat, paradero.lon], endCoords, mapaDestino, color, weight, opacity);
+                obtenerRutaCaminando([paradero.lat, paradero.lon], endCoords, mapaDestino, color, weight, opacity, 'destino');
               });
               
               // Ajustar vista para mostrar todos los puntos
@@ -597,7 +597,7 @@
         }
         
         // Función para obtener y mostrar rutas caminando
-        async function obtenerRutaCaminando(origen, destino, mapa, color, weight = 3, opacity = 0.8) {
+        async function obtenerRutaCaminando(origen, destino, mapa, color, weight = 3, opacity = 0.8, tipo = 'origen') {
           try {
             const apiKey = '5b3ce3597851110001cf6248e92a24fdb4744773ab33cab2c808de44';
             const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${apiKey}`;
@@ -632,6 +632,12 @@
               opacity: opacity,
               dashArray: '5, 5'
             }).addTo(mapa);
+            // Mostrar mensaje visual
+            const msgId = tipo === 'origen' ? 'mensaje-error-mapa-origen' : 'mensaje-error-mapa-destino';
+            const msgDiv = document.getElementById(msgId);
+            if (msgDiv) {
+              msgDiv.textContent = 'No se pudo calcular la ruta a pie para uno o más paraderos. Se muestra una línea recta como alternativa.';
+            }
           }
         }
         

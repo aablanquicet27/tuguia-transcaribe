@@ -1868,7 +1868,8 @@
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
           if (this.value) {
-            const paradero = JSON.parse(this.value);
+            const idx = this.options[this.selectedIndex].getAttribute('data-index');
+            const paradero = idx !== null ? paraderosData[parseInt(idx)] : null;
             if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
               localStorage.setItem('tuguia_start', JSON.stringify(paradero));
               // Crear marcador en el mapa
@@ -1891,8 +1892,9 @@
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
           if (this.value) {
-            const paradero = JSON.parse(this.value);
-            // Mostrar coordenadas en el cuadro de texto provisional
+            const idx = this.options[this.selectedIndex].getAttribute('data-index');
+            const paradero = idx !== null ? paraderosData[parseInt(idx)] : null;
+            // Mostrar coordenadas en el cuadro de texto provisional (si existiera)
             const coordsPreview = document.getElementById('endParaderoCoordsPreview');
             if (coordsPreview) {
               if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {

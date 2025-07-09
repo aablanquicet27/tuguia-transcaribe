@@ -253,8 +253,7 @@
     let endMode = localStorage.getItem('tuguia_end_mode') || '';
     
     console.log('📋 Datos recibidos del localStorage:', { start, end, startMode, endMode });
-    
-    document.getElementById('info-paraderos').innerHTML = `<b>Procesando información...</b><br>Punto de partida: ${start} (${startMode})<br>Punto destino: ${end} (${endMode})`;
+    console.log('🟢 Valor bruto de tuguia_start:', start);
     
     function extraerCoords(str) {
       if (!str) return null;
@@ -271,6 +270,7 @@
     let endCoords = extraerCoords(end);
 
     // LOGS DE DEPURACIÓN
+    console.log('🟢 Coordenadas extraídas de tuguia_start:', startCoords);
     console.log('🟢 Valor bruto de tuguia_end:', end);
     console.log('🟢 Coordenadas extraídas de tuguia_end:', endCoords);
     

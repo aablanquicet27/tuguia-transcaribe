@@ -431,12 +431,12 @@
         if (startMode === 'paradero' && start) {
           try {
             const obj = typeof start === 'string' ? JSON.parse(start) : start;
-            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:14px;padding:3px 10px;font-size:0.92em;box-shadow:0 1px 4px #6b46c122;margin-bottom:4px;">📍 Paradero: ${obj.nombre}</span>`;
+            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #6b46c122;margin-bottom:3px;">📍 Paradero: ${obj.nombre}</span>`;
           } catch(e) {}
         } else if (start) {
           try {
             const obj = typeof start === 'string' ? JSON.parse(start) : start;
-            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:14px;padding:3px 10px;font-size:0.92em;box-shadow:0 1px 4px #6b46c122;margin-bottom:4px;">📍 ${obj.nombre}</span>`;
+            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #6b46c122;margin-bottom:3px;">📍 ${obj.nombre}</span>`;
           } catch(e) {}
         }
         if (paraderosOrigen.length === 0) {
@@ -504,12 +504,12 @@
         if (endMode === 'paradero' && end) {
           try {
             const obj = typeof end === 'string' ? JSON.parse(end) : end;
-            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:14px;padding:3px 10px;font-size:0.92em;box-shadow:0 1px 4px #ff980022;margin-bottom:4px;">🎯 Paradero: ${obj.nombre}</span>`;
+            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #ff980022;margin-bottom:3px;">🎯 Paradero: ${obj.nombre}</span>`;
           } catch(e) {}
         } else if (end) {
           try {
             const obj = typeof end === 'string' ? JSON.parse(end) : end;
-            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:14px;padding:3px 10px;font-size:0.92em;box-shadow:0 1px 4px #ff980022;margin-bottom:4px;">🎯 ${obj.nombre}</span>`;
+            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:13px;padding:2px 8px;font-size:0.82em;box-shadow:0 1px 4px #ff980022;margin-bottom:3px;">🎯 ${obj.nombre}</span>`;
           } catch(e) {}
         }
         let paraderosHtml = '<b><span style="color:#006400">Paraderos más cercanos a tu destino:</span></b>' + (chipDestino ? `<div>${chipDestino}</div>` : '') + '<ul id="lista-paraderos-destino"></ul>';

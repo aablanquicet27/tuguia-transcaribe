@@ -193,12 +193,21 @@
         </div>
     </div>
     
+    <!-- Modal de alerta de proximidad -->
+    <div id="modal-proximidad" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+      <div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
+        <div style="font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;">¡Atención!</div>
+        <div style="font-size:1.3em;color:#333;margin-bottom:1em;">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
+        <button onclick="document.getElementById('modal-proximidad').style.display='none'" style="font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;">Entendido</button>
+      </div>
+    </div>
     <footer class="footer-agapai">
         Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>
     </footer>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/@mapbox/polyline"></script>
+    <script src="https://unpkg.com/leaflet-polylinedecorator@1.7.0/dist/leaflet.polylineDecorator.min.js"></script>
     <script>
     // Utilidad para calcular distancia entre dos puntos (Haversine)
     function haversine(lat1, lon1, lat2, lon2) {
@@ -484,6 +493,7 @@
         if (paraderosDestino.length === 0) {
           document.getElementById('lista-paraderos-destino').innerHTML = '<li>No hay paraderos de Transcaribe cercanos a tu destino. Prueba ampliando el radio de búsqueda o selecciona otro destino.</li>';
         } else {
+          let listaHtml = '';
           paraderosDestino.forEach((p, idx) => {
             let liId = `paradero-destino-${idx}`;
             let rutasTxt = (Array.isArray(p.rutas) && p.rutas.length ? p.rutas.join(', ') : 'Sin rutas');
@@ -492,14 +502,21 @@
             if (p.ruta) {
               nombreParadero = `<b>${p.ruta}</b> - ${p.nombre}`;
             }
-            // Mostrar primero la distancia en línea recta
-            document.getElementById('lista-paraderos-destino').innerHTML += `<li id="${liId}" style="${liStyle}">${nombreParadero} (${Math.round(p.dist)} m (línea recta))<br>Rutas: ${rutasTxt}</li>`;
-            // Intentar obtener la distancia caminando, y si falla, dejar la de línea recta
+            listaHtml += `<li id="${liId}" style="${liStyle}">${nombreParadero} (${Math.round(p.dist)} m (línea recta))<br>Rutas: ${rutasTxt}</li>`;
+          });
+          document.getElementById('lista-paraderos-destino').innerHTML = listaHtml;
+          // Ahora actualizar la distancia caminando de forma asíncrona
+          paraderosDestino.forEach((p, idx) => {
+            let liId = `paradero-destino-${idx}`;
+            let rutasTxt = (Array.isArray(p.rutas) && p.rutas.length ? p.rutas.join(', ') : 'Sin rutas');
+            let nombreParadero = p.nombre;
+            if (p.ruta) {
+              nombreParadero = `<b>${p.ruta}</b> - ${p.nombre}`;
+            }
             obtenerDistanciaCaminando(endCoords, [p.lat, p.lon]).then(distanciaCaminando => {
               if (distanciaCaminando && !isNaN(distanciaCaminando)) {
                 document.getElementById(liId).innerHTML = `${nombreParadero} (${Math.round(distanciaCaminando)} m (a pie))<br>Rutas: ${rutasTxt}`;
               }
-              // Si falla, no cambies el texto (ya está la distancia en línea recta)
             });
           });
         }
@@ -617,21 +634,53 @@
             const data = await response.json();
             if (data && data.features && data.features[0]) {
               const coordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-              L.polyline(coordinates, {
+              const polyline = L.polyline(coordinates, {
                 color: color,
                 weight: weight,
                 opacity: opacity
               }).addTo(mapa);
+              // Agregar flecha de dirección en el centro de la línea
+              if (window.L && window.L.polylineDecorator) {
+                L.polylineDecorator(polyline, {
+                  patterns: [
+                    {
+                      offset: '50%',
+                      repeat: 0,
+                      symbol: L.Symbol.arrowHead({
+                        pixelSize: 18,
+                        polygon: false,
+                        pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
+                      })
+                    }
+                  ]
+                }).addTo(mapa);
+              }
             }
           } catch (error) {
             console.error('Error obteniendo ruta:', error);
             // Si falla la API, mostrar línea recta
-            L.polyline([origen, destino], {
+            const polyline = L.polyline([origen, destino], {
               color: color,
               weight: weight,
               opacity: opacity,
               dashArray: '5, 5'
             }).addTo(mapa);
+            // Agregar flecha de dirección en la línea recta
+            if (window.L && window.L.polylineDecorator) {
+              L.polylineDecorator(polyline, {
+                patterns: [
+                  {
+                    offset: '50%',
+                    repeat: 0,
+                    symbol: L.Symbol.arrowHead({
+                      pixelSize: 18,
+                      polygon: false,
+                      pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
+                    })
+                  }
+                ]
+              }).addTo(mapa);
+            }
             // Mostrar mensaje visual
             const msgId = tipo === 'origen' ? 'mensaje-error-mapa-origen' : 'mensaje-error-mapa-destino';
             const msgDiv = document.getElementById(msgId);
@@ -733,6 +782,47 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+</script>
+<script>
+// Limpieza automática de datos de ruta si el usuario navega hacia atrás (flecha del navegador)
+window.addEventListener('pagehide', function(e) {
+  // Si la navegación es hacia index.html (o cualquier salida de yotellevo.html)
+  // Limpiar solo si la página se está ocultando porque el usuario navega (persisted = false)
+  if (!e.persisted) {
+    localStorage.removeItem('tuguia_start');
+    localStorage.removeItem('tuguia_end');
+    localStorage.removeItem('tuguia_start_mode');
+    localStorage.removeItem('tuguia_end_mode');
+  }
+});
+</script>
+<script>
+// Función para mostrar la alerta de proximidad (modal + notificación + vibración)
+function mostrarAlertaProximidad() {
+  // Mostrar modal llamativo
+  var modal = document.getElementById('modal-proximidad');
+  if (modal) modal.style.display = 'flex';
+  // Notificación del sistema
+  if (window.Notification && Notification.permission === 'granted') {
+    new Notification('¡Faltan menos de 300 metros!', {
+      body: 'Prepárate para descender en tu destino.',
+      icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png' // ícono de bus
+    });
+  } else if (window.Notification && Notification.permission !== 'denied') {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        new Notification('¡Faltan menos de 300 metros!', {
+          body: 'Prepárate para descender en tu destino.',
+          icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
+        });
+      }
+    });
+  }
+  // Vibración si es móvil
+  if (navigator.vibrate) {
+    navigator.vibrate([400, 200, 400]);
+  }
+}
 </script>
 </body>
 </html> 

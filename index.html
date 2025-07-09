@@ -2962,16 +2962,7 @@
             // Alarma a 300m
             if (!realTrackingAlarmaActivada && distRestante <= 300 && distRestante > 30) {
               realTrackingAlarmaActivada = true;
-              let alarmaDiv = document.getElementById('realTrackingAlarma300m');
-              if (!alarmaDiv) {
-                alarmaDiv = document.createElement('div');
-                alarmaDiv.id = 'realTrackingAlarma300m';
-                alarmaDiv.style = 'position:fixed;top:30px;left:50%;transform:translateX(-50%);background:#ff4136;color:#fff;font-size:1.5rem;font-weight:bold;padding:18px 36px;border-radius:16px;z-index:2000;box-shadow:0 4px 24px rgba(255,65,54,0.25);animation:parpadeoAlarma 1s infinite;';
-                alarmaDiv.innerHTML = '🚨 ¡Faltan menos de 300 metros para llegar a tu destino! 🚨';
-                document.body.appendChild(alarmaDiv);
-              } else {
-                alarmaDiv.style.display = 'block';
-              }
+              mostrarAlertaProximidad();
               // Sonido: beep simple
               try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -3298,5 +3289,46 @@
     localStorage.removeItem('tuguia_end');
     localStorage.removeItem('tuguia_start_mode');
     localStorage.removeItem('tuguia_end_mode');
+
+    // Al final del archivo, agregar la función si no existe:
+    <script>
+    function mostrarAlertaProximidad() {
+      // Modal llamativo
+      let modal = document.getElementById('modal-proximidad');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-proximidad';
+        modal.style = 'display:flex;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;';
+        modal.innerHTML = `<div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
+          <div style="font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;">¡Atención!</div>
+          <div style="font-size:1.3em;color:#333;margin-bottom:1em;">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
+          <button onclick=\"this.closest('#modal-proximidad').style.display='none'\" style="font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;">Entendido</button>
+        </div>`;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = 'flex';
+      }
+      // Notificación del sistema
+      if (window.Notification && Notification.permission === 'granted') {
+        new Notification('¡Faltan menos de 300 metros!', {
+          body: 'Prepárate para descender en tu destino.',
+          icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
+        });
+      } else if (window.Notification && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(function(permission) {
+          if (permission === 'granted') {
+            new Notification('¡Faltan menos de 300 metros!', {
+              body: 'Prepárate para descender en tu destino.',
+              icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
+            });
+          }
+        });
+      }
+      // Vibración si es móvil
+      if (navigator.vibrate) {
+        navigator.vibrate([600, 200, 600, 200, 600]);
+      }
+    }
+    </script>
 </body>
 </html> 

@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             background: #f4f6fb;
-            padding-top: 110px; /* Ajusta este valor si cambias el alto del header */
+            padding-top: 0 !important;
         }
         header {
             background: #ff6600;
@@ -1218,22 +1218,30 @@
         }
         /* === HEADER STICKY (fijo arriba) y COMPACTO EN MÓVILES (ajuste fuerte) === */
         #headerTitle {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          z-index: 9999;
+          /* height, min-height, max-height, display, align-items, justify-content, background, color, box-shadow, padding conservados */
+          height: 4.5vh;
+          min-height: 34px;
+          max-height: 63px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           background: #ff6600;
           color: #fff;
           box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+          padding: 0 0.45rem;
+          /* position: fixed; */
+          /* top: 0; */
+          /* left: 0; */
+          /* width: 100vw; */
+          /* z-index: 9999; */
         }
         @media (max-width: 600px) {
           #headerTitle {
-            padding: 0 !important;
-            min-height: 44px !important;
-            height: 44px !important;
-            display: flex !important;
-            align-items: center !important;
+            height: 4.5vh;
+            min-height: 25px;
+            max-height: 40px;
+            padding: 0 0.27rem;
+            /* position: static; */
           }
           #headerTitle > img,
           #headerTitle img {
@@ -1250,6 +1258,45 @@
           }
           body {
             padding-top: 48px !important; /* Ajusta según el alto real del header en móvil */
+          }
+        }
+        /* === HEADER ALTO REDUCIDO AL 4.5% DEL VIEWPORT (90% del anterior) === */
+        #headerTitle {
+          height: 4.5vh;
+          min-height: 34px;
+          max-height: 63px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #ff6600;
+          color: #fff;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+          padding: 0 0.45rem;
+        }
+        #headerTitle img {
+          height: 63%;
+          max-height: 34px;
+          width: auto;
+          margin-right: 9px;
+        }
+        #headerTitle span {
+          font-size: 0.99rem;
+          line-height: 1.1;
+        }
+        @media (max-width: 600px) {
+          #headerTitle {
+            height: 4.5vh;
+            min-height: 25px;
+            max-height: 40px;
+            padding: 0 0.27rem;
+          }
+          #headerTitle img {
+            max-height: 25px;
+            height: 63%;
+            margin-right: 5px;
+          }
+          #headerTitle span {
+            font-size: 0.86rem;
           }
         }
     </style>

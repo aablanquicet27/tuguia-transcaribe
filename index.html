@@ -2649,14 +2649,11 @@
     });
     function guardarPuntosEnLocalStorage() {
       console.log('💾 Guardando puntos en localStorage...');
-      
       // Obtener el modo seleccionado para el punto de partida
       const startMode = document.querySelector('input[name="startMode"]:checked')?.value || 'ubicacion';
       const endMode = document.querySelector('input[name="endMode"]:checked')?.value || 'direccion';
-      
       let startValue = '';
       let endValue = '';
-      
       // Procesar punto de partida según el modo
       if (startMode === 'ubicacion') {
         const startUbicacionInput = document.getElementById('startUbicacionInput');
@@ -2668,14 +2665,12 @@
         const startParaderoSelect = document.getElementById('startParaderoSelect');
         const selectedOption = startParaderoSelect?.selectedOptions[0];
         if (selectedOption) {
-          const nombre = selectedOption.textContent;
-          const coords = selectedOption.value.split(',').map(Number);
-          startValue = JSON.stringify({ nombre, coords });
+          const paradero = JSON.parse(selectedOption.value);
+          startValue = JSON.stringify(paradero);
         } else {
           startValue = '';
         }
       }
-      
       // Procesar punto destino según el modo
       if (endMode === 'direccion') {
         const endDireccionInput = document.getElementById('endDireccionInput');
@@ -2684,14 +2679,12 @@
         const endParaderoSelect = document.getElementById('endParaderoSelect');
         const selectedOption = endParaderoSelect?.selectedOptions[0];
         if (selectedOption) {
-          const nombre = selectedOption.textContent;
-          const coords = selectedOption.value.split(',').map(Number);
-          endValue = JSON.stringify({ nombre, coords });
+          const paradero = JSON.parse(selectedOption.value);
+          endValue = JSON.stringify(paradero);
         } else {
           endValue = '';
         }
       }
-      
       // Si tenemos marcadores en el mapa, usar sus coordenadas
       if (window.startMarker && !startValue) {
         const startLatLng = window.startMarker.getLatLng();
@@ -2701,11 +2694,9 @@
         const endLatLng = window.endMarker.getLatLng();
         endValue = `${endLatLng.lat}, ${endLatLng.lng}`;
       }
-      
       // Guardar en localStorage
       localStorage.setItem('tuguia_start', startValue);
       localStorage.setItem('tuguia_end', endValue);
-      
       if (startValue) {
         localStorage.setItem('tuguia_start_mode', startMode);
       }

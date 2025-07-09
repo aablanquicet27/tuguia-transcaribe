@@ -2818,14 +2818,32 @@
         .then(data => {
           // ... existente ...
           if (startParaderoSelect) {
+            startParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
+            data.forEach((p, idx) => {
+              const opt = document.createElement('option');
+              opt.value = p.nombre;
+              opt.textContent = p.nombre;
+              opt.setAttribute('data-index', idx);
+              startParaderoSelect.appendChild(opt);
+            });
             startParaderoSelect.addEventListener('change', function() {
-              const paradero = data.find(p => p.nombre === this.value);
+              const idx = this.options[this.selectedIndex].getAttribute('data-index');
+              const paradero = idx !== null ? data[parseInt(idx)] : null;
               mostrarRutasParadero(paradero, 'startRutasInfo');
             });
           }
           if (endParaderoSelect) {
+            endParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
+            data.forEach((p, idx) => {
+              const opt = document.createElement('option');
+              opt.value = p.nombre;
+              opt.textContent = p.nombre;
+              opt.setAttribute('data-index', idx);
+              endParaderoSelect.appendChild(opt);
+            });
             endParaderoSelect.addEventListener('change', function() {
-              const paradero = data.find(p => p.nombre === this.value);
+              const idx = this.options[this.selectedIndex].getAttribute('data-index');
+              const paradero = idx !== null ? data[parseInt(idx)] : null;
               mostrarRutasParadero(paradero, 'endRutasInfo');
             });
           }

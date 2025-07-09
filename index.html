@@ -1868,17 +1868,21 @@
         startParaderoSelect.addEventListener('change', function() {
           if (this.value) {
             const paradero = JSON.parse(this.value);
-            localStorage.setItem('tuguia_start', JSON.stringify(paradero));
-            // Crear marcador en el mapa
-            if (window.startMarker) map.removeLayer(window.startMarker);
-            window.startMarker = L.marker(paradero.coords, {
-              icon: L.icon({
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32]
-              })
-            }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
-            map.setView(paradero.coords, 15);
+            if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
+              localStorage.setItem('tuguia_start', JSON.stringify(paradero));
+              // Crear marcador en el mapa
+              if (window.startMarker) map.removeLayer(window.startMarker);
+              window.startMarker = L.marker(paradero.coords, {
+                icon: L.icon({
+                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                  iconSize: [32, 32],
+                  iconAnchor: [16, 32]
+                })
+              }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
+              map.setView(paradero.coords, 15);
+            } else {
+              alert('Error: El paradero seleccionado no tiene coordenadas válidas.');
+            }
           }
         });
       }
@@ -1887,20 +1891,24 @@
         endParaderoSelect.addEventListener('change', function() {
           if (this.value) {
             const paradero = JSON.parse(this.value);
-            // Limpiar el input de dirección de destino
-            const endDireccionInput = document.getElementById('endDireccionInput');
-            if (endDireccionInput) endDireccionInput.value = '';
-            localStorage.setItem('tuguia_end', JSON.stringify(paradero));
-            // Crear marcador en el mapa
-            if (window.endMarker) map.removeLayer(window.endMarker);
-            window.endMarker = L.marker(paradero.coords, {
-              icon: L.icon({
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32]
-              })
-            }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
-            map.setView(paradero.coords, 15);
+            if (paradero && Array.isArray(paradero.coords) && paradero.coords.length === 2 && paradero.coords.every(Number.isFinite)) {
+              // Limpiar el input de dirección de destino
+              const endDireccionInput = document.getElementById('endDireccionInput');
+              if (endDireccionInput) endDireccionInput.value = '';
+              localStorage.setItem('tuguia_end', JSON.stringify(paradero));
+              // Crear marcador en el mapa
+              if (window.endMarker) map.removeLayer(window.endMarker);
+              window.endMarker = L.marker(paradero.coords, {
+                icon: L.icon({
+                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png',
+                  iconSize: [32, 32],
+                  iconAnchor: [16, 32]
+                })
+              }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
+              map.setView(paradero.coords, 15);
+            } else {
+              alert('Error: El paradero seleccionado no tiene coordenadas válidas.');
+            }
           }
         });
       }

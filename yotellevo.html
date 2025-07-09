@@ -427,10 +427,22 @@
             .slice(0, 3);
         }
         let html = '';
+        let chipOrigen = '';
+        if (startMode === 'paradero' && start) {
+          try {
+            const obj = typeof start === 'string' ? JSON.parse(start) : start;
+            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:16px;padding:6px 18px;font-size:1em;box-shadow:0 1px 4px #6b46c122;margin-bottom:6px;">📍 Paradero: ${obj.nombre}</span>`;
+          } catch(e) {}
+        } else if (start) {
+          try {
+            const obj = typeof start === 'string' ? JSON.parse(start) : start;
+            chipOrigen = `<span style="display:inline-block;background:#f3f0ff;color:#6b46c1;font-weight:600;border-radius:16px;padding:6px 18px;font-size:1em;box-shadow:0 1px 4px #6b46c122;margin-bottom:6px;">📍 ${obj.nombre}</span>`;
+          } catch(e) {}
+        }
         if (paraderosOrigen.length === 0) {
           html = '<b>No hay paraderos de Transcaribe cercanos a tu punto de partida.</b><br>Puedes considerar usar otro medio de transporte.';
         } else {
-          html = '<b>Paraderos cercanos a tu punto de partida:</b><ul>' + paraderosOrigen.map((p, idx) => {
+          html = '<b>Paraderos cercanos a tu punto de partida:</b>' + (chipOrigen ? `<div>${chipOrigen}</div>` : '') + '<ul>' + paraderosOrigen.map((p, idx) => {
             let liStyle = idx === 0 ? 'background:#e6ffe6;border-left:5px solid #1ca12d;padding:0.5em 0.5em 0.5em 1em;margin-bottom:0.5em;' : '';
             return `<li style="${liStyle}"><b>${p.nombre}</b> (${p.dist.toFixed(0)} m) <br>Rutas: ${(Array.isArray(p.rutas) && p.rutas.length ? p.rutas.join(', ') : 'Sin rutas')}</li>`;
           }).join('') + '</ul>';
@@ -488,7 +500,19 @@
             .sort((a, b) => a.dist - b.dist)
             .slice(0, 3);
         }
-        let paraderosHtml = '<b><span style="color:#006400">Paraderos más cercanos a tu destino:</span></b><ul id="lista-paraderos-destino"></ul>';
+        let chipDestino = '';
+        if (endMode === 'paradero' && end) {
+          try {
+            const obj = typeof end === 'string' ? JSON.parse(end) : end;
+            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:16px;padding:6px 18px;font-size:1em;box-shadow:0 1px 4px #ff980022;margin-bottom:6px;">🎯 Paradero: ${obj.nombre}</span>`;
+          } catch(e) {}
+        } else if (end) {
+          try {
+            const obj = typeof end === 'string' ? JSON.parse(end) : end;
+            chipDestino = `<span style="display:inline-block;background:#fffbe6;color:#b36b00;font-weight:600;border-radius:16px;padding:6px 18px;font-size:1em;box-shadow:0 1px 4px #ff980022;margin-bottom:6px;">🎯 ${obj.nombre}</span>`;
+          } catch(e) {}
+        }
+        let paraderosHtml = '<b><span style="color:#006400">Paraderos más cercanos a tu destino:</span></b>' + (chipDestino ? `<div>${chipDestino}</div>` : '') + '<ul id="lista-paraderos-destino"></ul>';
         document.getElementById('info-ruta').innerHTML = paraderosHtml;
         if (paraderosDestino.length === 0) {
           document.getElementById('lista-paraderos-destino').innerHTML = '<li>No hay paraderos de Transcaribe cercanos a tu destino. Prueba ampliando el radio de búsqueda o selecciona otro destino.</li>';
@@ -615,7 +639,8 @@
         
         // Función para obtener y mostrar rutas caminando
         async function obtenerRutaCaminando(origen, destino, mapa, color, weight = 3, opacity = 0.8, tipo = 'origen') {
-          // DIBUJO FORZADO DE LÍNEA RECTA CON FLECHA PARA DEPURACIÓN
+          // Forzar color morado oscuro si el color es azul
+          if (color === '#007bff' || color === 'blue') color = '#6b46c1';
           const polyline = L.polyline([origen, destino], {
             color: color,
             weight: weight,
@@ -630,9 +655,9 @@
                   offset: '50%',
                   repeat: 0,
                   symbol: L.Symbol.arrowHead({
-                    pixelSize: 18,
+                    pixelSize: 28, // más grande para visibilidad
                     polygon: false,
-                    pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 0.9}
+                    pathOptions: {stroke: true, color: color, weight: weight + 2, opacity: 1}
                   })
                 }
               ]

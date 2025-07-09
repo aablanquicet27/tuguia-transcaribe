@@ -1959,22 +1959,7 @@
       }
 
       // Refuerzo: Si se selecciona un paradero, siempre se guarda el objeto con coords
-      if (startParaderoSelect) {
-        startParaderoSelect.addEventListener('change', function() {
-          if (this.value) {
-            const paradero = JSON.parse(this.value);
-            localStorage.setItem('tuguia_start', JSON.stringify(paradero));
-          }
-        });
-      }
-      if (endParaderoSelect) {
-        endParaderoSelect.addEventListener('change', function() {
-          if (this.value) {
-            const paradero = JSON.parse(this.value);
-            localStorage.setItem('tuguia_end', JSON.stringify(paradero));
-          }
-        });
-      }
+      
     });
     
     // =================== INICIALIZACIÓN ===================

@@ -2693,7 +2693,21 @@
       // Procesar punto de partida según el modo
       if (startMode === 'ubicacion') {
         const startUbicacionInput = document.getElementById('startUbicacionInput');
-        startValue = startUbicacionInput?.value || '';
+        const nombre = startUbicacionInput?.value || '';
+        // Intentar obtener coords de tuguia_start_coords
+        let coords = null;
+        const coordsStr = localStorage.getItem('tuguia_start_coords');
+        if (coordsStr) {
+          const parts = coordsStr.split(',').map(Number);
+          if (parts.length === 2 && parts.every(Number.isFinite)) {
+            coords = parts;
+          }
+        }
+        if (coords) {
+          startValue = JSON.stringify({ nombre, coords });
+        } else {
+          startValue = nombre;
+        }
       } else if (startMode === 'direccion') {
         const startDireccionInput = document.getElementById('startDireccionInput');
         startValue = startDireccionInput?.value || '';

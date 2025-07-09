@@ -2182,20 +2182,22 @@
               input.value = direccion;
               // Guardar coordenadas en localStorage para uso interno
               localStorage.setItem('tuguia_start_coords', `${lat}, ${lon}`);
+              // === MODIFICADO: Guardar objeto con nombre y coords ===
+              if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
+                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
+              }
             } else {
               input.value = 'Ubicación detectada';
-            }
-            // Guarda en localStorage si el modo seleccionado es ubicación
-            if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-              localStorage.setItem('tuguia_start', input.value);
+              if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
+                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: 'Ubicación detectada', coords: [parseFloat(lat), parseFloat(lon)] }));
+              }
             }
           })
           .catch(error => {
             console.error('Error obteniendo dirección:', error);
             input.value = 'Ubicación detectada';
-            // Guarda en localStorage si el modo seleccionado es ubicación
             if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-              localStorage.setItem('tuguia_start', input.value);
+              localStorage.setItem('tuguia_start', JSON.stringify({ nombre: 'Ubicación detectada', coords: [parseFloat(lat), parseFloat(lon)] }));
             }
           });
       }, function(error) {

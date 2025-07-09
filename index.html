@@ -3164,5 +3164,134 @@
       }
     });
     </script>
+    // === CONTROL DE ESTADO DEL BOTÓN '¡Yo te llevo!' ===
+    function tieneCoordsValidas(key) {
+      try {
+        const val = localStorage.getItem(key);
+        const obj = JSON.parse(val);
+        return obj && Array.isArray(obj.coords) && obj.coords.length === 2 && obj.coords.every(Number.isFinite);
+      } catch (e) { return false; }
+    }
+    function actualizarEstadoBotonYoTeLlevo() {
+      const btn = document.querySelector('a[href="yotellevo.html"] > button');
+      if (!btn) return;
+      const startOK = tieneCoordsValidas('tuguia_start');
+      const endOK = tieneCoordsValidas('tuguia_end');
+      if (startOK && endOK) {
+        btn.disabled = false;
+        btn.textContent = '¡Yo te llevo!';
+        btn.style.opacity = '';
+        btn.style.cursor = '';
+      } else {
+        btn.disabled = true;
+        btn.textContent = 'Procesando dirección...';
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
+      }
+    }
+    // Llama esto al cargar y tras cada cambio relevante
+    setTimeout(actualizarEstadoBotonYoTeLlevo, 300);
+    // ...
+    if (startDireccionInput) {
+      let geocodificandoOrigen = false;
+      function geocodificarOrigen() {
+        const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
+        if (startDireccionInput.value.trim() && startMode === 'direccion') {
+          const direccion = startDireccionInput.value.trim();
+          geocodificandoOrigen = true;
+          actualizarEstadoBotonYoTeLlevo();
+          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
+              } else {
+                localStorage.setItem('tuguia_start', direccion);
+                alert('No se pudo encontrar la dirección de origen. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
+              }
+            })
+            .catch(() => {
+              localStorage.setItem('tuguia_start', direccion);
+              alert('Ocurrió un error al buscar la dirección de origen. Intenta de nuevo o selecciona una dirección de la lista.');
+            })
+            .finally(() => {
+              geocodificandoOrigen = false;
+              setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+            });
+        } else {
+          setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+        }
+      }
+      startDireccionInput.addEventListener('blur', geocodificarOrigen);
+      startDireccionInput.addEventListener('input', function() {
+        setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+      });
+      startDireccionInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          geocodificarOrigen();
+          e.preventDefault();
+        }
+      });
+    }
+    if (endDireccionInput) {
+      let geocodificandoDestino = false;
+      function geocodificarDestino() {
+        const endMode = document.querySelector('input[name="endMode"]:checked')?.value;
+        if (endDireccionInput.value.trim() && endMode === 'direccion') {
+          const direccion = endDireccionInput.value.trim();
+          geocodificandoDestino = true;
+          actualizarEstadoBotonYoTeLlevo();
+          fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                localStorage.setItem('tuguia_end', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
+              } else {
+                localStorage.setItem('tuguia_end', direccion);
+                alert('No se pudo encontrar la dirección de destino. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
+              }
+            })
+            .catch(() => {
+              localStorage.setItem('tuguia_end', direccion);
+              alert('Ocurrió un error al buscar la dirección de destino. Intenta de nuevo o selecciona una dirección de la lista.');
+            })
+            .finally(() => {
+              geocodificandoDestino = false;
+              setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+            });
+        } else {
+          setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+        }
+      }
+      endDireccionInput.addEventListener('blur', geocodificarDestino);
+      endDireccionInput.addEventListener('input', function() {
+        setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+      });
+      endDireccionInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          geocodificarDestino();
+          e.preventDefault();
+        }
+      });
+    }
+    // ...
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(actualizarEstadoBotonYoTeLlevo, 400);
+      // ...
+      // También actualiza el estado del botón cuando cambian los radios o selects
+      const radios = document.querySelectorAll('input[name="startMode"], input[name="endMode"]');
+      radios.forEach(radio => radio.addEventListener('change', function() {
+        setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+      }));
+      const selects = [document.getElementById('startParaderoSelect'), document.getElementById('endParaderoSelect')];
+      selects.forEach(sel => sel && sel.addEventListener('change', function() {
+        setTimeout(actualizarEstadoBotonYoTeLlevo, 200);
+      }));
+    });
+    // ...
 </body>
 </html> 

@@ -2724,7 +2724,20 @@
       // Procesar punto destino según el modo
       if (endMode === 'direccion') {
         const endDireccionInput = document.getElementById('endDireccionInput');
-        endValue = endDireccionInput?.value || '';
+        const nombre = endDireccionInput?.value || '';
+        let endLS = localStorage.getItem('tuguia_end');
+        let isObjWithCoords = false;
+        try {
+          const obj = JSON.parse(endLS);
+          if (obj && Array.isArray(obj.coords) && obj.coords.length === 2 && obj.coords.every(Number.isFinite)) {
+            isObjWithCoords = true;
+          }
+        } catch (e) {}
+        if (isObjWithCoords) {
+          endValue = endLS;
+        } else {
+          endValue = nombre;
+        }
       } else if (endMode === 'paradero') {
         const endParaderoSelect = document.getElementById('endParaderoSelect');
         const selectedOption = endParaderoSelect?.selectedOptions[0];

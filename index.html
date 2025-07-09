@@ -1342,7 +1342,7 @@
         ¿No sabes como llegar?
       </div>
       <a href="yotellevo.html" style="text-decoration: none;" onclick="guardarPuntosEnLocalStorage()">
-        <button style="background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%); color: white; border: none; border-radius: 12px; padding: 8px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: background 0.2s;">¡Yo te llevo!</button>
+        <button id="yoTeLlevoBtn" style="background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%); color: white; border: none; border-radius: 12px; padding: 8px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: background 0.2s;">¡Yo te llevo!</button>
       </a>
     </div>
     
@@ -3173,7 +3173,7 @@
       } catch (e) { return false; }
     }
     function actualizarEstadoBotonYoTeLlevo() {
-      const btn = document.querySelector('a[href="yotellevo.html"] > button');
+      const btn = document.getElementById('yoTeLlevoBtn');
       if (!btn) return;
       const startOK = tieneCoordsValidas('tuguia_start');
       const endOK = tieneCoordsValidas('tuguia_end');

@@ -679,6 +679,7 @@
     function inicializarAutocompletado(inputId, sugerenciasId, storageKey) {
       const input = document.getElementById(inputId);
       const sugerencias = document.getElementById(sugerenciasId);
+      if (!input || !sugerencias) return;
       input.addEventListener('input', function() {
         const texto = input.value.toLowerCase();
         sugerencias.innerHTML = '';

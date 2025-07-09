@@ -589,6 +589,7 @@
               // Ajustar vista para mostrar todos los puntos
               const bounds = L.latLngBounds([startCoords, ...paraderosOrigen.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaOrigen.fitBounds(bounds, { padding: [20, 20] });
+              insertarLeyendaMapa('mapa-origen');
             }
             
             // Crear mapa para paraderos de destino
@@ -631,6 +632,7 @@
               // Ajustar vista para mostrar todos los puntos
               const bounds = L.latLngBounds([endCoords, ...paraderosDestino.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaDestino.fitBounds(bounds, { padding: [20, 20] });
+              insertarLeyendaMapa('mapa-destino');
             }
           } catch (error) {
             console.error('Error creando mapas:', error);

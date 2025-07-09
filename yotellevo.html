@@ -291,21 +291,32 @@
 
         // Refuerzo: Si ya existen coordenadas, úsalas directamente y no busques ni geocodifiques
         if (!startCoords || !endCoords) {
+          console.error('❌ Coordenadas faltantes:', { startCoords, endCoords });
           document.getElementById('info-paraderos').innerHTML = '<b>No se pudo obtener las coordenadas del punto de partida o destino.</b><br>Por favor, selecciona ambos puntos en el mapa o en la lista.';
           document.getElementById('info-ruta').innerHTML = '';
+          // Mostrar mensajes de error en los mapas también
+          document.getElementById('mensaje-error-mapa-origen').innerHTML = 'No hay coordenadas de origen disponibles.';
+          document.getElementById('mensaje-error-mapa-destino').innerHTML = 'No hay coordenadas de destino disponibles.';
           return;
         }
 
+        console.log('✅ Coordenadas válidas encontradas:', { startCoords, endCoords });
+
         // Cargar archivo GeoJSON
-        console.log('Cargando archivo GeoJSON...');
+        console.log('📁 Cargando archivo GeoJSON...');
         const response = await fetch('transcaribe_completo_actualizado.geojson');
         if (!response.ok) {
-          throw new Error(`Error HTTP: ${response.status}`);
+          throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Archivo GeoJSON cargado, features:', data.features ? data.features.length : 'undefined');
+        console.log('✅ Archivo GeoJSON cargado, features:', data.features ? data.features.length : 'undefined');
+        
+        if (!data.features || data.features.length === 0) {
+          throw new Error('El archivo GeoJSON no contiene features válidas');
+        }
 
         // Filtrar solo paraderos oficiales de Transcaribe
+        console.log('🔍 Filtrando paraderos de Transcaribe...');
         let paraderos = data.features.filter(f => {
           if (!f || !f.geometry || !f.properties) return false;
           if (f.geometry.type !== 'Point') return false;
@@ -375,7 +386,13 @@
           }
         }).filter(f => f !== null);
 
+        console.log('✅ Paraderos filtrados encontrados:', paraderos.length);
+        if (paraderos.length === 0) {
+          console.warn('⚠️ No se encontraron paraderos válidos en el archivo GeoJSON');
+        }
+
         // Buscar paraderos cercanos al origen con lógica avanzada
+        console.log('📍 Buscando paraderos cercanos al origen...');
         // 1. (Opcional) Filtrar por vía y sentido si la información está disponible en el GeoJSON
         // Por ejemplo: f.via === viaOrigen && f.sentido === sentidoOrigen
         // Si tu GeoJSON tiene campos como 'via' o 'sentido', descomenta y ajusta:
@@ -403,6 +420,8 @@
         .filter(p => p.dist <= 500)
         .sort((a, b) => a.dist - b.dist)
         .slice(0, 3); // <-- Mostrar solo los 3 más cercanos dentro del radio
+
+        console.log('📍 Paraderos cercanos al origen encontrados:', paraderosOrigen.length);
 
         // Si no hay paraderos válidos, mostrar los 3 más cercanos aunque estén fuera del radio
         if (paraderosOrigen.length === 0) {
@@ -450,6 +469,7 @@
         document.getElementById('info-paraderos').innerHTML = html;
 
         // Buscar paraderos cercanos al destino con lógica avanzada
+        console.log('🎯 Buscando paraderos cercanos al destino...');
         // 1. (Opcional) Filtrar por vía y sentido si la información está disponible en el GeoJSON
         // Por ejemplo: f.via === viaDestino && f.sentido === sentidoDestino
         // Si tu GeoJSON tiene campos como 'via' o 'sentido', descomenta y ajusta:
@@ -477,6 +497,8 @@
         .filter(p => p.dist <= 500)
         .sort((a, b) => a.dist - b.dist)
         .slice(0, 3); // <-- Mostrar solo los 3 más cercanos dentro del radio
+
+        console.log('🎯 Paraderos cercanos al destino encontrados:', paraderosDestino.length);
 
         // Si no hay paraderos válidos, mostrar los 3 más cercanos aunque estén fuera del radio
         if (paraderosDestino.length === 0) {
@@ -548,6 +570,7 @@
         // Función para crear mapas de paraderos cercanos
         async function crearMapasParaderos(paraderosOrigen, paraderosDestino) {
           try {
+            console.log('🗺️ Creando mapa de origen con', paraderosOrigen ? paraderosOrigen.length : 0, 'paraderos');
             // Crear mapa para paraderos de origen
             if (paraderosOrigen && paraderosOrigen.length > 0) {
               const mapaOrigen = L.map('mapa-origen').setView(startCoords, 15);
@@ -590,8 +613,13 @@
               const bounds = L.latLngBounds([startCoords, ...paraderosOrigen.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaOrigen.fitBounds(bounds, { padding: [20, 20] });
               insertarLeyendaMapa('mapa-origen');
+            } else {
+              // Mostrar mensaje de error si no hay paraderos de origen
+              console.warn('⚠️ No hay paraderos de origen para mostrar en el mapa');
+              document.getElementById('mensaje-error-mapa-origen').innerHTML = 'No se encontraron paraderos cercanos al punto de partida.';
             }
             
+            console.log('🗺️ Creando mapa de destino con', paraderosDestino ? paraderosDestino.length : 0, 'paraderos');
             // Crear mapa para paraderos de destino
             if (paraderosDestino && paraderosDestino.length > 0) {
               const mapaDestino = L.map('mapa-destino').setView(endCoords, 15);
@@ -633,10 +661,56 @@
               const bounds = L.latLngBounds([endCoords, ...paraderosDestino.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaDestino.fitBounds(bounds, { padding: [20, 20] });
               insertarLeyendaMapa('mapa-destino');
+            } else {
+              // Mostrar mensaje de error si no hay paraderos de destino
+              console.warn('⚠️ No hay paraderos de destino para mostrar en el mapa');
+              document.getElementById('mensaje-error-mapa-destino').innerHTML = 'No se encontraron paraderos cercanos al punto de destino.';
             }
           } catch (error) {
             console.error('Error creando mapas:', error);
+            document.getElementById('mensaje-error-mapa-origen').innerHTML = 'Error al cargar el mapa de origen: ' + error.message;
+            document.getElementById('mensaje-error-mapa-destino').innerHTML = 'Error al cargar el mapa de destino: ' + error.message;
           }
+        }
+        
+        // Función para insertar leyenda en el mapa
+        function insertarLeyendaMapa(containerId) {
+          const container = document.getElementById(containerId);
+          if (!container) return;
+          
+          const leyenda = document.createElement('div');
+          leyenda.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 12px;
+            z-index: 1000;
+            max-width: 150px;
+          `;
+          leyenda.innerHTML = `
+            <div style="margin-bottom: 5px;"><strong>Leyenda:</strong></div>
+            <div style="display: flex; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 20px; margin-right: 5px;">📍</span>
+              <span>Tu ubicación</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 20px; margin-right: 5px;">🎯</span>
+              <span>Tu destino</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 20px; margin-right: 5px;">🚌</span>
+              <span>Paradero</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 20px; height: 3px; background: #1ca12d; margin-right: 5px;"></div>
+              <span>Ruta caminando</span>
+            </div>
+          `;
+          container.appendChild(leyenda);
         }
         
         // Función para obtener y mostrar rutas caminando
@@ -668,7 +742,21 @@
         }
         
         // Crear mapas de paraderos cercanos
+        console.log('🗺️ Iniciando creación de mapas...');
         await crearMapasParaderos(paraderosOrigen, paraderosDestino);
+        console.log('✅ Mapas creados exitosamente');
+        
+        // Forzar redibujado de mapas después de un breve delay
+        setTimeout(() => {
+          const mapaOrigen = document.getElementById('mapa-origen');
+          const mapaDestino = document.getElementById('mapa-destino');
+          if (mapaOrigen && mapaOrigen._leaflet_map) {
+            mapaOrigen._leaflet_map.invalidateSize();
+          }
+          if (mapaDestino && mapaDestino._leaflet_map) {
+            mapaDestino._leaflet_map.invalidateSize();
+          }
+        }, 500);
         
       } catch (error) {
         document.getElementById('info-paraderos').innerHTML = '<b>Error procesando la información:</b> ' + error.message;
@@ -800,6 +888,57 @@ function mostrarAlertaProximidad() {
     navigator.vibrate([400, 200, 400]);
   }
 }
-</script>
+    </script>
+    <script>
+    // Script adicional para asegurar que los mapas se carguen correctamente
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar que los contenedores de mapas existan
+      const mapaOrigen = document.getElementById('mapa-origen');
+      const mapaDestino = document.getElementById('mapa-destino');
+      
+      if (mapaOrigen) {
+        console.log('✅ Contenedor mapa-origen encontrado');
+      } else {
+        console.error('❌ Contenedor mapa-origen no encontrado');
+      }
+      
+      if (mapaDestino) {
+        console.log('✅ Contenedor mapa-destino encontrado');
+      } else {
+        console.error('❌ Contenedor mapa-destino no encontrado');
+      }
+      
+      // Verificar que Leaflet esté disponible
+      if (typeof L !== 'undefined') {
+        console.log('✅ Leaflet cargado correctamente');
+      } else {
+        console.error('❌ Leaflet no está disponible');
+      }
+    });
+    
+    // Función para forzar el redibujado de mapas
+    function redibujarMapas() {
+      const mapaOrigen = document.getElementById('mapa-origen');
+      const mapaDestino = document.getElementById('mapa-destino');
+      
+      if (mapaOrigen && mapaOrigen._leaflet_map) {
+        mapaOrigen._leaflet_map.invalidateSize();
+        console.log('🔄 Mapa de origen redibujado');
+      }
+      
+      if (mapaDestino && mapaDestino._leaflet_map) {
+        mapaDestino._leaflet_map.invalidateSize();
+        console.log('🔄 Mapa de destino redibujado');
+      }
+    }
+    
+    // Redibujar mapas cuando la ventana cambie de tamaño
+    window.addEventListener('resize', redibujarMapas);
+    
+    // Redibujar mapas después de que la página se cargue completamente
+    window.addEventListener('load', function() {
+      setTimeout(redibujarMapas, 1000);
+    });
+    </script>
 </body>
 </html> 

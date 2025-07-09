@@ -1943,6 +1943,7 @@
           const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
           if (this.value.trim() && startMode === 'direccion') {
             const direccion = this.value.trim();
+            console.log('🔍 Buscando coordenadas para origen:', direccion);
             // Geocodificar la dirección usando Nominatim
             fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
               .then(res => res.json())
@@ -1950,15 +1951,18 @@
                 if (data.length > 0) {
                   const lat = parseFloat(data[0].lat);
                   const lon = parseFloat(data[0].lon);
+                  console.log('✅ Coordenadas encontradas para origen:', [lat, lon]);
                   localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
                 } else {
-                  // Si no se encuentra, guarda solo el texto
+                  console.warn('❌ No se encontraron coordenadas para origen:', direccion);
                   localStorage.setItem('tuguia_start', direccion);
+                  alert('No se pudo encontrar la dirección de origen. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
                 }
               })
               .catch(() => {
-                // Si hay error, guarda solo el texto
+                console.error('❌ Error al buscar coordenadas para origen:', direccion);
                 localStorage.setItem('tuguia_start', direccion);
+                alert('Ocurrió un error al buscar la dirección de origen. Intenta de nuevo o selecciona una dirección de la lista.');
               });
           }
         });
@@ -1971,6 +1975,7 @@
           const endMode = document.querySelector('input[name="endMode"]:checked')?.value;
           if (this.value.trim() && endMode === 'direccion') {
             const direccion = this.value.trim();
+            console.log('🔍 Buscando coordenadas para destino:', direccion);
             // Geocodificar la dirección usando Nominatim
             fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
               .then(res => res.json())
@@ -1978,15 +1983,18 @@
                 if (data.length > 0) {
                   const lat = parseFloat(data[0].lat);
                   const lon = parseFloat(data[0].lon);
+                  console.log('✅ Coordenadas encontradas para destino:', [lat, lon]);
                   localStorage.setItem('tuguia_end', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
                 } else {
-                  // Si no se encuentra, guarda solo el texto
+                  console.warn('❌ No se encontraron coordenadas para destino:', direccion);
                   localStorage.setItem('tuguia_end', direccion);
+                  alert('No se pudo encontrar la dirección de destino. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
                 }
               })
               .catch(() => {
-                // Si hay error, guarda solo el texto
+                console.error('❌ Error al buscar coordenadas para destino:', direccion);
                 localStorage.setItem('tuguia_end', direccion);
+                alert('Ocurrió un error al buscar la dirección de destino. Intenta de nuevo o selecciona una dirección de la lista.');
               });
           }
         });

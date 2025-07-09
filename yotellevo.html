@@ -181,6 +181,7 @@
             <h3 class="map-title">🗺️ Paraderos cercanos a tu Punto de Partida</h3>
             <p class="map-subtitle">Ruta caminando</p>
             <div id="mapa-origen" class="map-area"></div>
+            <div id="mensaje-error-mapa-origen" style="color:#b94a48;font-weight:600;text-align:center;margin-top:0.5em;"></div>
         </div>
         
         <!-- CONTENEDOR MAPA PARADEROS CERCANOS AL PUNTO DESTINO -->
@@ -188,6 +189,7 @@
             <h3 class="map-title">🎯 Paraderos cercanos a tu Punto Destino</h3>
             <p class="map-subtitle">Ruta caminando</p>
             <div id="mapa-destino" class="map-area"></div>
+            <div id="mensaje-error-mapa-destino" style="color:#b94a48;font-weight:600;text-align:center;margin-top:0.5em;"></div>
         </div>
     </div>
     
@@ -388,11 +390,10 @@
             id: f.id
           };
         })
-        // 3. Ignorar paraderos a menos de 50 metros del origen (en la misma vía y sentido)
         .filter(p => p.dist >= 50)
-        // 4. Solo considerar paraderos dentro de 500 metros
         .filter(p => p.dist <= 500)
-        .sort((a, b) => a.dist - b.dist);
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, 3); // <-- Mostrar solo los 3 más cercanos dentro del radio
 
         // Si no hay paraderos válidos, mostrar los 3 más cercanos aunque estén fuera del radio
         if (paraderosOrigen.length === 0) {
@@ -451,11 +452,10 @@
             id: f.id
           };
         })
-        // 3. Ignorar paraderos a menos de 50 metros del destino (en la misma vía y sentido)
         .filter(p => p.dist >= 50)
-        // 4. Solo considerar paraderos dentro de 500 metros
         .filter(p => p.dist <= 500)
-        .sort((a, b) => a.dist - b.dist);
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, 3); // <-- Mostrar solo los 3 más cercanos dentro del radio
 
         // Si no hay paraderos válidos, mostrar los 3 más cercanos aunque estén fuera del radio
         if (paraderosDestino.length === 0) {

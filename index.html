@@ -1334,7 +1334,7 @@
     <div class="controls" style="justify-content: center; gap: 1rem;">
         <button id="startRoute" class="btn-primary">Iniciar recorrido</button>
         <button id="clearRoute" class="btn-secondary">Limpiar ruta</button>
-        <button id="clearLocalStorageBtn" class="btn-secondary" style="background:#e74c3c;color:#fff;">Limpiar datos guardados</button>
+        <!-- <button id="clearLocalStorageBtn" class="btn-secondary" style="background:#e74c3c;color:#fff;">Limpiar datos guardados</button> -->
     </div>
     <!-- Contenedor minimalista ¿No sabes como llegar? -->
     <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 10px;">
@@ -3293,5 +3293,10 @@
       }));
     });
     // ...
+    // Limpieza automática de datos de ruta al cargar index.html
+    localStorage.removeItem('tuguia_start');
+    localStorage.removeItem('tuguia_end');
+    localStorage.removeItem('tuguia_start_mode');
+    localStorage.removeItem('tuguia_end_mode');
 </body>
 </html> 

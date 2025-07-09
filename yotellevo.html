@@ -707,5 +707,20 @@
 <footer class="footer-agapai">
   Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const volverBtn = document.getElementById('volverAGuiaBtn');
+  if (volverBtn) {
+    volverBtn.addEventListener('click', function() {
+      // Limpieza automática de datos de ruta antes de volver
+      localStorage.removeItem('tuguia_start');
+      localStorage.removeItem('tuguia_end');
+      localStorage.removeItem('tuguia_start_mode');
+      localStorage.removeItem('tuguia_end_mode');
+      window.location.href = 'index.html';
+    });
+  }
+});
+</script>
 </body>
 </html> 

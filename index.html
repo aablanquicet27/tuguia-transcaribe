@@ -1942,7 +1942,24 @@
           // Solo guardar si el modo seleccionado es 'direccion'
           const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
           if (this.value.trim() && startMode === 'direccion') {
-            localStorage.setItem('tuguia_start', this.value.trim());
+            const direccion = this.value.trim();
+            // Geocodificar la dirección usando Nominatim
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
+              .then(res => res.json())
+              .then(data => {
+                if (data.length > 0) {
+                  const lat = parseFloat(data[0].lat);
+                  const lon = parseFloat(data[0].lon);
+                  localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
+                } else {
+                  // Si no se encuentra, guarda solo el texto
+                  localStorage.setItem('tuguia_start', direccion);
+                }
+              })
+              .catch(() => {
+                // Si hay error, guarda solo el texto
+                localStorage.setItem('tuguia_start', direccion);
+              });
           }
         });
       }
@@ -1953,7 +1970,24 @@
           // Solo guardar si el modo seleccionado es 'direccion'
           const endMode = document.querySelector('input[name="endMode"]:checked')?.value;
           if (this.value.trim() && endMode === 'direccion') {
-            localStorage.setItem('tuguia_end', this.value.trim());
+            const direccion = this.value.trim();
+            // Geocodificar la dirección usando Nominatim
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
+              .then(res => res.json())
+              .then(data => {
+                if (data.length > 0) {
+                  const lat = parseFloat(data[0].lat);
+                  const lon = parseFloat(data[0].lon);
+                  localStorage.setItem('tuguia_end', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
+                } else {
+                  // Si no se encuentra, guarda solo el texto
+                  localStorage.setItem('tuguia_end', direccion);
+                }
+              })
+              .catch(() => {
+                // Si hay error, guarda solo el texto
+                localStorage.setItem('tuguia_end', direccion);
+              });
           }
         });
       }

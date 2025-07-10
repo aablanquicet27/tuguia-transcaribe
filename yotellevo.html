@@ -168,6 +168,13 @@
         <!-- CONTENEDOR MAPA PARADEROS CERCANOS AL PUNTO DE PARTIDA -->
         <div class="map-container">
             <h3 class="map-title">🗺️ Paraderos cercanos a tu Punto de Partida</h3>
+            <div class="leyenda-horizontal" style="display:flex;gap:1.2em;align-items:center;justify-content:center;margin:10px 0 18px 0;font-size:13px;">
+              <span><strong>Leyenda:</strong></span>
+              <span>📍 Tu ubicación</span>
+              <span>🎯 Tu destino</span>
+              <span>🚌 Paradero</span>
+              <span style="display:inline-flex;align-items:center;"><span style="width:20px;height:3px;background:#1ca12d;display:inline-block;margin-right:5px;"></span>Ruta caminando</span>
+            </div>
             <p class="map-subtitle">Ruta caminando</p>
             <div id="mapa-origen" class="map-area"></div>
             <div id="mensaje-error-mapa-origen" style="color:#b94a48;font-weight:600;text-align:center;margin-top:0.5em;"></div>
@@ -176,6 +183,13 @@
         <!-- CONTENEDOR MAPA PARADEROS CERCANOS AL PUNTO DESTINO -->
         <div class="map-container">
             <h3 class="map-title">🎯 Paraderos cercanos a tu Punto Destino</h3>
+            <div class="leyenda-horizontal" style="display:flex;gap:1.2em;align-items:center;justify-content:center;margin:10px 0 18px 0;font-size:13px;">
+              <span><strong>Leyenda:</strong></span>
+              <span>📍 Tu ubicación</span>
+              <span>🎯 Tu destino</span>
+              <span>🚌 Paradero</span>
+              <span style="display:inline-flex;align-items:center;"><span style="width:20px;height:3px;background:#1ca12d;display:inline-block;margin-right:5px;"></span>Ruta caminando</span>
+            </div>
             <p class="map-subtitle">Ruta caminando</p>
             <div id="mapa-destino" class="map-area"></div>
             <div id="mensaje-error-mapa-destino" style="color:#b94a48;font-weight:600;text-align:center;margin-top:0.5em;"></div>
@@ -601,7 +615,7 @@
               // Ajustar vista para mostrar todos los puntos
               const bounds = L.latLngBounds([startCoords, ...paraderosOrigen.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaOrigen.fitBounds(bounds, { padding: [20, 20] });
-              insertarLeyendaMapa('mapa-origen');
+              // No insertar leyenda aquí, ya está en el HTML
             } else {
               // Mostrar mensaje de error si no hay paraderos de origen
               console.warn('⚠️ No hay paraderos de origen para mostrar en el mapa');
@@ -649,7 +663,7 @@
               // Ajustar vista para mostrar todos los puntos
               const bounds = L.latLngBounds([endCoords, ...paraderosDestino.slice(0, 3).map(p => [p.lat, p.lon])]);
               mapaDestino.fitBounds(bounds, { padding: [20, 20] });
-              insertarLeyendaMapa('mapa-destino');
+              // No insertar leyenda aquí, ya está en el HTML
             } else {
               // Mostrar mensaje de error si no hay paraderos de destino
               console.warn('⚠️ No hay paraderos de destino para mostrar en el mapa');

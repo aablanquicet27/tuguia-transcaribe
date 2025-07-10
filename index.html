@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             background: #f4f6fb;
-            padding-top: calc(130px + env(safe-area-inset-top, 0)) !important;
+            padding-top: 80px !important;
         }
         header {
             background: #ff6600;
@@ -1218,46 +1218,22 @@
         }
         /* === HEADER STICKY (fijo arriba) y COMPACTO EN MÓVILES (ajuste fuerte) === */
         #headerTitle {
-          /* height, min-height, max-height, display, align-items, justify-content, background, color, box-shadow, padding conservados */
-          height: 4.5vh;
-          min-height: 34px;
-          max-height: 63px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 9999;
+          padding: 1.2rem 0;
           background: #ff6600;
           color: #fff;
           box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-          padding: 0 0.45rem;
-          position: fixed;
-          top: env(safe-area-inset-top, 0);
-          left: 0;
-          width: 100vw;
-          z-index: 9999;
         }
         @media (max-width: 600px) {
           #headerTitle {
-            height: 4.5vh;
-            min-height: 25px;
-            max-height: 40px;
-            padding: 0 0.27rem;
-            position: static;
-          }
-          #headerTitle > img,
-          #headerTitle img {
-            height: 32px !important;
-            width: 32px !important;
-            padding: 2px !important;
-            margin: 0 6px !important;
-          }
-          #headerTitle span {
-            font-size: 1rem !important;
-            line-height: 1.1 !important;
-            padding: 0 !important;
-            margin: 0 !important;
+            padding: 0.7rem 0;
           }
           body {
-            padding-top: calc(60px + env(safe-area-inset-top, 0)) !important;
+            padding-top: 48px !important;
           }
         }
         /* === HEADER ALTO REDUCIDO AL 4.5% DEL VIEWPORT (90% del anterior) === */

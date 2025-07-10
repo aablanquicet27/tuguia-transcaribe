@@ -1346,11 +1346,21 @@
             margin-left: 0.05em !important;
           }
         }
+        @media (max-width: 600px) {
+          #headerTitle {
+            justify-content: flex-start !important;
+            text-align: left !important;
+            padding-left: 1em;
+          }
+          #headerTitle span {
+            margin-left: 0.05em !important;
+          }
+        }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
 </head>
 <body>
-    <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;">
+    <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:left;display:flex;align-items:center;justify-content:center;gap:12px;">
     
       <!-- <div style="height:120px;width:120px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.10);border:3px solid #fff;"> -->
      

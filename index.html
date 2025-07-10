@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             background: #f4f6fb;
-            padding-top: 130px !important;
+            padding-top: calc(130px + env(safe-area-inset-top, 0)) !important;
         }
         header {
             background: #ff6600;
@@ -1230,7 +1230,7 @@
           box-shadow: 0 2px 8px rgba(0,0,0,0.10);
           padding: 0 0.45rem;
           position: fixed;
-          top: 0;
+          top: env(safe-area-inset-top, 0);
           left: 0;
           width: 100vw;
           z-index: 9999;
@@ -1257,7 +1257,7 @@
             margin: 0 !important;
           }
           body {
-            padding-top: 60px !important;
+            padding-top: calc(60px + env(safe-area-inset-top, 0)) !important;
           }
         }
         /* === HEADER ALTO REDUCIDO AL 4.5% DEL VIEWPORT (90% del anterior) === */

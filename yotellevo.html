@@ -596,6 +596,7 @@
               // Agregar paraderos cercanos y rutas
               paraderosOrigen.slice(0, 3).forEach((paradero, index) => {
                 // Marcador del paradero
+                const color = colores[index % colores.length];
                 L.marker([paradero.lat, paradero.lon], {
                   icon: L.divIcon({
                     className: 'custom-marker',
@@ -603,10 +604,11 @@
                     iconSize: [25, 25],
                     iconAnchor: [12, 25]
                   })
-                }).addTo(mapaOrigen).bindPopup(`<b>${paradero.nombre}</b><br>Distancia: ${Math.round(paradero.dist)}m<br>Rutas: ${paradero.rutas.join(', ')}`);
+                }).addTo(mapaOrigen).bindPopup(
+                  `<div style="border-top:5px solid ${color};padding-top:4px;"><b>${paradero.nombre}</b><br>Distancia: ${Math.round(paradero.dist)}m<br>Rutas: ${paradero.rutas.join(', ')}</div>`
+                );
                 
                 // Ruta desde el punto de partida al paradero
-                const color = colores[index % colores.length];
                 const weight = index === 0 ? 6 : 3;
                 const opacity = index === 0 ? 1 : 0.7;
                 obtenerRutaCaminando(startCoords, [paradero.lat, paradero.lon], mapaOrigen, color, weight, opacity, 'origen');
@@ -644,6 +646,7 @@
               const colores = ['#1ca12d', '#007bff', '#ff6600'];
               // Agregar paraderos cercanos y rutas
               paraderosDestino.slice(0, 3).forEach((paradero, index) => {
+                const color = colores[index % colores.length];
                 L.marker([paradero.lat, paradero.lon], {
                   icon: L.divIcon({
                     className: 'custom-marker',
@@ -651,10 +654,11 @@
                     iconSize: [25, 25],
                     iconAnchor: [12, 25]
                   })
-                }).addTo(mapaDestino).bindPopup(`<b>${paradero.nombre}</b><br>Distancia: ${Math.round(paradero.dist)}m<br>Rutas: ${paradero.rutas.join(', ')}`);
+                }).addTo(mapaDestino).bindPopup(
+                  `<div style="border-top:5px solid ${color};padding-top:4px;"><b>${paradero.nombre}</b><br>Distancia: ${Math.round(paradero.dist)}m<br>Rutas: ${paradero.rutas.join(', ')}</div>`
+                );
                 
                 // Ruta desde el paradero al punto de destino
-                const color = colores[index % colores.length];
                 const weight = index === 0 ? 6 : 3;
                 const opacity = index === 0 ? 1 : 0.7;
                 obtenerRutaCaminando([paradero.lat, paradero.lon], endCoords, mapaDestino, color, weight, opacity, 'destino');

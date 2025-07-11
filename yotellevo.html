@@ -730,17 +730,17 @@
             opacity: opacity,
             dashArray: ''
           }).addTo(mapa);
-          // Agregar flecha de dirección en la línea recta
+          // Agregar flechas de dirección a lo largo de la línea
           if (window.L && window.L.polylineDecorator) {
             L.polylineDecorator(polyline, {
               patterns: [
                 {
-                  offset: '50%',
-                  repeat: 0,
+                  offset: 20,
+                  repeat: 40,
                   symbol: L.Symbol.arrowHead({
-                    pixelSize: 28, // más grande para visibilidad
+                    pixelSize: 16,
                     polygon: false,
-                    pathOptions: {stroke: true, color: color, weight: weight + 2, opacity: 1}
+                    pathOptions: {stroke: true, color: color, weight: weight + 1, opacity: 1}
                   })
                 }
               ]

@@ -1968,7 +1968,7 @@
       // Datos de paraderos incluidos directamente en el HTML para evitar problemas de CORS
       const paraderosData = [
         {"nombre": "PATIO PORTAL", "coords": [10.395392, -75.472826], "direccion": "Avenida Pedro de Heredia, Patio Portal, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MADRE BERNARDA", "coords": [10.395006, -75.473880], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MADRE BERNARDA", "coords": [10.395007, -75.478893], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LA CASTELLANA", "coords": [10.394408, -75.486631], "direccion": "Avenida Pedro de Heredia, Barrio La Castellana, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LOS ANGELES", "coords": [10.395071, -75.490330], "direccion": "Avenida Pedro de Heredia, Barrio Los Angeles, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LOS EJECUTIVOS", "coords": [10.399543, -75.493653], "direccion": "Avenida Pedro de Heredia, Barrio Los Ejecutivos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
@@ -3324,6 +3324,45 @@
         }
       });
       return mejorRuta;
+    }
+
+    // === ALERTA DE PROXIMIDAD 300M ===
+    function mostrarAlertaProximidad() {
+      // Mostrar modal llamativo
+      var modal = document.getElementById('modal-proximidad');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-proximidad';
+        modal.style = 'display:flex;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;';
+        modal.innerHTML = `<div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
+          <div style=\"font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;\">¡Atención!</div>
+          <div style=\"font-size:1.3em;color:#333;margin-bottom:1em;\">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
+          <button onclick=\"document.getElementById('modal-proximidad').style.display='none'\" style=\"font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;\">Entendido</button>
+        </div>`;
+        document.body.appendChild(modal);
+      } else {
+        modal.style.display = 'flex';
+      }
+      // Notificación del sistema
+      if (window.Notification && Notification.permission === 'granted') {
+        new Notification('¡Faltan menos de 300 metros!', {
+          body: 'Prepárate para descender en tu destino.',
+          icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
+        });
+      } else if (window.Notification && Notification.permission !== 'denied') {
+        Notification.requestPermission().then(function(permission) {
+          if (permission === 'granted') {
+            new Notification('¡Faltan menos de 300 metros!', {
+              body: 'Prepárate para descender en tu destino.',
+              icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
+            });
+          }
+        });
+      }
+      // Vibración si es móvil
+      if (navigator.vibrate) {
+        navigator.vibrate([400, 200, 400]);
+      }
     }
     </script>
     <footer class="footer-agapai">

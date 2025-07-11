@@ -1386,7 +1386,10 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="auto-status" id="autoStatus">
-            <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1em;">
+              <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
+              <button id="finalizeBtn" style="display:none;margin-left:auto;background:linear-gradient(90deg,#28a745 60%,#20c997 100%);color:#fff;font-size:1.1em;font-weight:700;padding:0.5em 1.5em;border:none;border-radius:10px;box-shadow:0 2px 8px #28a74544;cursor:pointer;transition:background 0.2s;">Limpiar y Preparar Nuevo Recorrido</button>
+            </div>
         </div>
         <div class="location-display" id="locationDisplay" style="display: none; background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 12px 16px; border-radius: 12px; margin: 12px 0; text-align: center; font-weight: 600; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(40,167,69,0.2);">
             <span id="vamosPorText">📍 Vamos por: ...</span>
@@ -2049,9 +2052,7 @@
                   iconAnchor: [16, 44]
                 })
               }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0); // Mantener abierto el popup de destino si existe
-              
-              // Centrar mapa en el paradero
+              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
               map.setView(paradero.coords, 15);
             }
           }
@@ -2082,7 +2083,7 @@
                   iconAnchor: [16, 32]
                 })
               }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0); // Mantener abierto el popup de destino si existe
+              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
               // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
             }
@@ -2216,7 +2217,8 @@
               const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
               const data = await resp.json();
               if (data.display_name) {
-                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
+                const direccionFiltrada = formatearDireccionParaPopup(data.display_name);
+                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${direccionFiltrada}`);
               } else {
                 popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
               }
@@ -2233,7 +2235,8 @@
             const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
             const data = await resp.json();
             if (data.display_name) {
-              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
+              const direccionFiltrada = formatearDireccionParaPopup(data.display_name);
+              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${direccionFiltrada}`);
             } else {
               popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
             }
@@ -2348,7 +2351,7 @@
         const lat = pos.coords.latitude.toFixed(6);
         const lon = pos.coords.longitude.toFixed(6);
         
-        // CREAR MARCADOR EN EL MAPA PARA LA UBICACIÓN ACTUAL
+        // CREAR MARCADOR EN EL MAPA PARA LA UBICACIÓN ACTUAL (sin popup de dirección aún)
         if (window.startMarker) map.removeLayer(window.startMarker);
         window.startMarker = L.marker([lat, lon], {
           icon: L.icon({
@@ -2356,7 +2359,7 @@
             iconSize: [32, 44],
             iconAnchor: [16, 44]
           })
-        }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + lat + ", " + lon).openPopup();
+        }).addTo(map);
         if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0); // Mantener abierto el popup de destino si existe
         
         // Centrar mapa en la ubicación actual
@@ -2366,10 +2369,10 @@
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
           .then(response => response.json())
           .then(data => {
+            let direccion = '';
             if (data.results && data.results.length > 0) {
               // Buscar barrio o dirección relevante
               const addressComponents = data.results[0].address_components;
-              let direccion = '';
               let barrio = '';
               const barrioComp = addressComponents.find(comp =>
                 comp.types.includes('neighborhood') ||
@@ -2378,7 +2381,7 @@
               );
               if (barrioComp) barrio = barrioComp.long_name;
               if (data.results[0].formatted_address) {
-                direccion = data.results[0].formatted_address;
+                direccion = formatearDireccionParaPopup(data.results[0].formatted_address);
               } else if (barrio) {
                 direccion = barrio;
               } else {
@@ -2392,17 +2395,27 @@
                 localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
               }
             } else {
-              input.value = 'Ubicación detectada';
+              direccion = 'Ubicación detectada';
+              input.value = direccion;
               if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: 'Ubicación detectada', coords: [parseFloat(lat), parseFloat(lon)] }));
+                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
               }
+            }
+            // ACTUALIZAR POPUP DEL MARCADOR CON LA DIRECCIÓN REAL
+            if (window.startMarker) {
+              window.startMarker.bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccion).openPopup();
             }
           })
           .catch(error => {
             console.error('Error obteniendo dirección:', error);
-            input.value = 'Ubicación detectada';
+            const direccion = 'Ubicación detectada';
+            input.value = direccion;
             if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-              localStorage.setItem('tuguia_start', JSON.stringify({ nombre: 'Ubicación detectada', coords: [parseFloat(lat), parseFloat(lon)] }));
+              localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
+            }
+            // Asegurarse de mostrar el popup aunque haya error
+            if (window.startMarker) {
+              window.startMarker.bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccion).openPopup();
             }
           });
       }, function(error) {
@@ -2474,12 +2487,13 @@
           }
         });
         function selectStartSuggestion(item) {
-          startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          const direccionCorta = formatearDireccionParaPopup(item.display_name);
+          startInput.value = direccionCorta;
           startSuggestions.style.display = 'none';
           if (window.startMarker) map.removeLayer(window.startMarker);
           const marker = L.marker([item.lat, item.lon], {
             icon: L.icon({ iconUrl: 'pin-morado.png', iconSize: [32,44], iconAnchor: [16,44] })
-          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + startInput.value).openPopup();
+          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
         }
@@ -2530,12 +2544,13 @@
           }
         });
         function selectEndSuggestion(item) {
-          endDireccionInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          const direccionCorta = formatearDireccionParaPopup(item.display_name);
+          endDireccionInput.value = direccionCorta;
           endSuggestions.style.display = 'none';
           if (window.endMarker) map.removeLayer(window.endMarker);
           const marker = L.marker([item.lat, item.lon], {
             icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + endDireccionInput.value).openPopup();
+          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.endMarker = marker;
         }
@@ -2795,12 +2810,13 @@
           }
         });
         function selectStartSuggestion(item) {
-          startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          const direccionCorta = formatearDireccionParaPopup(item.display_name);
+          startInput.value = direccionCorta;
           startSuggestions.style.display = 'none';
           if (window.startMarker) map.removeLayer(window.startMarker);
           const marker = L.marker([item.lat, item.lon], {
             icon: L.icon({ iconUrl: 'pin-morado.png', iconSize: [32,44], iconAnchor: [16,44] })
-          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + startInput.value).openPopup();
+          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
         }
@@ -2859,12 +2875,13 @@
           }
         });
         function selectEndSuggestion(item) {
-          endDireccionInput.value = item.display_name.split(',').slice(0, 3).join(', ');
+          const direccionCorta = formatearDireccionParaPopup(item.display_name);
+          endDireccionInput.value = direccionCorta;
           endSuggestions.style.display = 'none';
           if (window.endMarker) map.removeLayer(window.endMarker);
           const marker = L.marker([item.lat, item.lon], {
             icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + endDireccionInput.value).openPopup();
+          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.endMarker = marker;
         }
@@ -3226,12 +3243,17 @@
               // Ocultar alarma de 300m si existe
               let alarmaDiv = document.getElementById('realTrackingAlarma300m');
               if (alarmaDiv) alarmaDiv.style.display = 'none';
-              // Ocultar barra de progreso
-              if (progressBar) progressBar.parentElement.style.display = 'none';
+              // Dejar barra de progreso visible y estática
+              if (progressBar) progressBar.parentElement.style.display = '';
               // Mostrar mensaje especial en el panel de estado
               var statusIndicator = document.getElementById('statusIndicator');
               statusIndicator.textContent = '🎉 ¡Has llegado a tu destino! Recorrido finalizado.';
               statusIndicator.style.color = '';
+              // Mostrar el botón finalizeBtn
+              var finalizeBtn = document.getElementById('finalizeBtn');
+              if (finalizeBtn) finalizeBtn.style.display = 'inline-block';
+              // Detener el seguimiento para fijar valores
+              detenerSeguimientoReal();
               // Opcional: detener el seguimiento automáticamente
               // detenerSeguimientoReal(); // Si quieres detener el seguimiento automáticamente, descomenta esta línea
             }
@@ -3364,9 +3386,71 @@
         navigator.vibrate([400, 200, 400]);
       }
     }
+
+    // Utilidad para limpiar la dirección y mostrar solo lo relevante
+    function formatearDireccionParaPopup(displayName) {
+      if (!displayName) return '';
+      const partes = displayName.split(',').map(s => s.trim());
+      const irrelevantes = [
+        'cartagena de indias',
+        'dique',
+        'bolívar',
+        'bolivar',
+        'cartagena',
+        'colombia',
+        '130003'
+      ];
+      let partesFiltradas = partes.filter(parte => {
+        const p = parte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (irrelevantes.includes(p)) return false;
+        if (/^\d{5,}$/.test(p)) return false; // Elimina cualquier número largo (código postal)
+        return true;
+      });
+      // Elimina duplicados consecutivos
+      partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
+      return partesFiltradas.join(', ');
+    }
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>
     </footer>
+    // Al final del script, antes de </script>:
+    document.addEventListener('DOMContentLoaded', function() {
+      var finalizeBtn = document.getElementById('finalizeBtn');
+      if (finalizeBtn) {
+        finalizeBtn.addEventListener('click', function() {
+          // Limpiar ruta, marcadores, localStorage, resetear UI
+          if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
+          if (window.startMarker) { map.removeLayer(window.startMarker); window.startMarker = null; }
+          if (window.endMarker) { map.removeLayer(window.endMarker); window.endMarker = null; }
+          if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); window.vehicleMarker = null; }
+          document.getElementById('distanceTraveled').textContent = '0.0';
+          document.getElementById('timeElapsed').textContent = '00:00';
+          document.getElementById('currentSpeed').textContent = '0.0';
+          document.getElementById('progressBar').style.width = '0%';
+          document.getElementById('statusIndicator').textContent = '⏸️ Esperando movimiento';
+          document.getElementById('statusIndicator').style.color = '';
+          document.getElementById('finalizeBtn').style.display = 'none';
+          if (document.getElementById('progressBar').parentElement) document.getElementById('progressBar').parentElement.style.display = '';
+          // Limpiar localStorage
+          localStorage.removeItem('tuguia_start');
+          localStorage.removeItem('tuguia_end');
+          localStorage.removeItem('tuguia_start_mode');
+          localStorage.removeItem('tuguia_end_mode');
+          // Resetear selectores
+          const startParaderoSelect = document.getElementById('startParaderoSelect');
+          const endParaderoSelect = document.getElementById('endParaderoSelect');
+          if (startParaderoSelect) startParaderoSelect.selectedIndex = 0;
+          if (endParaderoSelect) endParaderoSelect.selectedIndex = 0;
+          // Limpiar inputs
+          const startDireccionInput = document.getElementById('startDireccionInput');
+          const endDireccionInput = document.getElementById('endDireccionInput');
+          if (startDireccionInput) startDireccionInput.value = '';
+          if (endDireccionInput) endDireccionInput.value = '';
+          // Limpiar info
+          document.getElementById('info').textContent = 'Escribe las direcciones, nombres de restaurantes, hoteles, tiendas o negocios, o selecciónalas en el mapa.';
+        });
+      }
+    });
 </body>
 </html> 

@@ -2334,28 +2334,29 @@
       L.popup().setLatLng([est.lat, est.lon]).setContent(popup).openOn(map);
     }
     function mostrarInfoParadero(stop) {
-      // Buscar coincidencia en rutasTranscaribe por nombre o coordenadas
+      // Prioridad: 1) Coincidencia por coordenadas (tolerancia 30m), 2) Coincidencia por nombre normalizado
+      const TOLERANCIA_METROS = 30;
       let paraderoGeo = null;
       if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-        // Mejor normalización: quita tildes, mayúsculas, espacios extra
-        const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
-        const nombreStop = normalizar(stop.tags && stop.tags.name ? stop.tags.name : '');
+        // 1. Buscar por coordenadas (tolerancia)
         paraderoGeo = window.rutasTranscaribe.find(f => {
-          const props = f.properties || {};
-          return normalizar(props.nombre_paradero) === nombreStop;
+          const coords = f.geometry && f.geometry.coordinates;
+          if (!coords) return false;
+          // GeoJSON: [lon, lat]
+          const lat = Array.isArray(coords) ? coords[1] : null;
+          const lon = Array.isArray(coords) ? coords[0] : null;
+          if (typeof lat !== 'number' || typeof lon !== 'number') return false;
+          // Considerar igual si la distancia es menor a TOLERANCIA_METROS
+          const d = map.distance([lat, lon], [stop.lat, stop.lon]);
+          return d <= TOLERANCIA_METROS;
         });
-        // Si no encuentra por nombre, buscar por coordenadas cercanas
+        // 2. Si no encuentra por coordenadas, buscar por nombre normalizado
         if (!paraderoGeo) {
+          const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[00-6f]/g, '').replace(/\s+/g, ' ').trim();
+          const nombreStop = normalizar(stop.tags && stop.tags.name ? stop.tags.name : '');
           paraderoGeo = window.rutasTranscaribe.find(f => {
-            const coords = f.geometry && f.geometry.coordinates;
-            if (!coords) return false;
-            // GeoJSON: [lon, lat]
-            const lat = Array.isArray(coords) ? coords[1] : null;
-            const lon = Array.isArray(coords) ? coords[0] : null;
-            if (typeof lat !== 'number' || typeof lon !== 'number') return false;
-            // Considerar igual si la distancia es menor a 20 metros
-            const d = map.distance([lat, lon], [stop.lat, stop.lon]);
-            return d < 20;
+            const props = f.properties || {};
+            return normalizar(props.nombre_paradero) === nombreStop;
           });
         }
       }

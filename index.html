@@ -3487,6 +3487,39 @@
     // Ejemplo:
     // poblarSelectParaderos(document.getElementById('startParaderoSelect'));
     // poblarSelectParaderos(document.getElementById('endParaderoSelect'));
+
+    // === NUEVA LÓGICA: Marcadores de paraderos desde GeoJSON ===
+    function mostrarParaderosGeoJSONEnMapa() {
+      if (paraderosLayerGroup) {
+        paraderosLayerGroup.clearLayers();
+      } else {
+        paraderosLayerGroup = L.layerGroup().addTo(map);
+      }
+      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
+        window.rutasTranscaribe.forEach(f => {
+          if (f.geometry && f.geometry.type === "Point" && f.properties && f.properties.network === "Transcaribe") {
+            const coords = f.geometry.coordinates;
+            const lat = coords[1], lon = coords[0];
+            const props = f.properties;
+            const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
+              (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
+              (props.rutas ? `<b>Rutas:</b> ${Array.isArray(props.rutas) ? props.rutas.join(', ') : props.rutas}<br>` : '') +
+              (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
+              (props.tipos_ruta ? `<b>Tipos de Ruta:</b> ${Array.isArray(props.tipos_ruta) ? props.tipos_ruta.join(', ') : props.tipos_ruta}<br>` : '') +
+              (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
+            L.marker([lat, lon], {
+              icon: L.icon({
+                iconUrl: 'BUS.jpeg',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).addTo(paraderosLayerGroup).bindPopup(popup);
+          }
+        });
+      }
+    }
+    // Llamar esta función después de cargar el GeoJSON y de inicializar el mapa
+    // mostrarParaderosGeoJSONEnMapa();
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>

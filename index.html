@@ -2336,7 +2336,33 @@
     function mostrarInfoParadero(stop) {
       // Restaurar popup original para paraderos
       const nombre = stop.tags.name || 'Paradero';
-      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}`;
+      let rutasInfo = '';
+      
+      // Verificar si tiene información de rutas
+      if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
+        let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
+        
+        // Si es un array, convertirlo a string
+        if (Array.isArray(rutas)) {
+          rutas = rutas.join(', ');
+        }
+        
+        // Formatear las rutas con colores según el tipo
+        const rutasArray = rutas.split(',').map(r => r.trim());
+        const rutasFormateadas = rutasArray.map(ruta => {
+          let color = '#333'; // color por defecto
+          if (ruta.startsWith('T')) color = '#ff6600'; // Troncales
+          else if (ruta.startsWith('X')) color = '#2ECC40'; // Pretroncales
+          else if (ruta.startsWith('A')) color = '#FF4136'; // Alimentadoras
+          else if (ruta.startsWith('C')) color = '#FF851B'; // Complementarias
+          
+          return `<span style="color: ${color}; font-weight: bold;">${ruta}</span>`;
+        }).join(', ');
+        
+        rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
+      }
+      
+      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
       L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
     }
     // =================== UBICACIÓN Y AUTOCOMPLETADO ===================

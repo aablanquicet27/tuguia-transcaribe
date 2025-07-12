@@ -2352,7 +2352,7 @@
         });
         // 2. Si no encuentra por coordenadas, buscar por nombre normalizado
         if (!paraderoGeo) {
-          const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[00-6f]/g, '').replace(/\s+/g, ' ').trim();
+          const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
           const nombreStop = normalizar(stop.tags && stop.tags.name ? stop.tags.name : '');
           paraderoGeo = window.rutasTranscaribe.find(f => {
             const props = f.properties || {};

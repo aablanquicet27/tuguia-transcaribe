@@ -2307,38 +2307,50 @@
       } else {
         paraderosLayerGroup = L.layerGroup().addTo(map);
       }
-      // Mostrar solo los paraderos del GeoJSON
+      // Convertir el GeoJSON a un array simple de paraderos
+      let paraderos = [];
       if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-        window.rutasTranscaribe.forEach(f => {
+        paraderos = window.rutasTranscaribe.map(f => {
           if (f.geometry && f.geometry.type === "Point") {
-            const coords = f.geometry.coordinates; // [lon, lat]
+            const coords = f.geometry.coordinates;
             const lat = coords[1];
             const lon = coords[0];
-            const marker = L.marker([lat, lon], {
-              icon: L.icon({
-                iconUrl: 'BUS.jpeg',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32]
-              })
-            }).on('click', () => {
-              // Mostrar popup con la info del GeoJSON
-              const props = f.properties || {};
-              let rutas = props.rutas || '';
-              if (Array.isArray(rutas)) rutas = rutas.join(', ');
-              let tiposRuta = props.tipos_ruta || '';
-              if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
-              const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
-                (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
-                (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
-                (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
-                (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
-                (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
-              L.popup().setLatLng([lat, lon]).setContent(popup).openOn(map);
-            });
-            paraderosLayerGroup.addLayer(marker);
+            const props = f.properties || {};
+            return {
+              lat,
+              lon,
+              nombre: props.nombre_paradero || 'Paradero',
+              rutas: props.rutas || '',
+              network: props.network || 'Transcaribe',
+              tipos_ruta: props.tipos_ruta || '',
+              fuente: props.fuente || ''
+            };
           }
-        });
+          return null;
+        }).filter(p => p);
       }
+      // Crear marcadores para cada paradero
+      paraderos.forEach(stop => {
+        const marker = L.marker([stop.lat, stop.lon], {
+          icon: L.icon({
+            iconUrl: 'BUS.jpeg',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32]
+          })
+        }).on('click', () => {
+          let rutas = stop.rutas;
+          if (Array.isArray(rutas)) rutas = rutas.join(', ');
+          let tiposRuta = stop.tipos_ruta;
+          if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
+          const popup = `<b>${stop.nombre}</b><br>` +
+            (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
+            (stop.network ? `<b>Red:</b> ${stop.network}<br>` : '') +
+            (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
+            (stop.fuente ? `<b>Fuente:</b> ${stop.fuente}<br>` : '');
+          L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
+        });
+        paraderosLayerGroup.addLayer(marker);
+      });
     }
     function mostrarInfoEstacion(est) {
       const rutas = est.tags.ref || 'N/A';

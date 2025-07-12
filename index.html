@@ -3461,6 +3461,30 @@
       partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
       return partesFiltradas.join(', ');
     }
+
+    // Reemplazar la carga y uso de 'paraderos' por los features del GeoJSON
+    function poblarSelectParaderos(selectElement) {
+      if (!window.rutasTranscaribe) return;
+      // Filtrar solo paraderos tipo Point y network Transcaribe
+      const paraderosGeo = window.rutasTranscaribe.filter(f =>
+        f.geometry &&
+        f.geometry.type === "Point" &&
+        f.properties &&
+        f.properties.network === "Transcaribe"
+      );
+      selectElement.innerHTML = '';
+      paraderosGeo.forEach(f => {
+        const nombre = f.properties && f.properties.nombre_paradero ? f.properties.nombre_paradero : 'Paradero';
+        const option = document.createElement('option');
+        option.value = nombre;
+        option.textContent = nombre;
+        selectElement.appendChild(option);
+      });
+    }
+    // Llamar esta función para poblar los selects de inicio y destino después de cargar el GeoJSON
+    // Ejemplo:
+    // poblarSelectParaderos(document.getElementById('startParaderoSelect'));
+    // poblarSelectParaderos(document.getElementById('endParaderoSelect'));
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>

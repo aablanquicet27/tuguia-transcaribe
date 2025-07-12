@@ -3532,5 +3532,46 @@
         });
       }
     });
+
+    if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
+      window.rutasTranscaribe.forEach(f => {
+        if (
+          f.geometry &&
+          f.geometry.type === "Point" &&
+          f.properties &&
+          f.properties.network === "Transcaribe"
+        ) {
+          const coords = f.geometry.coordinates; // [lon, lat]
+          const lat = coords[1];
+          const lon = coords[0];
+          // Log de depuración para ver el feature
+          console.log('Marcador GeoJSON:', f);
+          const marker = L.marker([lat, lon], {
+            icon: L.icon({
+              iconUrl: 'BUS.jpeg',
+              iconSize: [32, 32],
+              iconAnchor: [16, 32]
+            })
+          }).on('click', () => {
+            // Mostrar popup con la info enriquecida del GeoJSON
+            const props = f.properties || {};
+            let rutas = props.rutas || '';
+            if (Array.isArray(rutas)) rutas = rutas.join(', ');
+            let tiposRuta = props.tipos_ruta || '';
+            if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
+            const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
+              (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
+              (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
+              (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
+              (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
+              (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
+            // Log de depuración para ver el contenido del popup
+            console.log('Popup:', popup);
+            L.popup().setLatLng([lat, lon]).setContent(popup).openOn(map);
+          });
+          paraderosLayerGroup.addLayer(marker);
+        }
+      });
+    }
 </body>
 </html> 

@@ -9705,6 +9705,168 @@
         "coordenadas": "10.425291, -75.54627",
         "es_exclusivo": true
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.547,
+          10.422
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Club Cartagena",
+        "coordenadas": "10.422, -75.547",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5485,
+          10.4239
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Centro (Integracion)",
+        "coordenadas": "10.4239, -75.5485",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5512,
+          10.417
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Maria Mulata",
+        "coordenadas": "10.417, -75.5512",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5518,
+          10.4158
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Olimpica",
+        "coordenadas": "10.4158, -75.5518",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5523,
+          10.4146
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Ambientes",
+        "coordenadas": "10.4146, -75.5523",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5529,
+          10.4134
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Crepes & Waffles",
+        "coordenadas": "10.4134, -75.5529",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5535,
+          10.4122
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Miska",
+        "coordenadas": "10.4122, -75.5535",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5541,
+          10.411
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "Dulceria",
+        "coordenadas": "10.411, -75.5541",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.5547,
+          10.4098
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "El Pueblito (Kr 2 - Cl 5)",
+        "coordenadas": "10.4098, -75.5547",
+        "rutas": "T103",
+        "network": "Transcaribe",
+        "tipos_ruta": "Trocal",
+        "fuente": "csv_2025"
+      }
     }
   ]
 }

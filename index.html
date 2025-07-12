@@ -3364,8 +3364,10 @@
       try {
         const response = await fetch('rutas_transcaribe.geojson');
         const data = await response.json();
-        rutasTranscaribe = data.features;
-        console.log('Rutas Transcaribe cargadas:', rutasTranscaribe.length);
+        window.rutasTranscaribe = data.features;
+        console.log('Rutas Transcaribe cargadas:', window.rutasTranscaribe.length);
+        poblarSelectParaderos(document.getElementById('startParaderoSelect'));
+        poblarSelectParaderos(document.getElementById('endParaderoSelect'));
       } catch (e) {
         console.error('Error cargando rutas Transcaribe:', e);
       }

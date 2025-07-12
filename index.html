@@ -3467,12 +3467,12 @@
     // Reemplazar la carga y uso de 'paraderos' por los features del GeoJSON
     function poblarSelectParaderos(selectElement) {
       if (!window.rutasTranscaribe) return;
-      // Filtrar solo paraderos tipo Point y network Transcaribe
+      // Filtrar solo paraderos tipo Point, network Transcaribe y es_exclusivo true
       const paraderosGeo = window.rutasTranscaribe.filter(f =>
         f.geometry &&
         f.geometry.type === "Point" &&
         f.properties &&
-        f.properties.network === "Transcaribe"
+        f.properties.es_exclusivo === true
       );
       selectElement.innerHTML = '';
       paraderosGeo.forEach(f => {

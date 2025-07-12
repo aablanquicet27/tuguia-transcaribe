@@ -2292,13 +2292,16 @@
         "name": "X104 para Centro/ Terminal de Transporte",
         "name:en": "X104 to Centro/ to the bus terminal",
         "public_transport": "platform",
-        "@id": 12059944569
+        "@id": 12059944569,
+        "nombre_paradero": "CHAMBACU",
+        "coordenadas": "10.425853, -75.540498",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5405296,
-          10.4259039
+          -75.540498,
+          10.425853
         ]
       },
       "id": 12059944569
@@ -2353,13 +2356,16 @@
         "operator": "Transcaribe S.A.",
         "public_transport": "platform",
         "shelter": "yes",
-        "@id": 12115589561
+        "@id": 12115589561,
+        "nombre_paradero": "MUELLE DE LA BODEGUITA",
+        "coordenadas": "10.420351, -75.551053",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5509983,
-          10.4205079
+          -75.551053,
+          10.420351
         ]
       },
       "id": 12115589561
@@ -3093,21 +3099,22 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cuatro Vientos",
-        "coordenadas": "10.4101, -75.5163",
+        "nombre_paradero": "CUATRO VIENTOS",
+        "coordenadas": "10.406451, -75.502601",
         "rutas": "X101,X102,X103,X106",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cuatro Vientos"
+        "name": "Cuatro Vientos",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5163,
-          10.4101
+          -75.502601,
+          10.406451
         ]
       }
     },
@@ -3135,42 +3142,44 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Los Ejecutivos",
-        "coordenadas": "10.4055, -75.5087",
+        "nombre_paradero": "LOS EJECUTIVOS",
+        "coordenadas": "10.399543, -75.493653",
         "rutas": "X101,X102",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Los Ejecutivos"
+        "name": "Los Ejecutivos",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5087,
-          10.4055
+          -75.493653,
+          10.399543
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Madre Bernarda",
-        "coordenadas": "10.4032, -75.5051",
+        "nombre_paradero": "MADRE BERNARDA",
+        "coordenadas": "10.395007, -75.478893",
         "rutas": "X101,X102,X103",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Madre Bernarda"
+        "name": "Madre Bernarda",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5051,
-          10.4032
+          -75.478893,
+          10.395007
         ]
       }
     },
@@ -3198,21 +3207,22 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "El Prado",
-        "coordenadas": "10.3995, -75.4992",
+        "nombre_paradero": "EL PRADO",
+        "coordenadas": "10.41104, -75.519531",
         "rutas": "X101,X102,X103",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "El Prado"
+        "name": "El Prado",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.4992,
-          10.3995
+          -75.519531,
+          10.41104
         ]
       }
     },
@@ -3261,21 +3271,22 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "La Castellana",
-        "coordenadas": "10.3942, -75.4911",
+        "nombre_paradero": "LA CASTELLANA",
+        "coordenadas": "10.394408, -75.486631",
         "rutas": "X101,X102",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "La Castellana"
+        "name": "La Castellana",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.4911,
-          10.3942
+          -75.486631,
+          10.394408
         ]
       }
     },
@@ -3324,21 +3335,22 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Lo Amador",
-        "coordenadas": "10.3889, -75.4830",
+        "nombre_paradero": "LO AMADOR",
+        "coordenadas": "10.422358, -75.534597",
         "rutas": "X101,X102,X103,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Lo Amador"
+        "name": "Lo Amador",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.483,
-          10.3889
+          -75.534597,
+          10.422358
         ]
       }
     },
@@ -4521,21 +4533,22 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Las Delicias",
-        "coordenadas": "10.3907, -75.4857",
+        "nombre_paradero": "LAS DELICIAS",
+        "coordenadas": "10.41664, -75.527932",
         "rutas": "X105",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Las Delicias"
+        "name": "Las Delicias",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.4857,
-          10.3907
+          -75.527932,
+          10.41664
         ]
       }
     },
@@ -9556,6 +9569,141 @@
           -75.525,
           10.4445
         ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.472826,
+          10.395392
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "PATIO PORTAL",
+        "coordenadas": "10.395392, -75.472826",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.49033,
+          10.395071
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "LOS ANGELES",
+        "coordenadas": "10.395071, -75.49033",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.497435,
+          10.403742
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "VILLA OLIMPICA",
+        "coordenadas": "10.403742, -75.497435",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.507542,
+          10.40734
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "REPUBLICA DEL LIBANO",
+        "coordenadas": "10.40734, -75.507542",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.512971,
+          10.408311
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "ESPAÑA",
+        "coordenadas": "10.408311, -75.512971",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.51583,
+          10.408976
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "MARIA AUXILIADORA",
+        "coordenadas": "10.408976, -75.51583",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.524064,
+          10.413752
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "MERCADO BAZURTO",
+        "coordenadas": "10.413752, -75.524064",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.531015,
+          10.41704
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "PIE DE LA POPA",
+        "coordenadas": "10.41704, -75.531015",
+        "es_exclusivo": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.54627,
+          10.425291
+        ]
+      },
+      "properties": {
+        "nombre_paradero": "CENTRO UNO",
+        "coordenadas": "10.425291, -75.54627",
+        "es_exclusivo": true
       }
     }
   ]

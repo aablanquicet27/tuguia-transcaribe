@@ -1333,7 +1333,7 @@
           }
         }
         #routeControls {
-          margin-top: 90px;
+          margin-top: 110px;
         }
         @media (max-width: 600px) {
           #routeControls {
@@ -2334,36 +2334,66 @@
       L.popup().setLatLng([est.lat, est.lon]).setContent(popup).openOn(map);
     }
     function mostrarInfoParadero(stop) {
-      // Restaurar popup original para paraderos
-      const nombre = stop.tags.name || 'Paradero';
-      let rutasInfo = '';
-      
-      // Verificar si tiene información de rutas
-      if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
-        let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
-        
-        // Si es un array, convertirlo a string
-        if (Array.isArray(rutas)) {
-          rutas = rutas.join(', ');
+      // Buscar coincidencia en rutasTranscaribe por nombre o coordenadas
+      let paraderoGeo = null;
+      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
+        // Mejor normalización: quita tildes, mayúsculas, espacios extra
+        const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+        const nombreStop = normalizar(stop.tags && stop.tags.name ? stop.tags.name : '');
+        paraderoGeo = window.rutasTranscaribe.find(f => {
+          const props = f.properties || {};
+          return normalizar(props.nombre_paradero) === nombreStop;
+        });
+        // Si no encuentra por nombre, buscar por coordenadas cercanas
+        if (!paraderoGeo) {
+          paraderoGeo = window.rutasTranscaribe.find(f => {
+            const coords = f.geometry && f.geometry.coordinates;
+            if (!coords) return false;
+            // GeoJSON: [lon, lat]
+            const lat = Array.isArray(coords) ? coords[1] : null;
+            const lon = Array.isArray(coords) ? coords[0] : null;
+            if (typeof lat !== 'number' || typeof lon !== 'number') return false;
+            // Considerar igual si la distancia es menor a 20 metros
+            const d = map.distance([lat, lon], [stop.lat, stop.lon]);
+            return d < 20;
+          });
         }
-        
-        // Formatear las rutas con colores según el tipo
-        const rutasArray = rutas.split(',').map(r => r.trim());
-        const rutasFormateadas = rutasArray.map(ruta => {
-          let color = '#333'; // color por defecto
-          if (ruta.startsWith('T')) color = '#ff6600'; // Troncales
-          else if (ruta.startsWith('X')) color = '#2ECC40'; // Pretroncales
-          else if (ruta.startsWith('A')) color = '#FF4136'; // Alimentadoras
-          else if (ruta.startsWith('C')) color = '#FF851B'; // Complementarias
-          
-          return `<span style="color: ${color}; font-weight: bold;">${ruta}</span>`;
-        }).join(', ');
-        
-        rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
       }
-      
-      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
-      L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
+      if (paraderoGeo) {
+        // Mostrar info enriquecida del GeoJSON
+        const props = paraderoGeo.properties || {};
+        let rutas = props.rutas || '';
+        if (Array.isArray(rutas)) rutas = rutas.join(', ');
+        let tiposRuta = props.tipos_ruta || '';
+        if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
+        const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
+          (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
+          (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
+          (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
+          (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
+          (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
+        L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
+      } else {
+        // Popup original si no hay coincidencia
+        const nombre = stop.tags.name || 'Paradero';
+        let rutasInfo = '';
+        if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
+          let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
+          if (Array.isArray(rutas)) rutas = rutas.join(', ');
+          const rutasArray = rutas.split(',').map(r => r.trim());
+          const rutasFormateadas = rutasArray.map(ruta => {
+            let color = '#333';
+            if (ruta.startsWith('T')) color = '#ff6600';
+            else if (ruta.startsWith('X')) color = '#2ECC40';
+            else if (ruta.startsWith('A')) color = '#FF4136';
+            else if (ruta.startsWith('C')) color = '#FF851B';
+            return `<span style=\"color: ${color}; font-weight: bold;\">${ruta}</span>`;
+          }).join(', ');
+          rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
+        }
+        const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
+        L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
+      }
     }
     // =================== UBICACIÓN Y AUTOCOMPLETADO ===================
     function detectarUbicacionActual() {
@@ -3309,7 +3339,7 @@
       if (locationDisplay) locationDisplay.style.display = 'none';
       
       var statusIndicator = document.getElementById('statusIndicator');
-      statusIndicator.textContent = '⏸️ Seguimiento detenido';
+      statusIndicator.textContent = '⏸️ Recorrido Finalizado';
       statusIndicator.style.color = 'red';
     }
 
@@ -3340,6 +3370,7 @@
         const response = await fetch('rutas_transcaribe.geojson');
         const data = await response.json();
         rutasTranscaribe = data.features;
+        window.rutasTranscaribe = rutasTranscaribe; // Asegura disponibilidad global
         console.log('Rutas Transcaribe cargadas:', rutasTranscaribe.length);
       } catch (e) {
         console.error('Error cargando rutas Transcaribe:', e);
@@ -3418,12 +3449,12 @@
       if (!displayName) return '';
       const partes = displayName.split(',').map(s => s.trim());
       const irrelevantes = [
-        'cartagena de indias',
-        'dique',
-        'bolívar',
-        'bolivar',
-        'cartagena',
-        'colombia',
+        'Cartagena de indias',
+        'Dique',
+        'Bolívar',
+        'Bolivar',
+        'Cartagena',
+        'Colombia',
         '130003'
       ];
       let partesFiltradas = partes.filter(parte => {
@@ -3475,6 +3506,35 @@
           if (endDireccionInput) endDireccionInput.value = '';
           // Limpiar info
           document.getElementById('info').textContent = 'Escribe las direcciones, nombres de restaurantes, hoteles, tiendas o negocios, o selecciónalas en el mapa.';
+          // Ocultar panel de seguimiento automático
+          const routeControls = document.getElementById('routeControls');
+          if (routeControls) routeControls.style.display = 'none';
+          // Ocultar trackingMode
+          const trackingMode = document.getElementById('trackingMode');
+          if (trackingMode) trackingMode.style.display = 'none';
+          // Limpiar y ocultar sugerencias de autocompletado
+          const startSuggestions = document.getElementById('startSuggestions');
+          const endSuggestions = document.getElementById('endSuggestions');
+          if (startSuggestions) { startSuggestions.innerHTML = ''; startSuggestions.style.display = 'none'; }
+          if (endSuggestions) { endSuggestions.innerHTML = ''; endSuggestions.style.display = 'none'; }
+          // Limpiar los chips de rutas
+          const startRutasInfo = document.getElementById('startRutasInfo');
+          const endRutasInfo = document.getElementById('endRutasInfo');
+          if (startRutasInfo) startRutasInfo.innerHTML = '';
+          if (endRutasInfo) endRutasInfo.innerHTML = '';
+          // Limpiar etiqueta de barrio y alarmas
+          const barrioLabel = document.getElementById('barrioLabel');
+          const alarmaDiv = document.getElementById('alarma300m');
+          if (barrioLabel) barrioLabel.style.display = 'none';
+          if (alarmaDiv) alarmaDiv.style.display = 'none';
+          // Detener seguimiento automático si está activo
+          if (typeof detenerSeguimientoReal === 'function') detenerSeguimientoReal();
+          // Limpiar variables de tracking real
+          if (typeof realTrackingWatchId !== 'undefined' && realTrackingWatchId) {
+            navigator.geolocation.clearWatch(realTrackingWatchId);
+            realTrackingWatchId = null;
+          }
+          isRealTrackingActive = false;
         });
       }
     });

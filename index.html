@@ -2301,31 +2301,44 @@
       mostrarEstacionesYParaderosEnMapa();
     }
     function mostrarEstacionesYParaderosEnMapa() {
-      // === NUEVO: limpiar y usar LayerGroup ===
+      // Limpiar y usar LayerGroup
       if (paraderosLayerGroup) {
         paraderosLayerGroup.clearLayers();
       } else {
         paraderosLayerGroup = L.layerGroup().addTo(map);
       }
-      estaciones.forEach(est => {
-        const marker = L.marker([est.lat, est.lon], {
-          icon: L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
-            iconSize: [24, 24], iconAnchor: [12, 24]
-          })
-        }).on('click', () => mostrarInfoEstacion(est));
-        paraderosLayerGroup.addLayer(marker);
-      });
-      paraderos.forEach(stop => {
-        const marker = L.marker([stop.lat, stop.lon], {
-          icon: L.icon({
-            iconUrl: 'BUS.jpeg', // icono personalizado de paradero
-            iconSize: [32, 32],
-            iconAnchor: [16, 32]
-          })
-        }).on('click', () => mostrarInfoParadero(stop));
-        paraderosLayerGroup.addLayer(marker);
-      });
+      // Mostrar solo los paraderos del GeoJSON
+      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
+        window.rutasTranscaribe.forEach(f => {
+          if (f.geometry && f.geometry.type === "Point") {
+            const coords = f.geometry.coordinates; // [lon, lat]
+            const lat = coords[1];
+            const lon = coords[0];
+            const marker = L.marker([lat, lon], {
+              icon: L.icon({
+                iconUrl: 'BUS.jpeg',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).on('click', () => {
+              // Mostrar popup con la info del GeoJSON
+              const props = f.properties || {};
+              let rutas = props.rutas || '';
+              if (Array.isArray(rutas)) rutas = rutas.join(', ');
+              let tiposRuta = props.tipos_ruta || '';
+              if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
+              const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
+                (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
+                (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
+                (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
+                (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
+                (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
+              L.popup().setLatLng([lat, lon]).setContent(popup).openOn(map);
+            });
+            paraderosLayerGroup.addLayer(marker);
+          }
+        });
+      }
     }
     function mostrarInfoEstacion(est) {
       const rutas = est.tags.ref || 'N/A';

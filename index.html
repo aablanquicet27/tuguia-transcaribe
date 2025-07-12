@@ -2334,67 +2334,36 @@
       L.popup().setLatLng([est.lat, est.lon]).setContent(popup).openOn(map);
     }
     function mostrarInfoParadero(stop) {
-      // Prioridad: 1) Coincidencia por coordenadas (tolerancia 30m), 2) Coincidencia por nombre normalizado
-      const TOLERANCIA_METROS = 30;
-      let paraderoGeo = null;
-      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-        // 1. Buscar por coordenadas (tolerancia)
-        paraderoGeo = window.rutasTranscaribe.find(f => {
-          const coords = f.geometry && f.geometry.coordinates;
-          if (!coords) return false;
-          // GeoJSON: [lon, lat]
-          const lat = Array.isArray(coords) ? coords[1] : null;
-          const lon = Array.isArray(coords) ? coords[0] : null;
-          if (typeof lat !== 'number' || typeof lon !== 'number') return false;
-          // Considerar igual si la distancia es menor a TOLERANCIA_METROS
-          const d = map.distance([lat, lon], [stop.lat, stop.lon]);
-          return d <= TOLERANCIA_METROS;
-        });
-        // 2. Si no encuentra por coordenadas, buscar por nombre normalizado
-        if (!paraderoGeo) {
-          const normalizar = s => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
-          const nombreStop = normalizar(stop.tags && stop.tags.name ? stop.tags.name : '');
-          paraderoGeo = window.rutasTranscaribe.find(f => {
-            const props = f.properties || {};
-            return normalizar(props.nombre_paradero) === nombreStop;
-          });
+      // Restaurar popup original para paraderos
+      const nombre = stop.tags.name || 'Paradero';
+      let rutasInfo = '';
+      
+      // Verificar si tiene información de rutas
+      if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
+        let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
+        
+        // Si es un array, convertirlo a string
+        if (Array.isArray(rutas)) {
+          rutas = rutas.join(', ');
         }
+        
+        // Formatear las rutas con colores según el tipo
+        const rutasArray = rutas.split(',').map(r => r.trim());
+        const rutasFormateadas = rutasArray.map(ruta => {
+          let color = '#333'; // color por defecto
+          if (ruta.startsWith('T')) color = '#ff6600'; // Troncales
+          else if (ruta.startsWith('X')) color = '#2ECC40'; // Pretroncales
+          else if (ruta.startsWith('A')) color = '#FF4136'; // Alimentadoras
+          else if (ruta.startsWith('C')) color = '#FF851B'; // Complementarias
+          
+          return `<span style="color: ${color}; font-weight: bold;">${ruta}</span>`;
+        }).join(', ');
+        
+        rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
       }
-      if (paraderoGeo) {
-        // Mostrar info enriquecida del GeoJSON
-        const props = paraderoGeo.properties || {};
-        let rutas = props.rutas || '';
-        if (Array.isArray(rutas)) rutas = rutas.join(', ');
-        let tiposRuta = props.tipos_ruta || '';
-        if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
-        const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
-          (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
-          (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
-          (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
-          (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
-          (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
-        L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
-      } else {
-        // Popup original si no hay coincidencia
-        const nombre = stop.tags.name || 'Paradero';
-        let rutasInfo = '';
-        if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
-          let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
-          if (Array.isArray(rutas)) rutas = rutas.join(', ');
-          const rutasArray = rutas.split(',').map(r => r.trim());
-          const rutasFormateadas = rutasArray.map(ruta => {
-            let color = '#333';
-            if (ruta.startsWith('T')) color = '#ff6600';
-            else if (ruta.startsWith('X')) color = '#2ECC40';
-            else if (ruta.startsWith('A')) color = '#FF4136';
-            else if (ruta.startsWith('C')) color = '#FF851B';
-            return `<span style=\"color: ${color}; font-weight: bold;\">${ruta}</span>`;
-          }).join(', ');
-          rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
-        }
-        const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
-        L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
-      }
+      
+      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
+      L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
     }
     // =================== UBICACIÓN Y AUTOCOMPLETADO ===================
     function detectarUbicacionActual() {
@@ -3371,7 +3340,6 @@
         const response = await fetch('rutas_transcaribe.geojson');
         const data = await response.json();
         rutasTranscaribe = data.features;
-        window.rutasTranscaribe = rutasTranscaribe; // Asegura disponibilidad global
         console.log('Rutas Transcaribe cargadas:', rutasTranscaribe.length);
       } catch (e) {
         console.error('Error cargando rutas Transcaribe:', e);

@@ -115,9 +115,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Rep�blica del L�bano",
+        "nombre_paradero": "REPUBLICA DEL LIBANO",
         "coordenadas": "10.4122, -75.5201",
-        "rutas": "X101,X102,X103,X106",
+        "rutas": "X101,X106,T102",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -6787,7 +6787,7 @@
       "properties": {
         "nombre_paradero": "PATIO PORTAL",
         "coordenadas": "10.395392, -75.472826",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6804,7 +6804,7 @@
       "properties": {
         "nombre_paradero": "LOS ANGELES",
         "coordenadas": "10.395071, -75.49033",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6821,7 +6821,7 @@
       "properties": {
         "nombre_paradero": "VILLA OLIMPICA",
         "coordenadas": "10.403742, -75.497435",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6838,7 +6838,7 @@
       "properties": {
         "nombre_paradero": "REPUBLICA DEL LIBANO",
         "coordenadas": "10.40734, -75.507542",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6855,7 +6855,7 @@
       "properties": {
         "nombre_paradero": "ESPAÑA",
         "coordenadas": "10.408311, -75.512971",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6872,7 +6872,7 @@
       "properties": {
         "nombre_paradero": "MARIA AUXILIADORA",
         "coordenadas": "10.408976, -75.51583",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6889,7 +6889,7 @@
       "properties": {
         "nombre_paradero": "CHAMBACU",
         "coordenadas": "10.425853, -75.540498",
-        "rutas": "",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
         "network": "Transcaribe",
         "es_exclusivo": true
       },

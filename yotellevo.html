@@ -264,12 +264,50 @@
       });
     }
     
+    // Función para geocodificación inversa (coordenadas a dirección)
+    async function obtenerDireccionDesdeCoordenadas(lat, lng) {
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+        const data = await response.json();
+        
+        if (data && data.display_name) {
+          // Extraer solo la parte local de la dirección (sin Cartagena, Bolívar, Colombia)
+          const addressParts = data.display_name.split(', ');
+          
+          // Filtrar partes que no queremos mostrar
+          const filteredParts = addressParts.filter(part => {
+            const lowerPart = part.toLowerCase();
+            return !lowerPart.includes('cartagena') && 
+                   !lowerPart.includes('bolívar') && 
+                   !lowerPart.includes('bolivar') && 
+                   !lowerPart.includes('colombia') &&
+                   !lowerPart.includes('south america') &&
+                   !lowerPart.includes('america');
+          });
+          
+          // Tomar las primeras 3-4 partes para una dirección corta
+          const direccionCorta = filteredParts.slice(0, 4).join(', ');
+          
+          return direccionCorta || 'Ubicación actual';
+        }
+        
+        return 'Ubicación actual';
+      } catch (error) {
+        console.error('Error en geocodificación inversa:', error);
+        return 'Ubicación actual';
+      }
+    }
+    
     // Función para encontrar paradero más cercano
     async function encontrarParaderoMasCercano(ubicacionUsuario) {
       if (!window.rutasTranscaribe || !Array.isArray(window.rutasTranscaribe)) {
         console.error('❌ No hay datos de paraderos disponibles');
         return null;
       }
+      
+      console.log('🔍 === BUSCANDO PARADERO MÁS CERCANO ===');
+      console.log('📍 Ubicación usuario:', ubicacionUsuario);
+      console.log('📊 Total de features en GeoJSON:', window.rutasTranscaribe.length);
       
       let paraderoMasCercano = null;
       let distanciaMinima = Infinity;
@@ -282,7 +320,9 @@
         f.properties.network === "Transcaribe"
       );
       
-      paraderosTranscaribe.forEach(paradero => {
+      console.log('🚌 Paraderos Transcaribe encontrados:', paraderosTranscaribe.length);
+      
+      paraderosTranscaribe.forEach((paradero, index) => {
         const coords = paradero.geometry.coordinates;
         const lat = coords[1];
         const lon = coords[0];
@@ -291,6 +331,16 @@
           ubicacionUsuario.lat, ubicacionUsuario.lng,
           lat, lon
         );
+        
+        // Log del primer paradero para debugging
+        if (index === 0) {
+          console.log('🔍 Ejemplo de paradero:', {
+            nombre: paradero.properties.nombre_paradero,
+            rutas: paradero.properties.rutas,
+            network: paradero.properties.network,
+            distancia: distancia
+          });
+        }
         
         if (distancia < distanciaMinima) {
           distanciaMinima = distancia;
@@ -311,6 +361,10 @@
     
     // Función para verificar ruta directa
     function verificarRutaDirecta(paraderoOrigen, paraderoDestino) {
+      console.log('🔍 === VERIFICANDO RUTA DIRECTA ===');
+      console.log('📍 Paradero Origen:', paraderoOrigen);
+      console.log('🎯 Paradero Destino:', paraderoDestino);
+      
       // Convertir rutas de string a array si es necesario
       const rutasOrigen = typeof paraderoOrigen.rutas === 'string' ? 
         paraderoOrigen.rutas.split(',').map(r => r.trim()) : 
@@ -320,11 +374,13 @@
         paraderoDestino.rutas.split(',').map(r => r.trim()) : 
         (Array.isArray(paraderoDestino.rutas) ? paraderoDestino.rutas : []);
       
-      console.log('🔍 Verificando rutas directas:');
-      console.log('  Origen:', paraderoOrigen.nombre, 'Rutas:', rutasOrigen);
-      console.log('  Destino:', paraderoDestino.nombre, 'Rutas:', rutasDestino);
+      console.log('🚌 Rutas Origen (procesadas):', rutasOrigen);
+      console.log('🚌 Rutas Destino (procesadas):', rutasDestino);
+      console.log('🚌 Tipo de rutas origen:', typeof paraderoOrigen.rutas);
+      console.log('🚌 Tipo de rutas destino:', typeof paraderoDestino.rutas);
       
       for (const ruta of rutasOrigen) {
+        console.log(`🔍 Verificando ruta origen "${ruta}" en destino...`);
         if (rutasDestino.includes(ruta)) {
           console.log('✅ Ruta directa encontrada:', ruta);
           return { ruta: ruta };
@@ -425,12 +481,19 @@
       const rutaDirecta = verificarRutaDirecta(paraderoOrigen, paraderoDestino);
       
       if (rutaDirecta) {
+        const mensaje = `Toma la ruta ${rutaDirecta.ruta} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
+        console.log('✅ RUTA DIRECTA ENCONTRADA');
+        console.log('🚌 Código de ruta:', rutaDirecta.ruta);
+        console.log('📍 Paradero origen:', paraderoOrigen.nombre);
+        console.log('🎯 Paradero destino:', paraderoDestino.nombre);
+        console.log('📝 Mensaje generado:', mensaje);
+        
         return {
           tipo: 'directa',
           paraderoOrigen: paraderoOrigen,
           paraderoDestino: paraderoDestino,
           ruta: rutaDirecta.ruta,
-          mensaje: `Toma la ruta ${rutaDirecta.ruta} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`,
+          mensaje: mensaje,
           pasos: [
             { accion: 'tomar', ruta: rutaDirecta.ruta, desde: paraderoOrigen, hasta: paraderoDestino }
           ]
@@ -440,6 +503,13 @@
         const transbordo = encontrarMejorTransbordo(paraderoOrigen, paraderoDestino);
         
         if (transbordo) {
+          const mensaje = `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`;
+          console.log('✅ TRANSBORDO ENCONTRADO');
+          console.log('🚌 Ruta 1:', transbordo.ruta1);
+          console.log('🚌 Ruta 2:', transbordo.ruta2);
+          console.log('📍 Paradero transbordo:', transbordo.paraderoTransbordo.nombre);
+          console.log('📝 Mensaje generado:', mensaje);
+          
           return {
             tipo: 'con_transbordo',
             paraderoOrigen: paraderoOrigen,
@@ -447,7 +517,7 @@
             paraderoTransbordo: transbordo.paraderoTransbordo,
             ruta1: transbordo.ruta1,
             ruta2: transbordo.ruta2,
-            mensaje: `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`,
+            mensaje: mensaje,
             pasos: [
               { accion: 'tomar', ruta: transbordo.ruta1, desde: paraderoOrigen, hasta: transbordo.paraderoTransbordo },
               { accion: 'transbordar', en: transbordo.paraderoTransbordo },
@@ -463,45 +533,89 @@
     
     // Función para mostrar instrucciones inteligentes
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
-      // Crear panel de instrucciones inteligentes
-      let instruccionesHTML = `
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
-          <div style="margin-bottom: 1rem;">
-            <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
+      // Obtener dirección desde coordenadas
+      obtenerDireccionDesdeCoordenadas(ubicacionUsuario.lat, ubicacionUsuario.lng).then(direccion => {
+        // Crear panel de instrucciones inteligentes
+        let instruccionesHTML = `
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
+            <div style="margin-bottom: 1rem;">
+              <strong>📍 Tu ubicación:</strong> ${direccion}
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+              <strong>📋 Instrucciones:</strong><br>
+              ${rutaOptima.mensaje}
+            </div>
+            <div style="margin-top: 1rem; text-align: center;">
+              <button id="iniciarSeguimientoBtn" style="background: #ff6600; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                🚀 Iniciar Seguimiento Inteligente
+              </button>
+            </div>
           </div>
-          <div style="margin-bottom: 1rem;">
-            <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
-          </div>
-          <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-            <strong>📋 Instrucciones:</strong><br>
-            ${rutaOptima.mensaje}
-          </div>
-          <div style="margin-top: 1rem; text-align: center;">
-            <button id="iniciarSeguimientoBtn" style="background: #ff6600; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
-              🚀 Iniciar Seguimiento Inteligente
-            </button>
-          </div>
-        </div>
-      `;
-      
-      // Insertar instrucciones en el DOM
-      const infoElement = document.getElementById('info-ruta');
-      if (infoElement) {
-        infoElement.innerHTML = instruccionesHTML;
+        `;
         
-        // Agregar event listener al botón de iniciar seguimiento
-        setTimeout(() => {
-          const btn = document.getElementById('iniciarSeguimientoBtn');
-          if (btn) {
-            btn.addEventListener('click', () => {
-              iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
-            });
-          }
-        }, 100);
-      }
-      
-      console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
+        // Insertar instrucciones en el DOM
+        const infoElement = document.getElementById('info-ruta');
+        if (infoElement) {
+          infoElement.innerHTML = instruccionesHTML;
+          
+          // Agregar event listener al botón de iniciar seguimiento
+          setTimeout(() => {
+            const btn = document.getElementById('iniciarSeguimientoBtn');
+            if (btn) {
+              btn.addEventListener('click', () => {
+                iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
+              });
+            }
+          }, 100);
+        }
+        
+        console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
+      }).catch(error => {
+        console.error('Error obteniendo dirección:', error);
+        // Fallback: mostrar coordenadas si falla la geocodificación
+        let instruccionesHTML = `
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
+            <div style="margin-bottom: 1rem;">
+              <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+              <strong>📋 Instrucciones:</strong><br>
+              ${rutaOptima.mensaje}
+            </div>
+            <div style="margin-top: 1rem; text-align: center;">
+              <button id="iniciarSeguimientoBtn" style="background: #ff6600; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                🚀 Iniciar Seguimiento Inteligente
+              </button>
+            </div>
+          </div>
+        `;
+        
+        // Insertar instrucciones en el DOM
+        const infoElement = document.getElementById('info-ruta');
+        if (infoElement) {
+          infoElement.innerHTML = instruccionesHTML;
+          
+          // Agregar event listener al botón de iniciar seguimiento
+          setTimeout(() => {
+            const btn = document.getElementById('iniciarSeguimientoBtn');
+            if (btn) {
+              btn.addEventListener('click', () => {
+                iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
+              });
+            }
+          }, 100);
+        }
+        
+        console.log('📋 Instrucciones inteligentes mostradas (fallback):', rutaOptima.mensaje);
+      });
     }
     
     // Función para iniciar seguimiento inteligente

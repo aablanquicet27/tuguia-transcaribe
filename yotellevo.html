@@ -802,60 +802,43 @@
         // Filtrar solo paraderos oficiales de Transcaribe
         console.log('🔍 Filtrando paraderos de Transcaribe...');
         let paraderos = data.features.filter(f => {
+          // Validaciones básicas
           if (!f || !f.geometry || !f.properties) return false;
           if (f.geometry.type !== 'Point') return false;
+          
           const props = f.properties;
           const nombre = (props.name || '').toLowerCase();
+          
+          // PRIORIDAD 1: Filtrar por network: "Transcaribe" (más específico)
+          if (props.network && props.network.toLowerCase().includes('transcaribe')) {
+            console.log(`✅ Paradero Transcaribe encontrado: ${props.name} (network: ${props.network})`);
+            return true;
+          }
+          
+          // PRIORIDAD 2: Filtrar por operator: "Transcaribe"
+          if (props.operator && props.operator.toLowerCase().includes('transcaribe')) {
+            console.log(`✅ Paradero Transcaribe encontrado: ${props.name} (operator: ${props.operator})`);
+            return true;
+          }
+          
+          // PRIORIDAD 3: Filtrar por highway: "bus_stop" Y public_transport: "platform"
+          if (props.highway === 'bus_stop' && props.public_transport === 'platform') {
+            console.log(`✅ Paradero de bus encontrado: ${props.name} (highway: ${props.highway}, public_transport: ${props.public_transport})`);
+            return true;
+          }
+          
+          // Excluir elementos que claramente no son de Transcaribe
           const exclusiones = [
             'citysightseeing', 'turístico', 'turista', 'tourist', 'moto-taxi', 
             'mototaxi', 'taxi', 'uber', 'didi', 'cabify', 'pasacaballos bus',
             'bus para pasacaballos', 'colectivo', 'buseta', 'chiva'
           ];
-          if (exclusiones.some(excl => nombre.includes(excl))) return false;
-          const inclusiones = [
-            (props.network && props.network.toLowerCase().includes('transcaribe')),
-            (props.operator && props.operator.toLowerCase().includes('transcaribe')),
-            (props.highway === 'bus_stop'),
-            (props.public_transport === 'platform'),
-            (nombre.includes('portal') && !nombre.includes('citysightseeing')),
-            (nombre.includes('estación') || nombre.includes('estacion')),
-            (nombre.includes('paradero')),
-            (nombre.includes('auxiliadora')),
-            (nombre.includes('bodeguita')),
-            (nombre.includes('castellana')),
-            (nombre.includes('bernarda')),
-            (nombre.includes('bazurto')),
-            (nombre.includes('popa')),
-            (nombre.includes('prado')),
-            (nombre.includes('españa') || nombre.includes('espana')),
-            (nombre.includes('cuatro vientos')),
-            (nombre.includes('olímpica') || nombre.includes('olimpica')),
-            (nombre.includes('ejecutivos')),
-            (nombre.includes('crespo')),
-            (nombre.includes('socorro')),
-            (nombre.includes('mandela')),
-            (nombre.includes('bosque')),
-            (nombre.includes('consulado')),
-            (nombre.includes('romero')),
-            (nombre.includes('campanos')),
-            (nombre.includes('junio')),
-            (nombre.includes('lezo')),
-            (nombre.includes('campo')),
-            (nombre.includes('pozon')),
-            (nombre.includes('estrella')),
-            (nombre.includes('manga')),
-            (nombre.includes('torices')),
-            (nombre.includes('terminal')),
-            (nombre.includes('t100')),
-            (nombre.includes('t101')),
-            (nombre.includes('t102')),
-            (nombre.includes('t103')),
-            (nombre.includes('x101')),
-            (nombre.includes('x102')),
-            (nombre.includes('x103')),
-            (nombre.includes('x104'))
-          ];
-          return inclusiones.some(incl => incl === true);
+          if (exclusiones.some(excl => nombre.includes(excl))) {
+            console.log(`❌ Paradero excluido: ${props.name} (contiene palabra excluida)`);
+            return false;
+          }
+          
+          return false; // Por defecto, no incluir si no cumple criterios específicos
         }).map(f => {
           try {
             return {

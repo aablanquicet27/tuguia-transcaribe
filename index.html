@@ -3268,15 +3268,15 @@
       let paraderoMasCercano = null;
       let distanciaMinima = Infinity;
       
-      // Filtrar solo paraderos exclusivos
-      const paraderosExclusivos = window.rutasTranscaribe.filter(f => 
+      // Filtrar solo paraderos Transcaribe
+      const paraderosTranscaribe = window.rutasTranscaribe.filter(f => 
         f.geometry && 
         f.geometry.type === "Point" && 
         f.properties && 
-        f.properties.es_exclusivo === true
+        f.properties.network === "Transcaribe"
       );
       
-      paraderosExclusivos.forEach(paradero => {
+      paraderosTranscaribe.forEach(paradero => {
         const coords = paradero.geometry.coordinates;
         const lat = coords[1];
         const lon = coords[0];
@@ -3397,7 +3397,7 @@
         f.geometry && 
         f.geometry.type === "Point" && 
         f.properties && 
-        f.properties.es_exclusivo === true
+        f.properties.network === "Transcaribe"
       );
       
       let mejorTransbordo = null;
@@ -3817,6 +3817,7 @@
         f.geometry &&
         f.geometry.type === "Point" &&
         f.properties &&
+        f.properties.network === "Transcaribe" &&
         f.properties.es_exclusivo === true
       );
       selectElement.innerHTML = '';

@@ -3117,44 +3117,8 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // ... existente ...
-      fetch('paraderos.json')
-        .then(response => response.json())
-        .then(data => {
-          // ... existente ...
-          if (startParaderoSelect) {
-            startParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
-            data.forEach((p, idx) => {
-              const opt = document.createElement('option');
-              opt.value = p.nombre;
-              opt.textContent = p.nombre;
-              opt.setAttribute('data-index', idx);
-              startParaderoSelect.appendChild(opt);
-            });
-            startParaderoSelect.addEventListener('change', function() {
-              const idx = this.options[this.selectedIndex].getAttribute('data-index');
-              const paradero = idx !== null ? data[parseInt(idx)] : null;
-              mostrarRutasParadero(paradero, 'startRutasInfo');
-            });
-          }
-          if (endParaderoSelect) {
-            endParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
-            data.forEach((p, idx) => {
-              const opt = document.createElement('option');
-              opt.value = p.nombre;
-              opt.textContent = p.nombre;
-              opt.setAttribute('data-index', idx);
-              endParaderoSelect.appendChild(opt);
-            });
-            endParaderoSelect.addEventListener('change', function() {
-              const idx = this.options[this.selectedIndex].getAttribute('data-index');
-              const paradero = idx !== null ? data[parseInt(idx)] : null;
-              mostrarRutasParadero(paradero, 'endRutasInfo');
-            });
-          }
-        });
-    });
+    // Eliminado el bloque duplicado que cargaba desde paraderos.json
+    // Los selects ahora usan el array estático paraderosData
 
     // =================== SEGUIMIENTO AUTOMÁTICO EN TIEMPO REAL ===================
     let realTrackingWatchId = null;
@@ -3809,38 +3773,42 @@
       return partesFiltradas.join(', ');
     }
 
-    // Reemplazar la carga y uso de 'paraderos' por los features del GeoJSON
+    // Restaurar la lógica original para los selects usando array estático
     function poblarSelectParaderos(selectElement) {
-      if (!window.rutasTranscaribe) return;
+      // Datos de paraderos incluidos directamente en el HTML para evitar problemas de CORS
+      const paraderosData = [
+        {"nombre": "PATIO PORTAL", "coords": [10.395392, -75.472826], "direccion": "Avenida Pedro de Heredia, Patio Portal, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MADRE BERNARDA", "coords": [10.395007, -75.478893], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "LA CASTELLANA", "coords": [10.394408, -75.486631], "direccion": "Avenida Pedro de Heredia, Barrio La Castellana, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "LOS ANGELES", "coords": [10.395071, -75.490330], "direccion": "Avenida Pedro de Heredia, Barrio Los Angeles, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "LOS EJECUTIVOS", "coords": [10.399543, -75.493653], "direccion": "Avenida Pedro de Heredia, Barrio Los Ejecutivos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "VILLA OLIMPICA", "coords": [10.403742, -75.497435], "direccion": "Avenida Pedro de Heredia, Villa Olimpica, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "CUATRO VIENTOS", "coords": [10.406451, -75.502601], "direccion": "Avenida Pedro de Heredia, Sector Cuatro Vientos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "REPUBLICA DEL LIBANO", "coords": [10.407340, -75.507542], "direccion": "Avenida Pedro de Heredia, Barrio República del Líbano, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "ESPAÑA", "coords": [10.408311, -75.512971], "direccion": "Avenida Pedro de Heredia, Barrio España, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MARIA AUXILIADORA", "coords": [10.408976, -75.515830], "direccion": "Avenida Pedro de Heredia, Barrio María Auxiliadora, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "EL PRADO", "coords": [10.411040, -75.519531], "direccion": "Avenida Pedro de Heredia, Barrio El Prado, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MERCADO BAZURTO", "coords": [10.413752, -75.524064], "direccion": "Avenida Pedro de Heredia, Mercado Bazurto, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "LAS DELICIAS", "coords": [10.416640, -75.527932], "direccion": "Las Delicias, Avenida Pedro de Heredia, Barrio Chino, Cartagena de Indias,  Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "PIE DE LA POPA", "coords": [10.417040, -75.531015], "direccion": "Avenida Pedro de Heredia, Barrio Pie de la Popa, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "LO AMADOR", "coords": [10.422358, -75.534597], "direccion": "Lo Amador, TransCaribe, Pie del Cerro, Cartagena de Indias, Dique, Bolívar, 130015, Colombia", "tipo": "Paradero"},
+        {"nombre": "CHAMBACU", "coords": [10.425853, -75.540498], "direccion": "Avenida Pedro de Heredia, Barrio Chambacú, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "CENTRO UNO", "coords": [10.425291, -75.546270], "direccion": "Centro, TransCaribe, San Diego, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MUELLE DE LA BODEGUITA", "coords": [10.420351, -75.551053], "direccion": "Muelle de la Bodeguita, Centro Histórico, Cartagena, Bolívar, Colombia", "tipo": "Paradero"}
+      ];
       
-      console.log('🔍 Analizando paraderos para select...');
-      console.log('📊 Total de features en GeoJSON:', window.rutasTranscaribe.length);
+      console.log('📋 Paraderos cargados:', paraderosData.length, 'paraderos');
+      console.log('📋 Lista de paraderos:', paraderosData.map(p => p.nombre));
       
-      // Contar paraderos por cada filtro
-      const paraderosPoint = window.rutasTranscaribe.filter(f => f.geometry && f.geometry.type === "Point");
-      const paraderosTranscaribe = paraderosPoint.filter(f => f.properties && f.properties.network === "Transcaribe");
-      const paraderosExclusivos = paraderosTranscaribe.filter(f => f.properties.es_exclusivo === true);
-      
-      console.log('📍 Paraderos tipo Point:', paraderosPoint.length);
-      console.log('🚌 Paraderos Transcaribe:', paraderosTranscaribe.length);
-      console.log('⭐ Paraderos exclusivos:', paraderosExclusivos.length);
-      
-      // Filtrar solo paraderos tipo Point, network Transcaribe y es_exclusivo true
-      const paraderosGeo = paraderosExclusivos;
-      
-      console.log('✅ Paraderos que se agregarán al select:', paraderosGeo.length);
-      paraderosGeo.forEach(f => {
-        console.log('  -', f.properties.nombre_paradero, '(es_exclusivo:', f.properties.es_exclusivo, ')');
-      });
-      
-      selectElement.innerHTML = '';
-      paraderosGeo.forEach(f => {
-        const nombre = f.properties && f.properties.nombre_paradero ? f.properties.nombre_paradero : 'Paradero';
+      selectElement.innerHTML = '<option value="">Selecciona un paradero...</option>';
+      paraderosData.forEach(paradero => {
         const option = document.createElement('option');
-        option.value = nombre;
-        option.textContent = nombre;
+        option.value = paradero.nombre;
+        option.textContent = paradero.nombre;
         selectElement.appendChild(option);
       });
+      
+      console.log('✅ Select poblado con', paraderosData.length, 'opciones');
     }
     // Llamar esta función para poblar los selects de inicio y destino después de cargar el GeoJSON
     // Ejemplo:

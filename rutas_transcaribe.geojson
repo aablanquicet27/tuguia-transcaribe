@@ -15,7 +15,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "La Bodeguita"
+        "name": "La Bodeguita",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -36,7 +37,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro"
+        "name": "Centro",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -78,7 +80,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Bazurto"
+        "name": "Bazurto",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -335,7 +338,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "La Popa"
+        "name": "La Popa",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -356,7 +360,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Delicias"
+        "name": "Delicias",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -399,7 +404,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Variante Centro"
+        "name": "Variante Centro",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -1071,7 +1077,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro Comercial Olaya Pla"
+        "name": "Centro Comercial Olaya Pla",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -1365,7 +1372,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Chambac� / Centro / La Bodediga"
+        "name": "Chambac� / Centro / La Bodediga",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -2206,7 +2214,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro (Integraci�n)"
+        "name": "Centro (Integraci�n)",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -2815,7 +2824,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro Comercial M�o"
+        "name": "Centro Comercial M�o",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -4201,7 +4211,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro M�dico Buenos Aires"
+        "name": "Centro M�dico Buenos Aires",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -5272,7 +5283,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro de Convenciones"
+        "name": "Centro de Convenciones",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -5881,7 +5893,8 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro Comercial M�o"
+        "name": "Centro Comercial M�o",
+        "es_exclusivo": true
       },
       "geometry": {
         "type": "Point",
@@ -6638,7 +6651,8 @@
         "rutas": "T103",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
-        "fuente": "csv_2025"
+        "fuente": "csv_2025",
+        "es_exclusivo": true
       }
     },
     {
@@ -6674,7 +6688,8 @@
         "rutas": "T103",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
-        "fuente": "csv_2025"
+        "fuente": "csv_2025",
+        "es_exclusivo": true
       }
     },
     {
@@ -6765,6 +6780,125 @@
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "PATIO PORTAL",
+        "coordenadas": "10.395392, -75.472826",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.472826,
+          10.395392
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "LOS ANGELES",
+        "coordenadas": "10.395071, -75.49033",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.49033,
+          10.395071
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "VILLA OLIMPICA",
+        "coordenadas": "10.403742, -75.497435",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.497435,
+          10.403742
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "REPUBLICA DEL LIBANO",
+        "coordenadas": "10.40734, -75.507542",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.507542,
+          10.40734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "ESPAÑA",
+        "coordenadas": "10.408311, -75.512971",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.512971,
+          10.408311
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "MARIA AUXILIADORA",
+        "coordenadas": "10.408976, -75.51583",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.51583,
+          10.408976
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "CHAMBACU",
+        "coordenadas": "10.425853, -75.540498",
+        "rutas": "",
+        "network": "Transcaribe",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.540498,
+          10.425853
+        ]
       }
     }
   ]

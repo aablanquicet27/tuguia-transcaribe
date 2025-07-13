@@ -3252,14 +3252,14 @@
         
         if (distancia < distanciaMinima) {
           distanciaMinima = distancia;
-          paraderoMasCercano = {
-            nombre: paradero.properties.nombre_paradero || 'Paradero',
-            lat: lat,
-            lon: lon,
-            distancia: distancia,
-            rutas: paradero.properties.rutas || [],
-            tipos_ruta: paradero.properties.tipos_ruta || []
-          };
+                paraderoMasCercano = {
+        nombre: paradero.properties.nombre_paradero || 'Paradero',
+        lat: lat,
+        lon: lon,
+        distancia: distancia,
+        rutas: paradero.properties.rutas || '',
+        tipos_ruta: paradero.properties.tipos_ruta || ''
+      };
         }
       });
       
@@ -3339,16 +3339,27 @@
     
     // Función para verificar ruta directa
     function verificarRutaDirecta(paraderoOrigen, paraderoDestino) {
-      // Buscar rutas comunes entre origen y destino
-      const rutasOrigen = Array.isArray(paraderoOrigen.rutas) ? paraderoOrigen.rutas : [];
-      const rutasDestino = Array.isArray(paraderoDestino.rutas) ? paraderoDestino.rutas : [];
+      // Convertir rutas de string a array si es necesario
+      const rutasOrigen = typeof paraderoOrigen.rutas === 'string' ? 
+        paraderoOrigen.rutas.split(',').map(r => r.trim()) : 
+        (Array.isArray(paraderoOrigen.rutas) ? paraderoOrigen.rutas : []);
+      
+      const rutasDestino = typeof paraderoDestino.rutas === 'string' ? 
+        paraderoDestino.rutas.split(',').map(r => r.trim()) : 
+        (Array.isArray(paraderoDestino.rutas) ? paraderoDestino.rutas : []);
+      
+      console.log('🔍 Verificando rutas directas:');
+      console.log('  Origen:', paraderoOrigen.nombre, 'Rutas:', rutasOrigen);
+      console.log('  Destino:', paraderoDestino.nombre, 'Rutas:', rutasDestino);
       
       for (const ruta of rutasOrigen) {
         if (rutasDestino.includes(ruta)) {
+          console.log('✅ Ruta directa encontrada:', ruta);
           return { ruta: ruta };
         }
       }
       
+      console.log('❌ No se encontró ruta directa');
       return null;
     }
     
@@ -3372,7 +3383,9 @@
         const lat = coords[1];
         const lon = coords[0];
         
-        const rutasParadero = Array.isArray(paradero.properties.rutas) ? paradero.properties.rutas : [];
+        const rutasParadero = typeof paradero.properties.rutas === 'string' ? 
+          paradero.properties.rutas.split(',').map(r => r.trim()) : 
+          (Array.isArray(paradero.properties.rutas) ? paradero.properties.rutas : []);
         
         // Verificar si este paradero conecta origen y destino
         const rutaDesdeOrigen = verificarRutaDirecta(paraderoOrigen, {

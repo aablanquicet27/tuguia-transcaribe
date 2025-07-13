@@ -361,29 +361,22 @@
       console.log('🔍 === VERIFICANDO RUTA DIRECTA ===');
       console.log('📍 Paradero Origen:', paraderoOrigen);
       console.log('🎯 Paradero Destino:', paraderoDestino);
-      
       // Convertir rutas de string a array si es necesario
       const rutasOrigen = typeof paraderoOrigen.rutas === 'string' ? 
-        paraderoOrigen.rutas.split(',').map(r => r.trim()) : 
+        paraderoOrigen.rutas.split(',').map(r => r.trim()).filter(Boolean) : 
         (Array.isArray(paraderoOrigen.rutas) ? paraderoOrigen.rutas : []);
-      
       const rutasDestino = typeof paraderoDestino.rutas === 'string' ? 
-        paraderoDestino.rutas.split(',').map(r => r.trim()) : 
+        paraderoDestino.rutas.split(',').map(r => r.trim()).filter(Boolean) : 
         (Array.isArray(paraderoDestino.rutas) ? paraderoDestino.rutas : []);
-      
       console.log('🚌 Rutas Origen (procesadas):', rutasOrigen);
       console.log('🚌 Rutas Destino (procesadas):', rutasDestino);
-      console.log('🚌 Tipo de rutas origen:', typeof paraderoOrigen.rutas);
-      console.log('🚌 Tipo de rutas destino:', typeof paraderoDestino.rutas);
-      
-      for (const ruta of rutasOrigen) {
-        console.log(`🔍 Verificando ruta origen "${ruta}" en destino...`);
-        if (rutasDestino.includes(ruta)) {
-          console.log('✅ Ruta directa encontrada:', ruta);
-          return { ruta: ruta };
-        }
+      // Buscar intersección
+      const rutasComunes = rutasOrigen.filter(ruta => rutasDestino.includes(ruta));
+      console.log('🟢 Rutas comunes:', rutasComunes);
+      if (rutasComunes.length > 0) {
+        console.log('✅ Ruta directa encontrada:', rutasComunes[0]);
+        return { ruta: rutasComunes[0] };
       }
-      
       console.log('❌ No se encontró ruta directa');
       return null;
     }

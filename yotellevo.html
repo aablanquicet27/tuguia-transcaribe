@@ -372,10 +372,10 @@
       console.log('🚌 Rutas Destino (procesadas):', rutasDestino);
       // Buscar intersección
       const rutasComunes = rutasOrigen.filter(ruta => rutasDestino.includes(ruta));
-      console.log('🟢 Rutas comunes:', rutasComunes);
+      console.log('🟢 Rutas comunes (intersección):', rutasComunes);
       if (rutasComunes.length > 0) {
         console.log('✅ Ruta directa encontrada:', rutasComunes[0]);
-        return { ruta: rutasComunes[0] };
+        return { ruta: rutasComunes[0], todas: rutasComunes };
       }
       console.log('❌ No se encontró ruta directa');
       return null;
@@ -466,8 +466,10 @@
       }
       // Verificar si hay ruta directa
       const rutaDirecta = verificarRutaDirecta(paraderoOrigen, paraderoDestino);
+      console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
       if (rutaDirecta && rutaDirecta.ruta) {
         const mensaje = `Toma la ruta ${rutaDirecta.ruta} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
+        console.log('🟢 Mensaje generado:', mensaje);
         return {
           tipo: 'directa',
           paraderoOrigen: paraderoOrigen,

@@ -3812,14 +3812,27 @@
     // Reemplazar la carga y uso de 'paraderos' por los features del GeoJSON
     function poblarSelectParaderos(selectElement) {
       if (!window.rutasTranscaribe) return;
+      
+      console.log('🔍 Analizando paraderos para select...');
+      console.log('📊 Total de features en GeoJSON:', window.rutasTranscaribe.length);
+      
+      // Contar paraderos por cada filtro
+      const paraderosPoint = window.rutasTranscaribe.filter(f => f.geometry && f.geometry.type === "Point");
+      const paraderosTranscaribe = paraderosPoint.filter(f => f.properties && f.properties.network === "Transcaribe");
+      const paraderosExclusivos = paraderosTranscaribe.filter(f => f.properties.es_exclusivo === true);
+      
+      console.log('📍 Paraderos tipo Point:', paraderosPoint.length);
+      console.log('🚌 Paraderos Transcaribe:', paraderosTranscaribe.length);
+      console.log('⭐ Paraderos exclusivos:', paraderosExclusivos.length);
+      
       // Filtrar solo paraderos tipo Point, network Transcaribe y es_exclusivo true
-      const paraderosGeo = window.rutasTranscaribe.filter(f =>
-        f.geometry &&
-        f.geometry.type === "Point" &&
-        f.properties &&
-        f.properties.network === "Transcaribe" &&
-        f.properties.es_exclusivo === true
-      );
+      const paraderosGeo = paraderosExclusivos;
+      
+      console.log('✅ Paraderos que se agregarán al select:', paraderosGeo.length);
+      paraderosGeo.forEach(f => {
+        console.log('  -', f.properties.nombre_paradero, '(es_exclusivo:', f.properties.es_exclusivo, ')');
+      });
+      
       selectElement.innerHTML = '';
       paraderosGeo.forEach(f => {
         const nombre = f.properties && f.properties.nombre_paradero ? f.properties.nombre_paradero : 'Paradero';
@@ -3982,18 +3995,35 @@
     document.addEventListener('DOMContentLoaded', cargarMarcadoresParaderos);
 
     function mostrarInstruccionesAntesDeIniciar(destinoCoords, destinoNombre) {
+      console.log('🧠 Iniciando mostrarInstruccionesAntesDeIniciar...');
+      console.log('📍 Destino:', destinoCoords, destinoNombre);
+      
       // Obtener ubicación GPS actual
       obtenerUbicacionGPS().then(ubicacionUsuario => {
+        console.log('📍 Ubicación GPS obtenida:', ubicacionUsuario);
+        
         encontrarParaderoMasCercano(ubicacionUsuario).then(paraderoCercano => {
+          console.log('🚌 Paradero más cercano encontrado:', paraderoCercano);
+          
           calcularRutaOptima(paraderoCercano, destinoCoords).then(rutaOptima => {
+            console.log('🛣️ Ruta óptima calculada:', rutaOptima);
+            
             if (rutaOptima) {
               mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario);
             } else {
+              console.error('❌ No se pudo calcular la ruta óptima');
               document.getElementById('info').textContent = 'No se pudo calcular la ruta óptima.';
             }
+          }).catch(error => {
+            console.error('❌ Error calculando ruta óptima:', error);
+            document.getElementById('info').textContent = 'Error calculando ruta óptima.';
           });
+        }).catch(error => {
+          console.error('❌ Error encontrando paradero cercano:', error);
+          document.getElementById('info').textContent = 'Error encontrando paradero cercano.';
         });
-      }).catch(() => {
+      }).catch(error => {
+        console.error('❌ Error obteniendo ubicación GPS:', error);
         document.getElementById('info').textContent = 'No se pudo obtener la ubicación actual para calcular la ruta.';
       });
     }

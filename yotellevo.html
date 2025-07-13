@@ -467,18 +467,16 @@
       // Verificar si hay ruta directa
       const rutaDirecta = verificarRutaDirecta(paraderoOrigen, paraderoDestino);
       console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
-      if (rutaDirecta && rutaDirecta.ruta) {
-        const mensaje = `Toma la ruta ${rutaDirecta.ruta} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
-        console.log('🟢 Mensaje generado:', mensaje);
+      if (rutaDirecta && rutaDirecta.todas && rutaDirecta.todas.length > 0) {
+        let rutasTexto = rutaDirecta.todas.length === 1 ? `la ruta ${rutaDirecta.todas[0]}` : `las rutas ${rutaDirecta.todas.join(', ')}`;
+        const mensaje = `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
         return {
           tipo: 'directa',
           paraderoOrigen: paraderoOrigen,
           paraderoDestino: paraderoDestino,
-          ruta: rutaDirecta.ruta,
+          ruta: rutaDirecta.todas,
           mensaje: mensaje,
-          pasos: [
-            { accion: 'tomar', ruta: rutaDirecta.ruta, desde: paraderoOrigen, hasta: paraderoDestino }
-          ]
+          pasos: rutaDirecta.todas.map(ruta => ({ accion: 'tomar', ruta: ruta, desde: paraderoOrigen, hasta: paraderoDestino }))
         };
       } else {
         // Buscar transbordo

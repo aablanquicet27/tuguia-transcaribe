@@ -1,0 +1,570 @@
+NOMBRE_PARADERO;COORDENADAS;RUTA;NETWORK;TIPO_RUTA
+La Bodeguita;10.4225, -75.5472;X101;Transcaribe;Pretroncales
+Centro;10.4238, -75.5489;X101;Transcaribe;Pretroncales
+Chambacú;10.4265, -75.5431;X101;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X101;Transcaribe;Pretroncales
+María Auxiliadora;10.4140, -75.5245;X101;Transcaribe;Pretroncales
+República del Líbano;10.4122, -75.5201;X101;Transcaribe;Pretroncales
+Cuatro Vientos;10.4101, -75.5163;X101;Transcaribe;Pretroncales
+Villa Olímpica;10.4080, -75.5125;X101;Transcaribe;Pretroncales
+Los Ejecutivos;10.4055, -75.5087;X101;Transcaribe;Pretroncales
+Madre Bernarda;10.4032, -75.5051;X101;Transcaribe;Pretroncales
+Portal Crespo;10.4010, -75.5020;X101;Transcaribe;Pretroncales
+El Prado;10.3995, -75.4992;X101;Transcaribe;Pretroncales
+España;10.3978, -75.4965;X101;Transcaribe;Pretroncales
+Los Ángeles;10.3960, -75.4938;X101;Transcaribe;Pretroncales
+La Castellana;10.3942, -75.4911;X101;Transcaribe;Pretroncales
+La Popa;10.3925, -75.4884;X101;Transcaribe;Pretroncales
+Delicias;10.3907, -75.4857;X101;Transcaribe;Pretroncales
+Lo Amador;10.3889, -75.4830;X101;Transcaribe;Pretroncales
+Variante Centro;10.3871, -75.4803;X101;Transcaribe;Pretroncales
+Parque Romero;10.3853, -75.4776;X101;Transcaribe;Pretroncales
+Colegio Ciudadela 2000;10.3835, -75.4749;X101;Transcaribe;Pretroncales
+Estadio de Softball;10.3817, -75.4722;X101;Transcaribe;Pretroncales
+La Algodonera;10.3799, -75.4695;X101;Transcaribe;Pretroncales
+Clínica Rafael Calvo;10.3781, -75.4668;X101;Transcaribe;Pretroncales
+Villa Rubia;10.3763, -75.4641;X101;Transcaribe;Pretroncales
+Socorro;10.3745, -75.4614;X101;Transcaribe;Pretroncales
+Nueva Jerusalén;10.3727, -75.4587;X101;Transcaribe;Pretroncales
+Los Jardines;10.3709, -75.4560;X101;Transcaribe;Pretroncales
+Santa Lucía;10.3691, -75.4533;X101;Transcaribe;Pretroncales
+El Carmelo;10.3673, -75.4506;X101;Transcaribe;Pretroncales
+El Campestre;10.3655, -75.4479;X101;Transcaribe;Pretroncales
+Los Corales;10.3637, -75.4452;X101;Transcaribe;Pretroncales
+Nuevo Bosque;10.3619, -75.4425;X101;Transcaribe;Pretroncales
+Nuevo Oriente;10.3601, -75.4398;X101;Transcaribe;Pretroncales
+San Isidro;10.3583, -75.4371;X101;Transcaribe;Pretroncales
+Ceballos;10.3565, -75.4344;X101;Transcaribe;Pretroncales
+Parque Huellas de Alberto Uribe;10.3932, -75.4958;X101;Transcaribe;Pretroncales
+La Bodeguita;10.4225, -75.5472;X102;Transcaribe;Pretroncales
+Centro;10.4238, -75.5489;X102;Transcaribe;Pretroncales
+Chambacú;10.4265, -75.5431;X102;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X102;Transcaribe;Pretroncales
+María Auxiliadora;10.4140, -75.5245;X102;Transcaribe;Pretroncales
+República del Líbano;10.4122, -75.5201;X102;Transcaribe;Pretroncales
+Cuatro Vientos;10.4101, -75.5163;X102;Transcaribe;Pretroncales
+Villa Olímpica;10.4080, -75.5125;X102;Transcaribe;Pretroncales
+Los Ejecutivos;10.4055, -75.5087;X102;Transcaribe;Pretroncales
+Madre Bernarda;10.4032, -75.5051;X102;Transcaribe;Pretroncales
+Portal Crespo;10.4010, -75.5020;X102;Transcaribe;Pretroncales
+El Prado;10.3995, -75.4992;X102;Transcaribe;Pretroncales
+España;10.3978, -75.4965;X102;Transcaribe;Pretroncales
+Los Ángeles;10.3960, -75.4938;X102;Transcaribe;Pretroncales
+La Castellana;10.3942, -75.4911;X102;Transcaribe;Pretroncales
+La Popa;10.3925, -75.4884;X102;Transcaribe;Pretroncales
+Delicias;10.3907, -75.4857;X102;Transcaribe;Pretroncales
+Lo Amador;10.3889, -75.4830;X102;Transcaribe;Pretroncales
+Variante Centro;10.3871, -75.4803;X102;Transcaribe;Pretroncales
+Parque Romero;10.3853, -75.4776;X102;Transcaribe;Pretroncales
+Colegio Ciudadela 2000;10.3835, -75.4749;X102;Transcaribe;Pretroncales
+Estadio de Softball;10.3817, -75.4722;X102;Transcaribe;Pretroncales
+La Algodonera;10.3799, -75.4695;X102;Transcaribe;Pretroncales
+Clínica Rafael Calvo;10.3781, -75.4668;X102;Transcaribe;Pretroncales
+Villa Rubia;10.3763, -75.4641;X102;Transcaribe;Pretroncales
+Socorro;10.3745, -75.4614;X102;Transcaribe;Pretroncales
+Nueva Jerusalén;10.3727, -75.4587;X102;Transcaribe;Pretroncales
+Los Jardines;10.3709, -75.4560;X102;Transcaribe;Pretroncales
+Santa Lucía;10.3691, -75.4533;X102;Transcaribe;Pretroncales
+El Carmelo;10.3673, -75.4506;X102;Transcaribe;Pretroncales
+Portal Transcaribe;10.3655, -75.4479;X102;Transcaribe;Pretroncales
+La Bodeguita;10.4225, -75.5472;X103;Transcaribe;Pretroncales
+Centro;10.4238, -75.5489;X103;Transcaribe;Pretroncales
+Chambacú;10.4265, -75.5431;X103;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X103;Transcaribe;Pretroncales
+María Auxiliadora;10.4140, -75.5245;X103;Transcaribe;Pretroncales
+República del Líbano;10.4122, -75.5201;X103;Transcaribe;Pretroncales
+Cuatro Vientos;10.4101, -75.5163;X103;Transcaribe;Pretroncales
+Villa Olímpica;10.4080, -75.5125;X103;Transcaribe;Pretroncales
+Los Ángeles;10.4060, -75.5095;X103;Transcaribe;Pretroncales
+Madre Bernarda;10.4032, -75.5051;X103;Transcaribe;Pretroncales
+El Prado;10.3995, -75.4992;X103;Transcaribe;Pretroncales
+España;10.3978, -75.4965;X103;Transcaribe;Pretroncales
+Delicias;10.3907, -75.4857;X103;Transcaribe;Pretroncales
+Lo Amador;10.3889, -75.4830;X103;Transcaribe;Pretroncales
+Variante Centro;10.3871, -75.4803;X103;Transcaribe;Pretroncales
+Parque Romero;10.3853, -75.4776;X103;Transcaribe;Pretroncales
+Colegio Ciudadela 2000;10.3835, -75.4749;X103;Transcaribe;Pretroncales
+Estadio de Softball;10.3817, -75.4722;X103;Transcaribe;Pretroncales
+La Algodonera;10.3799, -75.4695;X103;Transcaribe;Pretroncales
+Clínica Rafael Calvo;10.3781, -75.4668;X103;Transcaribe;Pretroncales
+Portal Transcaribe;10.3655, -75.4479;X103;Transcaribe;Pretroncales
+Terminal de Transporte;10.3932, -75.4958;X104;Transcaribe;Pretroncales
+Palmas de Salamanca;10.3915, -75.4932;X104;Transcaribe;Pretroncales
+El Cariñoso;10.3898, -75.4906;X104;Transcaribe;Pretroncales
+Portales de Alicante;10.3881, -75.4879;X104;Transcaribe;Pretroncales
+Villas de la Candelaria;10.3864, -75.4852;X104;Transcaribe;Pretroncales
+Entrada Las Palmeras;10.3847, -75.4825;X104;Transcaribe;Pretroncales
+Entrada Nuevo Paraíso;10.3830, -75.4798;X104;Transcaribe;Pretroncales
+Entrada Fredonia;10.3813, -75.4771;X104;Transcaribe;Pretroncales
+Cementerio de Olaya;10.3796, -75.4744;X104;Transcaribe;Pretroncales
+Olaya Sector Playa Blanca;10.3779, -75.4717;X104;Transcaribe;Pretroncales
+Olaya Sector La Puntilla;10.3762, -75.4690;X104;Transcaribe;Pretroncales
+Centro Comercial Olaya Pla;10.3745, -75.4663;X104;Transcaribe;Pretroncales
+Olaya Sector La Central;10.3728, -75.4636;X104;Transcaribe;Pretroncales
+Colegio Almirante Colón;10.3711, -75.4609;X104;Transcaribe;Pretroncales
+Casa de Justicia Chiquinqu;10.3694, -75.4582;X104;Transcaribe;Pretroncales
+CAI Arrocera;10.3677, -75.4555;X104;Transcaribe;Pretroncales
+Salida Vía Perimetral;10.3660, -75.4528;X104;Transcaribe;Pretroncales
+Sector Rafael Núñez;10.3643, -75.4501;X104;Transcaribe;Pretroncales
+Olaya Sector El Tancón;10.3626, -75.4474;X104;Transcaribe;Pretroncales
+El Líbano;10.3609, -75.4447;X104;Transcaribe;Pretroncales
+Boston;10.3592, -75.4420;X104;Transcaribe;Pretroncales
+La Esquina del Sabor;10.3575, -75.4393;X104;Transcaribe;Pretroncales
+La Candelaria;10.3558, -75.4366;X104;Transcaribe;Pretroncales
+Liceo Pedro de Heredia;10.3541, -75.4339;X104;Transcaribe;Pretroncales
+Alcibia;10.3524, -75.4312;X104;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X104;Transcaribe;Pretroncales
+La Popa;10.3925, -75.4884;X104;Transcaribe;Pretroncales
+Chambacú / Centro / La Bodediga;10.4225, -75.5472;X104;Transcaribe;Pretroncales
+Club Cartagena;10.4220, -75.5470;X105;Transcaribe;Pretroncales
+Calle 5a;10.4215, -75.5465;X105;Transcaribe;Pretroncales
+Berlitz;10.4208, -75.5458;X105;Transcaribe;Pretroncales
+Porvenir;10.4200, -75.5450;X105;Transcaribe;Pretroncales
+Maternidad;10.4192, -75.5442;X105;Transcaribe;Pretroncales
+Calle 10;10.4184, -75.5434;X105;Transcaribe;Pretroncales
+Edificio Grupo Área;10.4176, -75.5426;X105;Transcaribe;Pretroncales
+Calle 12;10.4168, -75.5418;X105;Transcaribe;Pretroncales
+Edificio La Marina;10.4160, -75.5410;X105;Transcaribe;Pretroncales
+La Bodeguita;10.4225, -75.5472;X105;Transcaribe;Pretroncales
+Centro;10.4238, -75.5489;X105;Transcaribe;Pretroncales
+Lo Amador;10.3889, -75.4830;X105;Transcaribe;Pretroncales
+Las Delicias;10.3907, -75.4857;X105;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X105;Transcaribe;Pretroncales
+Martínez Martelo;10.4150, -75.5260;X105;Transcaribe;Pretroncales
+Cancha Martínez Martelo;10.4135, -75.5240;X105;Transcaribe;Pretroncales
+La Cuchilla;10.4118, -75.5215;X105;Transcaribe;Pretroncales
+Coca Cola;10.4101, -75.5190;X105;Transcaribe;Pretroncales
+Hogar San Pedro Claver;10.4084, -75.5165;X105;Transcaribe;Pretroncales
+Restaurante Bumangués;10.4067, -75.5140;X105;Transcaribe;Pretroncales
+Manzanillo;10.4050, -75.5115;X105;Transcaribe;Pretroncales
+Postobón;10.4033, -75.5090;X105;Transcaribe;Pretroncales
+Navitrans;10.4016, -75.5065;X105;Transcaribe;Pretroncales
+Agrinal;10.3999, -75.5040;X105;Transcaribe;Pretroncales
+Nuevo Oriente;10.3982, -75.5015;X105;Transcaribe;Pretroncales
+Bajos de San Isidro;10.3965, -75.4990;X105;Transcaribe;Pretroncales
+Entrada Ceballos;10.3948, -75.4965;X105;Transcaribe;Pretroncales
+Proleca;10.3931, -75.4940;X105;Transcaribe;Pretroncales
+Punta Alta;10.3914, -75.4915;X105;Transcaribe;Pretroncales
+Entrada Golf;10.3897, -75.4890;X105;Transcaribe;Pretroncales
+El Milagro;10.3880, -75.4865;X105;Transcaribe;Pretroncales
+Taller Mañe;10.3863, -75.4840;X105;Transcaribe;Pretroncales
+Tienda Puentecito.com;10.3846, -75.4815;X105;Transcaribe;Pretroncales
+Calle 14;10.3829, -75.4790;X105;Transcaribe;Pretroncales
+Precio Fácil;10.3812, -75.4765;X105;Transcaribe;Pretroncales
+Los Jardines;10.3795, -75.4740;X105;Transcaribe;Pretroncales
+Nueva Jerusalén La Consolata;10.3778, -75.4715;X105;Transcaribe;Pretroncales
+Villa Rubia;10.3761, -75.4690;X105;Transcaribe;Pretroncales
+Clínica Rafael Calvo;10.3744, -75.4665;X105;Transcaribe;Pretroncales
+Restaurante Chung Fa;10.3727, -75.4640;X105;Transcaribe;Pretroncales
+La Algodonera;10.3710, -75.4615;X105;Transcaribe;Pretroncales
+Hogar de Bien;10.3693, -75.4590;X105;Transcaribe;Pretroncales
+Colegio Ciudadela 2000;10.3676, -75.4565;X105;Transcaribe;Pretroncales
+Centro (Integración);10.4239, -75.5485;X105;Transcaribe;Pretroncales
+María Mulata;10.4170, -75.5512;X105;Transcaribe;Pretroncales
+Olímpica;10.4158, -75.5518;X105;Transcaribe;Pretroncales
+Ambientes;10.4146, -75.5523;X105;Transcaribe;Pretroncales
+Crepes & Waffles;10.4134, -75.5529;X105;Transcaribe;Pretroncales
+Miska;10.4122, -75.5535;X105;Transcaribe;Pretroncales
+Dulcería;10.4110, -75.5541;X105;Transcaribe;Pretroncales
+El Pueblito (Kr 2 - Cl 5);10.4098, -75.5547;X105;Transcaribe;Pretroncales
+Gobernación de Bolívar (Turbaco);10.3365, -75.4420;X106;Transcaribe;Pretroncales
+Colegio Beverly Hills;10.3392, -75.4445;X106;Transcaribe;Pretroncales
+CAD Ternera;10.3420, -75.4470;X106;Transcaribe;Pretroncales
+Peaje Turbaco;10.3450, -75.4495;X106;Transcaribe;Pretroncales
+Variante Troncal de Occidente;10.3480, -75.4520;X106;Transcaribe;Pretroncales
+Villa Olímpica;10.4080, -75.5125;X106;Transcaribe;Pretroncales
+Cuatro Vientos;10.4101, -75.5163;X106;Transcaribe;Pretroncales
+República del Líbano;10.4122, -75.5201;X106;Transcaribe;Pretroncales
+María Auxiliadora;10.4140, -75.5245;X106;Transcaribe;Pretroncales
+Bazurto;10.4172, -75.5284;X106;Transcaribe;Pretroncales
+Chambacú;10.4265, -75.5431;X106;Transcaribe;Pretroncales
+Centro;10.4238, -75.5489;X106;Transcaribe;Pretroncales
+La Bodeguita;10.4225, -75.5472;X106;Transcaribe;Pretroncales
+Parque de la Marina;10.4230, -75.5470;X106;Transcaribe;Pretroncales
+Marbella;10.4270, -75.5350;X106;Transcaribe;Pretroncales
+El Cabrero;10.4292, -75.5375;X106;Transcaribe;Pretroncales
+Crespo;10.4435, -75.5122;X106;Transcaribe;Pretroncales
+Carrera 10 (Cl 71);10.4448, -75.5110;X106;Transcaribe;Pretroncales
+Carrera 9 (Cl 70A);10.4460, -75.5098;X106;Transcaribe;Pretroncales
+Gobernación retorno;10.3365, -75.4420;X106;Transcaribe;Pretroncales
+Gobernación de Bolívar (final);10.3365, -75.4420;X106;Transcaribe;Pretroncales
+Portal Transcaribe;10.3655, -75.4479;A101;Transcaribe;Alimentadoras
+Huellas de Alberto Uribe;10.3672, -75.4506;A101;Transcaribe;Alimentadoras
+Troncal de Occidente;10.3690, -75.4533;A101;Transcaribe;Alimentadoras
+Zona de Conurbación;10.3708, -75.4560;A101;Transcaribe;Alimentadoras
+Jardín de la Orquídea;10.3726, -75.4587;A101;Transcaribe;Alimentadoras
+Jardín Camelia;10.3744, -75.4614;A101;Transcaribe;Alimentadoras
+Parque de Galilea;10.3762, -75.4641;A101;Transcaribe;Alimentadoras
+Palmas de Salamanca;10.3780, -75.4668;A101;Transcaribe;Alimentadoras
+Afueras Terminal de Transporte;10.3798, -75.4695;A101;Transcaribe;Alimentadoras
+Centro Comercial Mío;10.3816, -75.4722;A101;Transcaribe;Alimentadoras
+Bomba Petromil;10.3834, -75.4749;A101;Transcaribe;Alimentadoras
+Glorieta La Carolina;10.3852, -75.4776;A101;Transcaribe;Alimentadoras
+Conjunto Jardín 2;10.3870, -75.4803;A101;Transcaribe;Alimentadoras
+Jardines de La Carolina;10.3888, -75.4830;A101;Transcaribe;Alimentadoras
+Ciudad Jardín I;10.3906, -75.4857;A101;Transcaribe;Alimentadoras
+Ciudad Jardín II;10.3924, -75.4884;A101;Transcaribe;Alimentadoras
+Ciudad Jardín III;10.3942, -75.4911;A101;Transcaribe;Alimentadoras
+Ciudad Jardín IV;10.3960, -75.4938;A101;Transcaribe;Alimentadoras
+Ciudad Jardín V;10.3978, -75.4965;A101;Transcaribe;Alimentadoras
+Ciudad Jardín VI;10.3996, -75.4992;A101;Transcaribe;Alimentadoras
+Ciudad Jardín VII;10.4014, -75.5020;A101;Transcaribe;Alimentadoras
+Ciudad Jardín VIII;10.4032, -75.5048;A101;Transcaribe;Alimentadoras
+Ciudad Jardín IX;10.4050, -75.5076;A101;Transcaribe;Alimentadoras
+Ciudad Jardín X;10.4068, -75.5104;A101;Transcaribe;Alimentadoras
+Ciudad Jardín XI;10.4086, -75.5132;A101;Transcaribe;Alimentadoras
+Ciudad Jardín XII;10.4104, -75.5160;A101;Transcaribe;Alimentadoras
+Ciudad Jardín XIII;10.4122, -75.5188;A101;Transcaribe;Alimentadoras
+Ciudad Jardín XIV;10.4140, -75.5216;A101;Transcaribe;Alimentadoras
+Portal Transcaribe;10.3655, -75.4479;A102;Transcaribe;Alimentadoras
+Colegio Ciudadela 2000;10.3676, -75.4565;A102;Transcaribe;Alimentadoras
+Hogar de Bien;10.3693, -75.4590;A102;Transcaribe;Alimentadoras
+La Algodonera;10.3710, -75.4615;A102;Transcaribe;Alimentadoras
+Clínica Rafael Calvo;10.3744, -75.4665;A102;Transcaribe;Alimentadoras
+Villa Rubia;10.3761, -75.4690;A102;Transcaribe;Alimentadoras
+Nueva Jerusalén;10.3778, -75.4715;A102;Transcaribe;Alimentadoras
+Los Jardines;10.3795, -75.4740;A102;Transcaribe;Alimentadoras
+Precio Fácil;10.3812, -75.4765;A102;Transcaribe;Alimentadoras
+Calle 14;10.3829, -75.4790;A102;Transcaribe;Alimentadoras
+Tienda Puentecito.com;10.3846, -75.4815;A102;Transcaribe;Alimentadoras
+Taller Mañe;10.3863, -75.4840;A102;Transcaribe;Alimentadoras
+El Milagro;10.3880, -75.4865;A102;Transcaribe;Alimentadoras
+Entrada Golf;10.3897, -75.4890;A102;Transcaribe;Alimentadoras
+Punta Alta;10.3914, -75.4915;A102;Transcaribe;Alimentadoras
+Proleca;10.3931, -75.4940;A102;Transcaribe;Alimentadoras
+Entrada Ceballos;10.3948, -75.4965;A102;Transcaribe;Alimentadoras
+Bajos de San Isidro;10.3965, -75.4990;A102;Transcaribe;Alimentadoras
+Nuevo Oriente;10.3982, -75.5015;A102;Transcaribe;Alimentadoras
+Agrinal;10.3999, -75.5040;A102;Transcaribe;Alimentadoras
+Navitrans;10.4016, -75.5065;A102;Transcaribe;Alimentadoras
+Postobón;10.4033, -75.5090;A102;Transcaribe;Alimentadoras
+Manzanillo;10.4050, -75.5115;A102;Transcaribe;Alimentadoras
+Universidad Tecnológica;10.4067, -75.5140;A102;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A103;Transcaribe;Alimentadoras
+Iglesia Santa Lucía;10.3668, -75.4495;A103;Transcaribe;Alimentadoras
+Parque Lorduy;10.3681, -75.4512;A103;Transcaribe;Alimentadoras
+Colegio Juan José Nieto;10.3694, -75.4529;A103;Transcaribe;Alimentadoras
+Colegio Dulce Corazón de María;10.3707, -75.4546;A103;Transcaribe;Alimentadoras
+Parque Plan 134;10.3720, -75.4563;A103;Transcaribe;Alimentadoras
+Iglesia La Consolata;10.3733, -75.4580;A103;Transcaribe;Alimentadoras
+Droguería María V;10.3746, -75.4597;A103;Transcaribe;Alimentadoras
+Restaurante La Florida;10.3759, -75.4614;A103;Transcaribe;Alimentadoras
+Ferretería El Chico;10.3772, -75.4631;A103;Transcaribe;Alimentadoras
+Iglesia Cristiana El Acta del Pacto;10.3785, -75.4648;A103;Transcaribe;Alimentadoras
+Frigocarnes Mandela;10.3798, -75.4665;A103;Transcaribe;Alimentadoras
+Punto Frío El Gavilán;10.3811, -75.4682;A103;Transcaribe;Alimentadoras
+Chinitos Express;10.3824, -75.4699;A103;Transcaribe;Alimentadoras
+Mandela Sector San Fernando;10.3837, -75.4716;A103;Transcaribe;Alimentadoras
+Parque San Fernando;10.3850, -75.4733;A103;Transcaribe;Alimentadoras
+Calle 27A Bis;10.3863, -75.4750;A103;Transcaribe;Alimentadoras
+Carrera 68;10.3876, -75.4767;A103;Transcaribe;Alimentadoras
+Carrera 66;10.3889, -75.4784;A103;Transcaribe;Alimentadoras
+Carrera 65;10.3902, -75.4801;A103;Transcaribe;Alimentadoras
+Carrera 63;10.3915, -75.4818;A103;Transcaribe;Alimentadoras
+Carrera 61;10.3928, -75.4835;A103;Transcaribe;Alimentadoras
+Carrera 59;10.3941, -75.4852;A103;Transcaribe;Alimentadoras
+Carrera 57;10.3954, -75.4869;A103;Transcaribe;Alimentadoras
+Carrera 55;10.3967, -75.4886;A103;Transcaribe;Alimentadoras
+Carrera 53;10.3980, -75.4903;A103;Transcaribe;Alimentadoras
+Carrera 51;10.3993, -75.4920;A103;Transcaribe;Alimentadoras
+Carrera 49;10.4006, -75.4937;A103;Transcaribe;Alimentadoras
+Carrera 47;10.4019, -75.4954;A103;Transcaribe;Alimentadoras
+Carrera 45;10.4032, -75.4971;A103;Transcaribe;Alimentadoras
+Carrera 43;10.4045, -75.4988;A103;Transcaribe;Alimentadoras
+Carrera 41;10.4058, -75.5005;A103;Transcaribe;Alimentadoras
+Carrera 39;10.4071, -75.5022;A103;Transcaribe;Alimentadoras
+Carrera 37;10.4084, -75.5039;A103;Transcaribe;Alimentadoras
+Carrera 35;10.4097, -75.5056;A103;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A103;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A104;Transcaribe;Alimentadoras
+Iglesia Santa Lucía;10.3668, -75.4495;A104;Transcaribe;Alimentadoras
+Parque Lorduy;10.3681, -75.4512;A104;Transcaribe;Alimentadoras
+Colegio Juan José Nieto;10.3694, -75.4529;A104;Transcaribe;Alimentadoras
+Colegio Dulce Corazón de María;10.3707, -75.4546;A104;Transcaribe;Alimentadoras
+Parque Plan 134;10.3720, -75.4563;A104;Transcaribe;Alimentadoras
+Iglesia La Consolata;10.3733, -75.4580;A104;Transcaribe;Alimentadoras
+Droguería María V;10.3746, -75.4597;A104;Transcaribe;Alimentadoras
+Restaurante La Florida;10.3759, -75.4614;A104;Transcaribe;Alimentadoras
+Ferretería El Chico;10.3772, -75.4631;A104;Transcaribe;Alimentadoras
+Iglesia Cristiana El Acta del Pacto;10.3785, -75.4648;A104;Transcaribe;Alimentadoras
+Frigocarnes Mandela;10.3798, -75.4665;A104;Transcaribe;Alimentadoras
+Punto Frío El Gavilán;10.3811, -75.4682;A104;Transcaribe;Alimentadoras
+Chinitos Express;10.3824, -75.4699;A104;Transcaribe;Alimentadoras
+Mandela Sector San Fernando;10.3837, -75.4716;A104;Transcaribe;Alimentadoras
+Parque San Fernando;10.3850, -75.4733;A104;Transcaribe;Alimentadoras
+Calle 27A Bis;10.3863, -75.4750;A104;Transcaribe;Alimentadoras
+Carrera 68;10.3876, -75.4767;A104;Transcaribe;Alimentadoras
+Carrera 66;10.3889, -75.4784;A104;Transcaribe;Alimentadoras
+Carrera 65;10.3902, -75.4801;A104;Transcaribe;Alimentadoras
+Carrera 63;10.3915, -75.4818;A104;Transcaribe;Alimentadoras
+Carrera 61;10.3928, -75.4835;A104;Transcaribe;Alimentadoras
+Carrera 59;10.3941, -75.4852;A104;Transcaribe;Alimentadoras
+Carrera 57;10.3954, -75.4869;A104;Transcaribe;Alimentadoras
+Carrera 55;10.3967, -75.4886;A104;Transcaribe;Alimentadoras
+Carrera 53;10.3980, -75.4903;A104;Transcaribe;Alimentadoras
+Carrera 51;10.3993, -75.4920;A104;Transcaribe;Alimentadoras
+Carrera 49;10.4006, -75.4937;A104;Transcaribe;Alimentadoras
+Carrera 47;10.4019, -75.4954;A104;Transcaribe;Alimentadoras
+Carrera 45;10.4032, -75.4971;A104;Transcaribe;Alimentadoras
+Carrera 43;10.4045, -75.4988;A104;Transcaribe;Alimentadoras
+Carrera 41;10.4058, -75.5005;A104;Transcaribe;Alimentadoras
+Carrera 39;10.4071, -75.5022;A104;Transcaribe;Alimentadoras
+Carrera 37;10.4084, -75.5039;A104;Transcaribe;Alimentadoras
+Carrera 35;10.4097, -75.5056;A104;Transcaribe;Alimentadoras
+Carrera 33;10.4110, -75.5073;A104;Transcaribe;Alimentadoras
+Carrera 31;10.4123, -75.5090;A104;Transcaribe;Alimentadoras
+Carrera 29;10.4136, -75.5107;A104;Transcaribe;Alimentadoras
+Carrera 27;10.4149, -75.5124;A104;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A104;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A105;Transcaribe;Alimentadoras
+Iglesia Santa Lucía;10.3668, -75.4495;A105;Transcaribe;Alimentadoras
+Parque Lorduy;10.3681, -75.4512;A105;Transcaribe;Alimentadoras
+Colegio Juan José Nieto;10.3694, -75.4529;A105;Transcaribe;Alimentadoras
+Colegio Dulce Corazón de María;10.3707, -75.4546;A105;Transcaribe;Alimentadoras
+Parque Plan 134;10.3720, -75.4563;A105;Transcaribe;Alimentadoras
+Iglesia La Consolata;10.3733, -75.4580;A105;Transcaribe;Alimentadoras
+Droguería y Variedades María V;10.3746, -75.4597;A105;Transcaribe;Alimentadoras
+Restaurante La Florida;10.3759, -75.4614;A105;Transcaribe;Alimentadoras
+Ferretería El Chico;10.3772, -75.4631;A105;Transcaribe;Alimentadoras
+Iglesia Cristiana El Acta del Pacto;10.3785, -75.4648;A105;Transcaribe;Alimentadoras
+Frigocarnes Mandela;10.3798, -75.4665;A105;Transcaribe;Alimentadoras
+Punto Frío El Gavilán;10.3811, -75.4682;A105;Transcaribe;Alimentadoras
+Chinitos Express;10.3824, -75.4699;A105;Transcaribe;Alimentadoras
+Mandela Sector San Fernando;10.3837, -75.4716;A105;Transcaribe;Alimentadoras
+Parque San Fernando;10.3850, -75.4733;A105;Transcaribe;Alimentadoras
+Calle 27A Bis;10.3863, -75.4750;A105;Transcaribe;Alimentadoras
+Carrera 68;10.3876, -75.4767;A105;Transcaribe;Alimentadoras
+Carrera 66;10.3889, -75.4784;A105;Transcaribe;Alimentadoras
+Carrera 65;10.3902, -75.4801;A105;Transcaribe;Alimentadoras
+Carrera 63;10.3915, -75.4818;A105;Transcaribe;Alimentadoras
+Carrera 61;10.3928, -75.4835;A105;Transcaribe;Alimentadoras
+Carrera 59;10.3941, -75.4852;A105;Transcaribe;Alimentadoras
+Carrera 57;10.3954, -75.4869;A105;Transcaribe;Alimentadoras
+Carrera 55;10.3967, -75.4886;A105;Transcaribe;Alimentadoras
+Carrera 53;10.3980, -75.4903;A105;Transcaribe;Alimentadoras
+Carrera 51;10.3993, -75.4920;A105;Transcaribe;Alimentadoras
+Carrera 49;10.4006, -75.4937;A105;Transcaribe;Alimentadoras
+Carrera 47;10.4019, -75.4954;A105;Transcaribe;Alimentadoras
+Carrera 45;10.4032, -75.4971;A105;Transcaribe;Alimentadoras
+Carrera 43;10.4045, -75.4988;A105;Transcaribe;Alimentadoras
+Carrera 41;10.4058, -75.5005;A105;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A105;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A107;Transcaribe;Alimentadoras
+Estación Santa Lucía;10.3668, -75.4495;A107;Transcaribe;Alimentadoras
+Colegio INEM;10.3681, -75.4512;A107;Transcaribe;Alimentadoras
+Clínica El Universal;10.3694, -75.4529;A107;Transcaribe;Alimentadoras
+Restaurante Chinatown;10.3707, -75.4546;A107;Transcaribe;Alimentadoras
+Centro Médico Buenos Aires;10.3720, -75.4563;A107;Transcaribe;Alimentadoras
+Colegio Bertha Gedeón;10.3733, -75.4580;A107;Transcaribe;Alimentadoras
+Patinódromo;10.3746, -75.4597;A107;Transcaribe;Alimentadoras
+Parque Indupollo;10.3759, -75.4614;A107;Transcaribe;Alimentadoras
+Colegio Almirante Colón;10.3772, -75.4631;A107;Transcaribe;Alimentadoras
+Parrilla Paki;10.3785, -75.4648;A107;Transcaribe;Alimentadoras
+Campestre;10.3798, -75.4665;A107;Transcaribe;Alimentadoras
+Colegio 20 de Julio;10.3811, -75.4682;A107;Transcaribe;Alimentadoras
+Olímpica;10.3824, -75.4699;A107;Transcaribe;Alimentadoras
+Clínica Blas de Lezo;10.3837, -75.4716;A107;Transcaribe;Alimentadoras
+Restaurante Fortuna China;10.3850, -75.4733;A107;Transcaribe;Alimentadoras
+Cancha El Microfútbol;10.3863, -75.4750;A107;Transcaribe;Alimentadoras
+Bodytech Santa Lucía;10.3876, -75.4767;A107;Transcaribe;Alimentadoras
+C.C. Santa Lucía;10.3889, -75.4784;A107;Transcaribe;Alimentadoras
+Entrada Los Caracoles;10.3902, -75.4801;A107;Transcaribe;Alimentadoras
+Olímpica Los Caracoles;10.3915, -75.4818;A107;Transcaribe;Alimentadoras
+Perea;10.3928, -75.4835;A107;Transcaribe;Alimentadoras
+Colegio Fernández Baena;10.3941, -75.4852;A107;Transcaribe;Alimentadoras
+Hogar San Pedro Claver;10.3954, -75.4869;A107;Transcaribe;Alimentadoras
+Supergiros Bruselas;10.3967, -75.4886;A107;Transcaribe;Alimentadoras
+Coca Cola Bruselas;10.3980, -75.4903;A107;Transcaribe;Alimentadoras
+EDS Esso;10.3993, -75.4920;A107;Transcaribe;Alimentadoras
+La Cuchilla;10.4006, -75.4937;A107;Transcaribe;Alimentadoras
+Cancha Martínez Martelo;10.4019, -75.4954;A107;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A107;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A108;Transcaribe;Alimentadoras
+Colegio INEM;10.3681, -75.4512;A108;Transcaribe;Alimentadoras
+Clínica El Universal;10.3694, -75.4529;A108;Transcaribe;Alimentadoras
+Restaurante Chinatown;10.3707, -75.4546;A108;Transcaribe;Alimentadoras
+Centro Médico Buenos Aires;10.3720, -75.4563;A108;Transcaribe;Alimentadoras
+Colegio Bertha Gedeón;10.3733, -75.4580;A108;Transcaribe;Alimentadoras
+Patinódromo;10.3746, -75.4597;A108;Transcaribe;Alimentadoras
+Parque Indupollo;10.3759, -75.4614;A108;Transcaribe;Alimentadoras
+Bongás;10.3772, -75.4631;A108;Transcaribe;Alimentadoras
+Nuevo Campestre Manzana G;10.3785, -75.4648;A108;Transcaribe;Alimentadoras
+Hotel La Estancia;10.3798, -75.4665;A108;Transcaribe;Alimentadoras
+Colegio 20 de Julio;10.3811, -75.4682;A108;Transcaribe;Alimentadoras
+Olímpica Campestre;10.3824, -75.4699;A108;Transcaribe;Alimentadoras
+Clínica Blas de Lezo;10.3837, -75.4716;A108;Transcaribe;Alimentadoras
+Restaurante Fortuna China;10.3850, -75.4733;A108;Transcaribe;Alimentadoras
+Cancha El Microfútbol;10.3863, -75.4750;A108;Transcaribe;Alimentadoras
+Bodytech Santa Lucía;10.3876, -75.4767;A108;Transcaribe;Alimentadoras
+C.C. Santa Lucía;10.3889, -75.4784;A108;Transcaribe;Alimentadoras
+Entrada Los Caracoles;10.3902, -75.4801;A108;Transcaribe;Alimentadoras
+Olímpica Los Caracoles;10.3915, -75.4818;A108;Transcaribe;Alimentadoras
+Perea;10.3928, -75.4835;A108;Transcaribe;Alimentadoras
+Colegio Fernández Baena;10.3941, -75.4852;A108;Transcaribe;Alimentadoras
+Hogar San Pedro Claver;10.3954, -75.4869;A108;Transcaribe;Alimentadoras
+Supergiros Bruselas;10.3967, -75.4886;A108;Transcaribe;Alimentadoras
+Coca Cola Bruselas;10.3980, -75.4903;A108;Transcaribe;Alimentadoras
+EDS Esso;10.3993, -75.4920;A108;Transcaribe;Alimentadoras
+La Cuchilla;10.4006, -75.4937;A108;Transcaribe;Alimentadoras
+Cancha Martínez Martelo;10.4019, -75.4954;A108;Transcaribe;Alimentadoras
+Martínez Martelo;10.4032, -75.4971;A108;Transcaribe;Alimentadoras
+Bazurto;10.4172, -75.5284;A108;Transcaribe;Alimentadoras
+Chambacú;10.4265, -75.5431;A108;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A108;Transcaribe;Alimentadoras
+Santa Lucía;10.3655, -75.4479;A111;Transcaribe;Alimentadoras
+Colegio Ciudadela 2000;10.3676, -75.4565;A111;Transcaribe;Alimentadoras
+Hogar de Bien;10.3693, -75.4590;A111;Transcaribe;Alimentadoras
+La Algodonera;10.3710, -75.4615;A111;Transcaribe;Alimentadoras
+Clínica Rafael Calvo;10.3744, -75.4665;A111;Transcaribe;Alimentadoras
+Villa Rubia;10.3761, -75.4690;A111;Transcaribe;Alimentadoras
+Nueva Jerusalén;10.3778, -75.4715;A111;Transcaribe;Alimentadoras
+Los Jardines;10.3795, -75.4740;A111;Transcaribe;Alimentadoras
+Precio Fácil;10.3812, -75.4765;A111;Transcaribe;Alimentadoras
+Calle 14;10.3829, -75.4790;A111;Transcaribe;Alimentadoras
+Tienda Puentecito.com;10.3846, -75.4815;A111;Transcaribe;Alimentadoras
+Taller Mañe;10.3863, -75.4840;A111;Transcaribe;Alimentadoras
+El Milagro;10.3880, -75.4865;A111;Transcaribe;Alimentadoras
+Entrada Golf;10.3897, -75.4890;A111;Transcaribe;Alimentadoras
+Punta Alta;10.3914, -75.4915;A111;Transcaribe;Alimentadoras
+Proleca;10.3931, -75.4940;A111;Transcaribe;Alimentadoras
+Entrada Ceballos;10.3948, -75.4965;A111;Transcaribe;Alimentadoras
+Bajos de San Isidro;10.3965, -75.4990;A111;Transcaribe;Alimentadoras
+Nuevo Oriente;10.3982, -75.5015;A111;Transcaribe;Alimentadoras
+Agrinal;10.3999, -75.5040;A111;Transcaribe;Alimentadoras
+Navitrans;10.4016, -75.5065;A111;Transcaribe;Alimentadoras
+Postobón;10.4033, -75.5090;A111;Transcaribe;Alimentadoras
+Manzanillo;10.4050, -75.5115;A111;Transcaribe;Alimentadoras
+Restaurante Bumangués;10.4067, -75.5140;A111;Transcaribe;Alimentadoras
+Hogar San Pedro Claver;10.4084, -75.5165;A111;Transcaribe;Alimentadoras
+Santa Lucía (retorno);10.3655, -75.4479;A111;Transcaribe;Alimentadoras
+Portal Transcaribe;10.3655, -75.4479;A114;Transcaribe;Alimentadoras
+Colegio Ciudadela 2000;10.3676, -75.4565;A114;Transcaribe;Alimentadoras
+Hogar de Bien;10.3693, -75.4590;A114;Transcaribe;Alimentadoras
+La Algodonera;10.3710, -75.4615;A114;Transcaribe;Alimentadoras
+Clínica Rafael Calvo;10.3744, -75.4665;A114;Transcaribe;Alimentadoras
+Villa Rubia;10.3761, -75.4690;A114;Transcaribe;Alimentadoras
+Nueva Jerusalén;10.3778, -75.4715;A114;Transcaribe;Alimentadoras
+Los Jardines;10.3795, -75.4740;A114;Transcaribe;Alimentadoras
+Precio Fácil;10.3812, -75.4765;A114;Transcaribe;Alimentadoras
+Calle 14;10.3829, -75.4790;A114;Transcaribe;Alimentadoras
+Bruselas;10.3846, -75.4815;A114;Transcaribe;Alimentadoras
+Taller Mañe;10.3863, -75.4840;A114;Transcaribe;Alimentadoras
+El Milagro;10.3880, -75.4865;A114;Transcaribe;Alimentadoras
+Entrada Golf;10.3897, -75.4890;A114;Transcaribe;Alimentadoras
+Punta Alta;10.3914, -75.4915;A114;Transcaribe;Alimentadoras
+Proleca;10.3931, -75.4940;A114;Transcaribe;Alimentadoras
+Entrada Ceballos;10.3948, -75.4965;A114;Transcaribe;Alimentadoras
+Bajos de San Isidro;10.3965, -75.4990;A114;Transcaribe;Alimentadoras
+Nuevo Oriente;10.3982, -75.5015;A114;Transcaribe;Alimentadoras
+Altos de San Pedro;10.3999, -75.5040;A114;Transcaribe;Alimentadoras
+El Pozón;10.4016, -75.5065;A114;Transcaribe;Alimentadoras
+Flor del Campo;10.4033, -75.5090;A114;Transcaribe;Alimentadoras
+Calle Principal Flor del Campo;10.4050, -75.5115;A114;Transcaribe;Alimentadoras
+Sector El Progreso;10.4067, -75.5140;A114;Transcaribe;Alimentadoras
+Sector La Bendición;10.4084, -75.5165;A114;Transcaribe;Alimentadoras
+Sector La Esperanza;10.4101, -75.5190;A114;Transcaribe;Alimentadoras
+Sector El Milagro;10.4118, -75.5215;A114;Transcaribe;Alimentadoras
+Sector La Fe;10.4135, -75.5240;A114;Transcaribe;Alimentadoras
+Sector La Paz;10.4150, -75.5260;A114;Transcaribe;Alimentadoras
+Sector El Renacer;10.4165, -75.5280;A114;Transcaribe;Alimentadoras
+Sector El Refugio;10.4180, -75.5300;A114;Transcaribe;Alimentadoras
+Sector El Tesoro;10.4195, -75.5320;A114;Transcaribe;Alimentadoras
+Sector El Triunfo;10.4210, -75.5340;A114;Transcaribe;Alimentadoras
+Portal Transcaribe (retorno);10.3655, -75.4479;A114;Transcaribe;Alimentadoras
+Portal Transcaribe;10.3655, -75.4479;A117;Transcaribe;Alimentadoras
+Colegio Ciudadela 2000;10.3676, -75.4565;A117;Transcaribe;Alimentadoras
+Hogar de Bien;10.3693, -75.4590;A117;Transcaribe;Alimentadoras
+La Algodonera;10.3710, -75.4615;A117;Transcaribe;Alimentadoras
+Clínica Rafael Calvo;10.3744, -75.4665;A117;Transcaribe;Alimentadoras
+Villa Rubia;10.3761, -75.4690;A117;Transcaribe;Alimentadoras
+Nueva Jerusalén;10.3778, -75.4715;A117;Transcaribe;Alimentadoras
+Los Jardines;10.3795, -75.4740;A117;Transcaribe;Alimentadoras
+Precio Fácil;10.3812, -75.4765;A117;Transcaribe;Alimentadoras
+Calle 14;10.3829, -75.4790;A117;Transcaribe;Alimentadoras
+Bruselas;10.3846, -75.4815;A117;Transcaribe;Alimentadoras
+Taller Mañe;10.3863, -75.4840;A117;Transcaribe;Alimentadoras
+El Milagro;10.3880, -75.4865;A117;Transcaribe;Alimentadoras
+Entrada Golf;10.3897, -75.4890;A117;Transcaribe;Alimentadoras
+Punta Alta;10.3914, -75.4915;A117;Transcaribe;Alimentadoras
+Proleca;10.3931, -75.4940;A117;Transcaribe;Alimentadoras
+Entrada Ceballos;10.3948, -75.4965;A117;Transcaribe;Alimentadoras
+Bajos de San Isidro;10.3965, -75.4990;A117;Transcaribe;Alimentadoras
+Nuevo Oriente;10.3982, -75.5015;A117;Transcaribe;Alimentadoras
+Altos de San Pedro;10.3999, -75.5040;A117;Transcaribe;Alimentadoras
+El Pozón;10.4016, -75.5065;A117;Transcaribe;Alimentadoras
+CDA;10.4033, -75.5090;A117;Transcaribe;Alimentadoras
+Billares El Kiosko;10.4050, -75.5115;A117;Transcaribe;Alimentadoras
+Sastrería La Prosperidad;10.4067, -75.5140;A117;Transcaribe;Alimentadoras
+Villa Estrella;10.4084, -75.5165;A117;Transcaribe;Alimentadoras
+Acuacar;10.4101, -75.5190;A117;Transcaribe;Alimentadoras
+Portal Transcaribe (retorno);10.3655, -75.4479;A117;Transcaribe;Alimentadoras
+Parque de la Marina;10.4225, -75.5472;C001;Transcaribe;Complementarias
+Centro de Convenciones;10.4238, -75.5489;C001;Transcaribe;Complementarias
+El Candil;10.4255, -75.5501;C001;Transcaribe;Complementarias
+Sociedad Portuaria;10.4272, -75.5513;C001;Transcaribe;Complementarias
+La Cuchilla;10.4118, -75.5215;C001;Transcaribe;Complementarias
+Coca Cola;10.4101, -75.5190;C001;Transcaribe;Complementarias
+Colegio Latinoamericano;10.4084, -75.5165;C001;Transcaribe;Complementarias
+Piedra de Bolívar;10.4067, -75.5140;C001;Transcaribe;Complementarias
+Universidad de Cartagena;10.4050, -75.5115;C001;Transcaribe;Complementarias
+Hospital Universitario;10.4033, -75.5090;C001;Transcaribe;Complementarias
+Parque Los Calamares;10.4016, -75.5065;C001;Transcaribe;Complementarias
+Colegio INEM;10.3999, -75.5040;C001;Transcaribe;Complementarias
+Universidad del Sinú;10.3982, -75.5015;C001;Transcaribe;Complementarias
+Clínica El Bosque;10.3965, -75.4990;C001;Transcaribe;Complementarias
+Caracoles;10.3948, -75.4965;C001;Transcaribe;Complementarias
+Campestre;10.3931, -75.4940;C001;Transcaribe;Complementarias
+El Milagro;10.3914, -75.4915;C001;Transcaribe;Complementarias
+Taller Mañe;10.3897, -75.4890;C001;Transcaribe;Complementarias
+Tienda Puentecito.com;10.3880, -75.4865;C001;Transcaribe;Complementarias
+Institución Educativa San Lucas;10.3863, -75.4840;C001;Transcaribe;Complementarias
+UPA La Reina;10.3846, -75.4815;C001;Transcaribe;Complementarias
+Fe y Alegría;10.3829, -75.4790;C001;Transcaribe;Complementarias
+Celumax;10.3812, -75.4765;C001;Transcaribe;Complementarias
+Surtimax;10.3795, -75.4740;C001;Transcaribe;Complementarias
+Super Materiales;10.3778, -75.4715;C001;Transcaribe;Complementarias
+Ferretería El Educador;10.3761, -75.4690;C001;Transcaribe;Complementarias
+Distrifluver;10.3744, -75.4665;C001;Transcaribe;Complementarias
+Estadio de Softball;10.3727, -75.4640;C001;Transcaribe;Complementarias
+Colegio Ciudadela 2000;10.3676, -75.45;C001;Transcaribe;Complementarias
+Portal Transcaribe;10.3655, -75.4479;C016;Transcaribe;Complementarias
+Villa Rosita;10.3680, -75.4505;C016;Transcaribe;Complementarias
+Altamare;10.3702, -75.4530;C016;Transcaribe;Complementarias
+Bomba Petromil;10.3724, -75.4555;C016;Transcaribe;Complementarias
+Centro Comercial Mío;10.3746, -75.4580;C016;Transcaribe;Complementarias
+Terminal de Transporte;10.3768, -75.4605;C016;Transcaribe;Complementarias
+Palmas de Salamanca;10.3790, -75.4630;C016;Transcaribe;Complementarias
+Central de Abastos;10.3812, -75.4655;C016;Transcaribe;Complementarias
+Frente a Central de Abastos;10.3834, -75.4680;C016;Transcaribe;Complementarias
+Entrada El Pozón;10.3856, -75.4705;C016;Transcaribe;Complementarias
+El Cariñoso;10.3878, -75.4730;C016;Transcaribe;Complementarias
+Portales de Alicante;10.3900, -75.4755;C016;Transcaribe;Complementarias
+Villas de la Candelaria;10.3922, -75.4780;C016;Transcaribe;Complementarias
+Megaluminios;10.3944, -75.4805;C016;Transcaribe;Complementarias
+Ipanema;10.3966, -75.4830;C016;Transcaribe;Complementarias
+Entrada Las Palmeras;10.3988, -75.4855;C016;Transcaribe;Complementarias
+Las Palmeras;10.4010, -75.4880;C016;Transcaribe;Complementarias
+Portal Transcaribe (retorno);10.3655, -75.4479;C016;Transcaribe;Complementarias
+Parque de la Marina;10.4225, -75.5472;C017;Transcaribe;Complementarias
+Cancha Bambino;10.4235, -75.5460;C017;Transcaribe;Complementarias
+Teatro Adolfo Mejía;10.4245, -75.5450;C017;Transcaribe;Complementarias
+El Boquetillo;10.4255, -75.5440;C017;Transcaribe;Complementarias
+Colegio Modelo de la Costa;10.4265, -75.5430;C017;Transcaribe;Complementarias
+Droguería Inglesa / Edificio Zafiro;10.4275, -75.5420;C017;Transcaribe;Complementarias
+Entrada al Cabrero;10.4285, -75.5410;C017;Transcaribe;Complementarias
+DATT;10.4295, -75.5400;C017;Transcaribe;Complementarias
+Edificio Altamar;10.4305, -75.5390;C017;Transcaribe;Complementarias
+Terrazas de San Sebastián;10.4315, -75.5380;C017;Transcaribe;Complementarias
+Global Center;10.4325, -75.5370;C017;Transcaribe;Complementarias
+Bomba Terpel;10.4335, -75.5360;C017;Transcaribe;Complementarias
+Parque de las Américas;10.4345, -75.5350;C017;Transcaribe;Complementarias
+Calle 67;10.4355, -75.5340;C017;Transcaribe;Complementarias
+Puente Crespito;10.4365, -75.5330;C017;Transcaribe;Complementarias
+Iglesia Cristo Rey;10.4375, -75.5320;C017;Transcaribe;Complementarias
+Carrera 6;10.4385, -75.5310;C017;Transcaribe;Complementarias
+Ferretería Crespo 70;10.4395, -75.5300;C017;Transcaribe;Complementarias
+Frente a Hotel Las Américas;10.4405, -75.5290;C017;Transcaribe;Complementarias
+Terminal del Norte;10.4415, -75.5280;C017;Transcaribe;Complementarias
+Serena del Mar;10.4425, -75.5270;C017;Transcaribe;Complementarias
+Barcelona de Indias;10.4435, -75.5260;C017;Transcaribe;Complementarias
+Barceloneta;10.4445, -75.5250;C017;Transcaribe;Complementarias

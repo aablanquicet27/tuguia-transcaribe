@@ -12,7 +12,6 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             background: #f4f6fb;
-            padding-top: 80px !important;
         }
         header {
             background: #ff6600;
@@ -1216,149 +1215,12 @@
         @media (max-width: 600px) {
             .footer-agapai { font-size: 0.95em; padding-bottom: 0.5em; }
         }
-        /* === HEADER STICKY (fijo arriba) y COMPACTO EN MÓVILES (ajuste fuerte) === */
-        #headerTitle {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 9999;
-          padding: 1.2rem 0;
-          background: #ff6600;
-          color: #fff;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-        }
-        @media (max-width: 600px) {
-          #headerTitle {
-            padding: 0.5rem 0;
-          }
-          body {
-            padding-top: 40px !important;
-          }
-        }
-        /* === HEADER ALTO REDUCIDO AL 4.5% DEL VIEWPORT (90% del anterior) === */
-        #headerTitle {
-          height: 4.5vh;
-          min-height: 34px;
-          max-height: 63px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #ff6600;
-          color: #fff;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-          padding: 0 0.45rem;
-        }
-        #headerTitle img {
-          height: 63%;
-          max-height: 34px;
-          width: auto;
-          margin-right: 9px;
-        }
-        #headerTitle span {
-          font-size: 0.99rem;
-          line-height: 1.1;
-        }
-        @media (max-width: 600px) {
-          #headerTitle {
-            height: 4.5vh;
-            min-height: 25px;
-            max-height: 40px;
-            padding: 0 0.27rem;
-          }
-          #headerTitle img {
-            max-height: 25px;
-            height: 63%;
-            margin-right: 5px;
-          }
-          #headerTitle span {
-            font-size: 2rem !important;
-            font-weight: bold;
-            line-height: 1.2 !important;
-            letter-spacing: 1px;
-          }
-        }
-        .logo-agapai {
-          height: 110px !important;
-          width: 110px !important;
-          max-height: none !important;
-          max-width: none !important;
-          min-height: 0 !important;
-          min-width: 0 !important;
-          margin-right: 12px;
-        }
-        .logo-circle {
-          height: 120px;
-          width: 120px;
-          background: #fff;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-          border: 1.5px solid #e0e0e0;
-          margin-right: 12px;
-        }
-        @media (max-width: 600px) {
-          .logo-circle {
-            height: 70px;
-            width: 70px;
-            min-width: 70px;
-            min-height: 70px;
-          }
-          .logo-agapai {
-            height: 60px !important;
-            width: 60px !important;
-            min-width: 60px !important;
-            min-height: 60px !important;
-          }
-          #headerTitle img {
-            max-height: unset;
-            height: unset;
-          }
-        }
-        @media (max-width: 600px) {
-          #headerTitle span {
-            margin-left: 0.05em !important;
-          }
-        }
-        @media (max-width: 600px) {
-          #headerTitle {
-            justify-content: flex-start !important;
-            text-align: left !important;
-            padding-left: 1em;
-          }
-          #headerTitle span {
-            margin-left: 0.05em !important;
-          }
-        }
-        #routeControls {
-          margin-top: 110px;
-        }
-        @media (max-width: 600px) {
-          #routeControls {
-            margin-top: 50px;
-          }
-        }
-        @media (max-width: 600px) {
-          .search-info {
-            margin-top: 20px;
-          }
-        }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
 </head>
 <body>
-    <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:left;display:flex;align-items:center;gap:12px;">
-    
-      <!-- <div style="height:120px;width:120px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.10);border:3px solid #fff;"> -->
-     
-        <div class="logo-circle">
-          <img class="logo-agapai" src="logoagapai-ok2.png" alt="Logo Agapai" style="border-radius:50%;object-fit:cover;padding:0;vertical-align:middle;display:inline-block;" />
-        </div>
-     
-      <!-- </div> -->
-      <span style="font-family:'Segoe UI',Arial,sans-serif;font-size:2.5rem;color:#fff;font-weight:bold;letter-spacing:1px;margin-left:0.2em;">Tu Guia - Cartagena</span>
+    <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;">
+      <img src="logoagapai-ok2.png" alt="Logo Agapai" style="height:62px;width:62px;vertical-align:middle;display:inline-block;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);border:3px solid #fff;padding:6px;object-fit:cover;" />
+      <span style="font-family:'Segoe UI',Arial,sans-serif;font-size:2rem;color:#fff;font-weight:bold;letter-spacing:1px;">Tu Guia - Cartagena</span>
     </header>
     
     <!-- Panel de control de ruta en tiempo real -->
@@ -1386,16 +1248,13 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="auto-status" id="autoStatus">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:1em;">
-              <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
-              <button id="finalizeBtn" style="display:none;margin-left:auto;background:linear-gradient(90deg,#28a745 60%,#20c997 100%);color:#fff;font-size:1.1em;font-weight:700;padding:0.5em 1.5em;border:none;border-radius:10px;box-shadow:0 2px 8px #28a74544;cursor:pointer;transition:background 0.2s;">Limpiar y Preparar Nuevo Recorrido</button>
-            </div>
+            <span class="status-indicator" id="statusIndicator">⏸️ Esperando movimiento</span>
         </div>
         <div class="location-display" id="locationDisplay" style="display: none; background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 12px 16px; border-radius: 12px; margin: 12px 0; text-align: center; font-weight: 600; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(40,167,69,0.2);">
             <span id="vamosPorText">📍 Vamos por: ...</span>
         </div>
         <div class="auto-controls">
-            <!-- <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button> -->
+            <button class="btn-stop" id="stopRoute">⏹️ Detener seguimiento</button>
         </div>
     </div>
     
@@ -1411,8 +1270,6 @@
         
         <div class="search-controls">
             <h3 style="text-align: center; color: #333; margin-bottom: 1.5rem; font-size: 1.3rem;">Planifica tu Ruta</h3>
-            <div class="info" style="background: #e6f7ff; color: #0a2342; font-size: 1.08rem; margin-bottom: 1.2em; border: 1.5px solid #b3e0ff; border-radius: 10px;">
-              Puedes buscar por <b>dirección</b>, <b>nombre de hotel</b>, <b>restaurante</b>, <b>sitio turístico</b>, <b>barrio</b> o <b>lugar de interés</b> en Cartagena. Si no encuentras lo que buscas, intenta escribir el nombre completo o selecciona de la lista sugerida.</div>
             
             <!-- Selector de categorías -->
             <!-- (Eliminado)
@@ -1475,7 +1332,6 @@
     <div class="controls" style="justify-content: center; gap: 1rem;">
         <button id="startRoute" class="btn-primary">Iniciar recorrido</button>
         <button id="clearRoute" class="btn-secondary">Limpiar ruta</button>
-        <!-- <button id="clearLocalStorageBtn" class="btn-secondary" style="background:#e74c3c;color:#fff;">Limpiar datos guardados</button> -->
     </div>
     <!-- Contenedor minimalista ¿No sabes como llegar? -->
     <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 10px;">
@@ -1483,13 +1339,13 @@
         ¿No sabes como llegar?
       </div>
       <a href="yotellevo.html" style="text-decoration: none;" onclick="guardarPuntosEnLocalStorage()">
-        <button id="yoTeLlevoBtn" style="background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%); color: white; border: none; border-radius: 12px; padding: 8px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: background 0.2s;">¡Yo te llevo!</button>
+        <button style="background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%); color: white; border: none; border-radius: 12px; padding: 8px 22px; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: background 0.2s;">¡Yo te llevo!</button>
       </a>
     </div>
     
     <div class="info" id="info">Escribe las direcciones, nombres de restaurantes, hoteles, tiendas o negocios, o selecciónalas en el mapa.</div>
     
-    <button class="map-selection-toggle" id="toggleMapSelection">��️ Mostrar selección en mapa (origen/destino)</button>
+    <button class="map-selection-toggle" id="toggleMapSelection">🗺️ Mostrar selección en mapa (origen/destino)</button>
     <div class="map-selection-controls" id="mapSelectionControls" style="display: none !important;">
         <h4>Selecciona en el mapa</h4>
         <div class="map-selection-buttons">
@@ -1858,28 +1714,6 @@
     <script>
     // =================== CONFIGURACIÓN ===================
     const ORS_API_KEY = '5b3ce3597851110001cf6248e92a24fdb4744773ab33cab2c808de44';
-    
-    // Función para filtrar solo direcciones de Cartagena y área metropolitana
-    function filtrarDireccionesCartagena(data) {
-      const municipios = [
-        'cartagena', 'turbaco', 'turbana', 'arjona', 'santa rosa', 'villanueva',
-        'clemencia', 'santa catalina', 'maría la baja', 'san estanislao', 'santa lucía', 'bolívar'
-      ];
-      return data.filter(item => {
-        const displayName = (item.display_name || '').toLowerCase();
-        const address = item.address || {};
-        // Buscar municipio en display_name o en los campos de address
-        const enMunicipio = municipios.some(mun =>
-          displayName.includes(mun) ||
-          (address.city && address.city.toLowerCase().includes(mun)) ||
-          (address.town && address.town.toLowerCase().includes(mun)) ||
-          (address.village && address.village.toLowerCase().includes(mun)) ||
-          (address.state_district && address.state_district.toLowerCase().includes(mun)) ||
-          (address.county && address.county.toLowerCase().includes(mun))
-        );
-        return enMunicipio;
-      });
-    }
     const OVERPASS_URL = 'https://overpass-api.de/api/interpreter';
     const NOMINATIM_URL = 'https://nominatim.openstreetmap.org';
     const CORS_PROXY = 'https://corsproxy.io/?';
@@ -1971,7 +1805,7 @@
       // Datos de paraderos incluidos directamente en el HTML para evitar problemas de CORS
       const paraderosData = [
         {"nombre": "PATIO PORTAL", "coords": [10.395392, -75.472826], "direccion": "Avenida Pedro de Heredia, Patio Portal, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MADRE BERNARDA", "coords": [10.395007, -75.478893], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
+        {"nombre": "MADRE BERNARDA", "coords": [10.395006, -75.473880], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LA CASTELLANA", "coords": [10.394408, -75.486631], "direccion": "Avenida Pedro de Heredia, Barrio La Castellana, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LOS ANGELES", "coords": [10.395071, -75.490330], "direccion": "Avenida Pedro de Heredia, Barrio Los Angeles, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
         {"nombre": "LOS EJECUTIVOS", "coords": [10.399543, -75.493653], "direccion": "Avenida Pedro de Heredia, Barrio Los Ejecutivos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
@@ -2036,23 +1870,23 @@
             const paradero = paraderosData.find(p => p.nombre === this.value);
             if (paradero) {
               console.log('📍 Paradero encontrado:', paradero);
-              // Guardar en localStorage con el modo correcto
+              // Guardar en localStorage
               localStorage.setItem('tuguia_start', JSON.stringify({
                 nombre: paradero.nombre,
                 coords: paradero.coords
               }));
-              localStorage.setItem('tuguia_start_mode', 'paradero');
               
               // Crear marcador en el mapa
               if (window.startMarker) map.removeLayer(window.startMarker);
               window.startMarker = L.marker(paradero.coords, {
                 icon: L.icon({
-                  iconUrl: 'pin-morado.png',
-                  iconSize: [32, 44],
-                  iconAnchor: [16, 44]
+                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                  iconSize: [32, 32],
+                  iconAnchor: [16, 32]
                 })
-              }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
+              }).addTo(map).bindPopup(`Origen: ${paradero.nombre}`).openPopup();
+              
+              // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
             }
           }
@@ -2068,22 +1902,20 @@
               // Limpiar el input de dirección de destino
               const endDireccionInput = document.getElementById('endDireccionInput');
               if (endDireccionInput) endDireccionInput.value = '';
-              // Guardar en localStorage con el modo correcto
+              // Guardar en localStorage
               localStorage.setItem('tuguia_end', JSON.stringify({
                 nombre: paradero.nombre,
                 coords: paradero.coords
               }));
-              localStorage.setItem('tuguia_end_mode', 'paradero');
               // Crear marcador en el mapa
               if (window.endMarker) map.removeLayer(window.endMarker);
               window.endMarker = L.marker(paradero.coords, {
                 icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
+                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png',
                   iconSize: [32, 32],
                   iconAnchor: [16, 32]
                 })
-              }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
+              }).addTo(map).bindPopup(`Destino: ${paradero.nombre}`).openPopup();
               // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
             }
@@ -2105,28 +1937,7 @@
           // Solo guardar si el modo seleccionado es 'direccion'
           const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
           if (this.value.trim() && startMode === 'direccion') {
-            const direccion = this.value.trim();
-            console.log('🔍 Buscando coordenadas para origen:', direccion);
-            // Geocodificar la dirección usando Nominatim
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
-              .then(res => res.json())
-              .then(data => {
-                if (data.length > 0) {
-                  const lat = parseFloat(data[0].lat);
-                  const lon = parseFloat(data[0].lon);
-                  console.log('✅ Coordenadas encontradas para origen:', [lat, lon]);
-                  localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
-                } else {
-                  console.warn('❌ No se encontraron coordenadas para origen:', direccion);
-                  localStorage.setItem('tuguia_start', direccion);
-                  alert('No se pudo encontrar la dirección de origen. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
-                }
-              })
-              .catch(() => {
-                console.error('❌ Error al buscar coordenadas para origen:', direccion);
-                localStorage.setItem('tuguia_start', direccion);
-                alert('Ocurrió un error al buscar la dirección de origen. Intenta de nuevo o selecciona una dirección de la lista.');
-              });
+            localStorage.setItem('tuguia_start', this.value.trim());
           }
         });
       }
@@ -2137,34 +1948,38 @@
           // Solo guardar si el modo seleccionado es 'direccion'
           const endMode = document.querySelector('input[name="endMode"]:checked')?.value;
           if (this.value.trim() && endMode === 'direccion') {
-            const direccion = this.value.trim();
-            console.log('🔍 Buscando coordenadas para destino:', direccion);
-            // Geocodificar la dirección usando Nominatim
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion + ', Cartagena, Colombia')}&limit=1`)
-              .then(res => res.json())
-              .then(data => {
-                if (data.length > 0) {
-                  const lat = parseFloat(data[0].lat);
-                  const lon = parseFloat(data[0].lon);
-                  console.log('✅ Coordenadas encontradas para destino:', [lat, lon]);
-                  localStorage.setItem('tuguia_end', JSON.stringify({ nombre: direccion, coords: [lat, lon] }));
-                } else {
-                  console.warn('❌ No se encontraron coordenadas para destino:', direccion);
-                  localStorage.setItem('tuguia_end', direccion);
-                  alert('No se pudo encontrar la dirección de destino. Por favor, selecciona una dirección válida de la lista o verifica el texto.');
-                }
-              })
-              .catch(() => {
-                console.error('❌ Error al buscar coordenadas para destino:', direccion);
-                localStorage.setItem('tuguia_end', direccion);
-                alert('Ocurrió un error al buscar la dirección de destino. Intenta de nuevo o selecciona una dirección de la lista.');
-              });
+            localStorage.setItem('tuguia_end', this.value.trim());
           }
         });
       }
 
       // Refuerzo: Si se selecciona un paradero, siempre se guarda el objeto con coords
-      
+      if (startParaderoSelect) {
+        startParaderoSelect.addEventListener('change', function() {
+          if (this.value) {
+            const paradero = paraderosData.find(p => p.nombre === this.value);
+            if (paradero) {
+              localStorage.setItem('tuguia_start', JSON.stringify({
+                nombre: paradero.nombre,
+                coords: paradero.coords
+              }));
+            }
+          }
+        });
+      }
+      if (endParaderoSelect) {
+        endParaderoSelect.addEventListener('change', function() {
+          if (this.value) {
+            const paradero = paraderosData.find(p => p.nombre === this.value);
+            if (paradero) {
+              localStorage.setItem('tuguia_end', JSON.stringify({
+                nombre: paradero.nombre,
+                coords: paradero.coords
+              }));
+            }
+          }
+        });
+      }
     });
     
     // =================== INICIALIZACIÓN ===================
@@ -2217,8 +2032,7 @@
               const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
               const data = await resp.json();
               if (data.display_name) {
-                const direccionFiltrada = formatearDireccionParaPopup(data.display_name);
-                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${direccionFiltrada}`);
+                popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
               } else {
                 popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
               }
@@ -2235,8 +2049,7 @@
             const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}&zoom=18&addressdetails=1`);
             const data = await resp.json();
             if (data.display_name) {
-              const direccionFiltrada = formatearDireccionParaPopup(data.display_name);
-              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${direccionFiltrada}`);
+              popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><b>Dirección:</b> ${data.display_name}`);
             } else {
               popup.setContent(`<b>Coordenadas:</b> ${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}<br><span style='color:#888'>Dirección no disponible</span>`);
             }
@@ -2301,54 +2114,29 @@
       mostrarEstacionesYParaderosEnMapa();
     }
     function mostrarEstacionesYParaderosEnMapa() {
-      // Limpiar y usar LayerGroup
+      // === NUEVO: limpiar y usar LayerGroup ===
       if (paraderosLayerGroup) {
         paraderosLayerGroup.clearLayers();
       } else {
         paraderosLayerGroup = L.layerGroup().addTo(map);
       }
-      // Convertir el GeoJSON a un array simple de paraderos
-      let paraderos = [];
-      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-        paraderos = window.rutasTranscaribe.map(f => {
-          if (f.geometry && f.geometry.type === "Point") {
-            const coords = f.geometry.coordinates;
-            const lat = coords[1];
-            const lon = coords[0];
-            const props = f.properties || {};
-            return {
-              lat,
-              lon,
-              nombre: props.nombre_paradero || 'Paradero',
-              rutas: props.rutas || '',
-              network: props.network || 'Transcaribe',
-              tipos_ruta: props.tipos_ruta || '',
-              fuente: props.fuente || ''
-            };
-          }
-          return null;
-        }).filter(p => p);
-      }
-      // Crear marcadores para cada paradero
+      estaciones.forEach(est => {
+        const marker = L.marker([est.lat, est.lon], {
+          icon: L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
+            iconSize: [24, 24], iconAnchor: [12, 24]
+          })
+        }).on('click', () => mostrarInfoEstacion(est));
+        paraderosLayerGroup.addLayer(marker);
+      });
       paraderos.forEach(stop => {
         const marker = L.marker([stop.lat, stop.lon], {
           icon: L.icon({
-            iconUrl: 'BUS.jpeg',
+            iconUrl: 'BUS.jpeg', // icono personalizado de paradero
             iconSize: [32, 32],
             iconAnchor: [16, 32]
           })
-        }).on('click', () => {
-          let rutas = stop.rutas;
-          if (Array.isArray(rutas)) rutas = rutas.join(', ');
-          let tiposRuta = stop.tipos_ruta;
-          if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
-          const popup = `<b>${stop.nombre}</b><br>` +
-            (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
-            (stop.network ? `<b>Red:</b> ${stop.network}<br>` : '') +
-            (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
-            (stop.fuente ? `<b>Fuente:</b> ${stop.fuente}<br>` : '');
-          L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
-        });
+        }).on('click', () => mostrarInfoParadero(stop));
         paraderosLayerGroup.addLayer(marker);
       });
     }
@@ -2361,33 +2149,7 @@
     function mostrarInfoParadero(stop) {
       // Restaurar popup original para paraderos
       const nombre = stop.tags.name || 'Paradero';
-      let rutasInfo = '';
-      
-      // Verificar si tiene información de rutas
-      if (stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes) {
-        let rutas = stop.tags.ruta || stop.tags.codigo_ruta || stop.tags.routes;
-        
-        // Si es un array, convertirlo a string
-        if (Array.isArray(rutas)) {
-          rutas = rutas.join(', ');
-        }
-        
-        // Formatear las rutas con colores según el tipo
-        const rutasArray = rutas.split(',').map(r => r.trim());
-        const rutasFormateadas = rutasArray.map(ruta => {
-          let color = '#333'; // color por defecto
-          if (ruta.startsWith('T')) color = '#ff6600'; // Troncales
-          else if (ruta.startsWith('X')) color = '#2ECC40'; // Pretroncales
-          else if (ruta.startsWith('A')) color = '#FF4136'; // Alimentadoras
-          else if (ruta.startsWith('C')) color = '#FF851B'; // Complementarias
-          
-          return `<span style="color: ${color}; font-weight: bold;">${ruta}</span>`;
-        }).join(', ');
-        
-        rutasInfo = `<br><b>Rutas:</b> ${rutasFormateadas}`;
-      }
-      
-      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}${rutasInfo}`;
+      const popup = `<b>${nombre}</b><br>Tipo: Paradero<br>Red: ${stop.tags.network || 'Transcaribe'}`;
       L.popup().setLatLng([stop.lat, stop.lon]).setContent(popup).openOn(map);
     }
     // =================== UBICACIÓN Y AUTOCOMPLETADO ===================
@@ -2402,71 +2164,43 @@
         const lat = pos.coords.latitude.toFixed(6);
         const lon = pos.coords.longitude.toFixed(6);
         
-        // CREAR MARCADOR EN EL MAPA PARA LA UBICACIÓN ACTUAL (sin popup de dirección aún)
+        // CREAR MARCADOR EN EL MAPA PARA LA UBICACIÓN ACTUAL
         if (window.startMarker) map.removeLayer(window.startMarker);
         window.startMarker = L.marker([lat, lon], {
           icon: L.icon({
-            iconUrl: 'pin-morado.png',
-            iconSize: [32, 44],
-            iconAnchor: [16, 44]
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32]
           })
-        }).addTo(map);
-        if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0); // Mantener abierto el popup de destino si existe
+        }).addTo(map).bindPopup('Origen: Ubicación actual').openPopup();
         
         // Centrar mapa en la ubicación actual
         map.setView([lat, lon], 15);
         
-        // Obtener la dirección usando Google Geocoding API
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
+        // Obtener la dirección usando Nominatim
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`)
           .then(response => response.json())
           .then(data => {
-            let direccion = '';
-            if (data.results && data.results.length > 0) {
-              // Buscar barrio o dirección relevante
-              const addressComponents = data.results[0].address_components;
-              let barrio = '';
-              const barrioComp = addressComponents.find(comp =>
-                comp.types.includes('neighborhood') ||
-                comp.types.includes('sublocality') ||
-                comp.types.includes('locality')
-              );
-              if (barrioComp) barrio = barrioComp.long_name;
-              if (data.results[0].formatted_address) {
-                direccion = formatearDireccionParaPopup(data.results[0].formatted_address);
-              } else if (barrio) {
-                direccion = barrio;
-              } else {
-                direccion = 'Ubicación detectada';
-              }
+            if (data.display_name) {
+              // Mostrar solo la parte relevante de la dirección (primeras 3 partes)
+              const direccion = data.display_name.split(',').slice(0, 3).join(', ');
               input.value = direccion;
               // Guardar coordenadas en localStorage para uso interno
               localStorage.setItem('tuguia_start_coords', `${lat}, ${lon}`);
-              // === MODIFICADO: Guardar objeto con nombre y coords ===
-              if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
-              }
             } else {
-              direccion = 'Ubicación detectada';
-              input.value = direccion;
-              if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-                localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
-              }
+              input.value = `${lat}, ${lon}`;
             }
-            // ACTUALIZAR POPUP DEL MARCADOR CON LA DIRECCIÓN REAL
-            if (window.startMarker) {
-              window.startMarker.bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccion).openPopup();
+            // Guarda en localStorage si el modo seleccionado es ubicación
+            if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
+              localStorage.setItem('tuguia_start', input.value);
             }
           })
           .catch(error => {
             console.error('Error obteniendo dirección:', error);
-            const direccion = 'Ubicación detectada';
-            input.value = direccion;
+            input.value = `${lat}, ${lon}`;
+            // Guarda en localStorage si el modo seleccionado es ubicación
             if (document.querySelector('input[name="startMode"]:checked').value === 'ubicacion') {
-              localStorage.setItem('tuguia_start', JSON.stringify({ nombre: direccion, coords: [parseFloat(lat), parseFloat(lon)] }));
-            }
-            // Asegurarse de mostrar el popup aunque haya error
-            if (window.startMarker) {
-              window.startMarker.bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccion).openPopup();
+              localStorage.setItem('tuguia_start', input.value);
             }
           });
       }, function(error) {
@@ -2510,12 +2244,10 @@
             try {
               const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
               const data = await response.json();
-              // Filtrar solo direcciones de Cartagena y área metropolitana
-              const cartagenaResults = filtrarDireccionesCartagena(data);
-              startLastSuggestions = cartagenaResults;
+              startLastSuggestions = data;
               startSuggestions.innerHTML = '';
-              if (cartagenaResults.length > 0) {
-                cartagenaResults.forEach(item => {
+              if (data.length > 0) {
+                data.forEach(item => {
                   const div = document.createElement('div');
                   div.className = 'suggestion-item';
                   div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
@@ -2538,76 +2270,18 @@
           }
         });
         function selectStartSuggestion(item) {
-          const direccionCorta = formatearDireccionParaPopup(item.display_name);
-          startInput.value = direccionCorta;
+          startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
           startSuggestions.style.display = 'none';
           if (window.startMarker) map.removeLayer(window.startMarker);
           const marker = L.marker([item.lat, item.lon], {
-            icon: L.icon({ iconUrl: 'pin-morado.png', iconSize: [32,44], iconAnchor: [16,44] })
-          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Origen: ' + startInput.value).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
         }
         document.addEventListener('click', function(e) {
           if (!startInput.contains(e.target) && !startSuggestions.contains(e.target)) {
             startSuggestions.style.display = 'none';
-          }
-        });
-      }
-      // --- Destino ---
-      const endDireccionInput = document.getElementById('endDireccionInput');
-      const endSuggestions = document.getElementById('endSuggestions');
-      if (endDireccionInput && endSuggestions) {
-        let endLastSuggestions = [];
-        endDireccionInput.addEventListener('input', async function() {
-          const query = this.value.trim();
-          if (query.length > 2) {
-            try {
-              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
-              const data = await response.json();
-              // Filtrar solo direcciones de Cartagena y área metropolitana
-              const cartagenaResults = filtrarDireccionesCartagena(data);
-              endLastSuggestions = cartagenaResults;
-              endSuggestions.innerHTML = '';
-              if (cartagenaResults.length > 0) {
-                cartagenaResults.forEach(item => {
-                  const div = document.createElement('div');
-                  div.className = 'suggestion-item';
-                  div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
-                  div.onclick = () => selectEndSuggestion(item);
-                  endSuggestions.appendChild(div);
-                });
-                endSuggestions.style.display = 'block';
-              } else {
-                endSuggestions.style.display = 'none';
-              }
-            } catch (err) { 
-              console.error('❌ Error autocompletado destino:', err); 
-            }
-          } else {
-            endSuggestions.style.display = 'none';
-          }
-        });
-        endDireccionInput.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' && endLastSuggestions.length > 0) {
-            selectEndSuggestion(endLastSuggestions[0]);
-            e.preventDefault();
-          }
-        });
-        function selectEndSuggestion(item) {
-          const direccionCorta = formatearDireccionParaPopup(item.display_name);
-          endDireccionInput.value = direccionCorta;
-          endSuggestions.style.display = 'none';
-          if (window.endMarker) map.removeLayer(window.endMarker);
-          const marker = L.marker([item.lat, item.lon], {
-            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
-          map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
-          window.endMarker = marker;
-        }
-        document.addEventListener('click', function(e) {
-          if (!endDireccionInput.contains(e.target) && !endSuggestions.contains(e.target)) {
-            endSuggestions.style.display = 'none';
           }
         });
       }
@@ -2634,21 +2308,19 @@
           if (mapSelecting === 'start') {
             if (window.startMarker) map.removeLayer(window.startMarker);
             const marker = L.marker([e.latlng.lat, e.latlng.lng], {
-              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-            }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Origen: Seleccionado en mapa').openPopup();
+              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+            }).addTo(map).bindPopup('Origen: Seleccionado en mapa').openPopup();
             window.startMarker = marker;
             document.getElementById('startInput').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
             mapSelecting = null;
-            if (window.endMarker) window.endMarker.openPopup(); // Mantener abierto el popup de destino si existe
           } else if (mapSelecting === 'end') {
             if (window.endMarker) map.removeLayer(window.endMarker);
             const marker = L.marker([e.latlng.lat, e.latlng.lng], {
-              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-            }).addTo(map).bindPopup("<img src='pin-verde-destino.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Destino: Seleccionado en mapa").openPopup();
+              icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+            }).addTo(map).bindPopup('Destino: Seleccionado en mapa').openPopup();
             window.endMarker = marker;
             document.getElementById('endInput').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
             mapSelecting = null;
-            if (window.endMarker) window.endMarker.openPopup(); // Mantener abierto el popup de destino si existe
           }
         });
       }
@@ -2833,12 +2505,10 @@
             try {
               const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
               const data = await response.json();
-              // Filtrar solo direcciones de Cartagena y área metropolitana
-              const cartagenaResults = filtrarDireccionesCartagena(data);
-              startLastSuggestions = cartagenaResults;
+              startLastSuggestions = data;
               startSuggestions.innerHTML = '';
-              if (cartagenaResults.length > 0) {
-                cartagenaResults.forEach(item => {
+              if (data.length > 0) {
+                data.forEach(item => {
                   const div = document.createElement('div');
                   div.className = 'suggestion-item';
                   div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
@@ -2861,13 +2531,12 @@
           }
         });
         function selectStartSuggestion(item) {
-          const direccionCorta = formatearDireccionParaPopup(item.display_name);
-          startInput.value = direccionCorta;
+          startInput.value = item.display_name.split(',').slice(0, 3).join(', ');
           startSuggestions.style.display = 'none';
           if (window.startMarker) map.removeLayer(window.startMarker);
           const marker = L.marker([item.lat, item.lon], {
-            icon: L.icon({ iconUrl: 'pin-morado.png', iconSize: [32,44], iconAnchor: [16,44] })
-          }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Origen: ' + startInput.value).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
         }
@@ -2890,15 +2559,13 @@
           if (query.length > 2) {
             try {
               console.log('🔍 Buscando sugerencias para:', query);
-              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=10&addressdetails=1`);
+              const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Cartagena, Colombia')}&limit=5&addressdetails=1`);
               const data = await response.json();
-              // Filtrar solo direcciones de Cartagena
-              const cartagenaResults = filtrarDireccionesCartagena(data);
-              console.log('📋 Sugerencias encontradas:', cartagenaResults.length);
-              endLastSuggestions = cartagenaResults;
+              console.log('📋 Sugerencias encontradas:', data.length);
+              endLastSuggestions = data;
               endSuggestions.innerHTML = '';
-              if (cartagenaResults.length > 0) {
-                cartagenaResults.slice(0, 5).forEach(item => {
+              if (data.length > 0) {
+                data.forEach(item => {
                   const div = document.createElement('div');
                   div.className = 'suggestion-item';
                   div.textContent = item.display_name.split(',').slice(0, 3).join(', ');
@@ -2926,13 +2593,12 @@
           }
         });
         function selectEndSuggestion(item) {
-          const direccionCorta = formatearDireccionParaPopup(item.display_name);
-          endDireccionInput.value = direccionCorta;
+          endDireccionInput.value = item.display_name.split(',').slice(0, 3).join(', ');
           endSuggestions.style.display = 'none';
           if (window.endMarker) map.removeLayer(window.endMarker);
           const marker = L.marker([item.lat, item.lon], {
-            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png', iconSize: [32,32], iconAnchor: [16,32] })
-          }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
+            icon: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684909.png', iconSize: [32,32], iconAnchor: [16,32] })
+          }).addTo(map).bindPopup('Destino: ' + endDireccionInput.value).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.endMarker = marker;
         }
@@ -2988,29 +2654,18 @@
     });
     function guardarPuntosEnLocalStorage() {
       console.log('💾 Guardando puntos en localStorage...');
+      
       // Obtener el modo seleccionado para el punto de partida
       const startMode = document.querySelector('input[name="startMode"]:checked')?.value || 'ubicacion';
       const endMode = document.querySelector('input[name="endMode"]:checked')?.value || 'direccion';
+      
       let startValue = '';
       let endValue = '';
+      
       // Procesar punto de partida según el modo
       if (startMode === 'ubicacion') {
         const startUbicacionInput = document.getElementById('startUbicacionInput');
-        const nombre = startUbicacionInput?.value || '';
-        // Intentar obtener coords de tuguia_start_coords
-        let coords = null;
-        const coordsStr = localStorage.getItem('tuguia_start_coords');
-        if (coordsStr) {
-          const parts = coordsStr.split(',').map(Number);
-          if (parts.length === 2 && parts.every(Number.isFinite)) {
-            coords = parts;
-          }
-        }
-        if (coords) {
-          startValue = JSON.stringify({ nombre, coords });
-        } else {
-          startValue = nombre;
-        }
+        startValue = startUbicacionInput?.value || '';
       } else if (startMode === 'direccion') {
         const startDireccionInput = document.getElementById('startDireccionInput');
         startValue = startDireccionInput?.value || '';
@@ -3018,39 +2673,30 @@
         const startParaderoSelect = document.getElementById('startParaderoSelect');
         const selectedOption = startParaderoSelect?.selectedOptions[0];
         if (selectedOption) {
-          const paradero = JSON.parse(selectedOption.value);
-          startValue = JSON.stringify(paradero);
+          const nombre = selectedOption.textContent;
+          const coords = selectedOption.value.split(',').map(Number);
+          startValue = JSON.stringify({ nombre, coords });
         } else {
           startValue = '';
         }
       }
+      
       // Procesar punto destino según el modo
       if (endMode === 'direccion') {
         const endDireccionInput = document.getElementById('endDireccionInput');
-        const nombre = endDireccionInput?.value || '';
-        let endLS = localStorage.getItem('tuguia_end');
-        let isObjWithCoords = false;
-        try {
-          const obj = JSON.parse(endLS);
-          if (obj && Array.isArray(obj.coords) && obj.coords.length === 2 && obj.coords.every(Number.isFinite)) {
-            isObjWithCoords = true;
-          }
-        } catch (e) {}
-        if (isObjWithCoords) {
-          endValue = endLS;
-        } else {
-          endValue = nombre;
-        }
+        endValue = endDireccionInput?.value || '';
       } else if (endMode === 'paradero') {
         const endParaderoSelect = document.getElementById('endParaderoSelect');
         const selectedOption = endParaderoSelect?.selectedOptions[0];
         if (selectedOption) {
-          const paradero = JSON.parse(selectedOption.value);
-          endValue = JSON.stringify(paradero);
+          const nombre = selectedOption.textContent;
+          const coords = selectedOption.value.split(',').map(Number);
+          endValue = JSON.stringify({ nombre, coords });
         } else {
           endValue = '';
         }
       }
+      
       // Si tenemos marcadores en el mapa, usar sus coordenadas
       if (window.startMarker && !startValue) {
         const startLatLng = window.startMarker.getLatLng();
@@ -3060,9 +2706,11 @@
         const endLatLng = window.endMarker.getLatLng();
         endValue = `${endLatLng.lat}, ${endLatLng.lng}`;
       }
+      
       // Guardar en localStorage
       localStorage.setItem('tuguia_start', startValue);
       localStorage.setItem('tuguia_end', endValue);
+      
       if (startValue) {
         localStorage.setItem('tuguia_start_mode', startMode);
       }
@@ -3114,32 +2762,14 @@
         .then(data => {
           // ... existente ...
           if (startParaderoSelect) {
-            startParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
-            data.forEach((p, idx) => {
-              const opt = document.createElement('option');
-              opt.value = p.nombre;
-              opt.textContent = p.nombre;
-              opt.setAttribute('data-index', idx);
-              startParaderoSelect.appendChild(opt);
-            });
             startParaderoSelect.addEventListener('change', function() {
-              const idx = this.options[this.selectedIndex].getAttribute('data-index');
-              const paradero = idx !== null ? data[parseInt(idx)] : null;
+              const paradero = data.find(p => p.nombre === this.value);
               mostrarRutasParadero(paradero, 'startRutasInfo');
             });
           }
           if (endParaderoSelect) {
-            endParaderoSelect.innerHTML = '<option value="">Selecciona un paradero...</option>';
-            data.forEach((p, idx) => {
-              const opt = document.createElement('option');
-              opt.value = p.nombre;
-              opt.textContent = p.nombre;
-              opt.setAttribute('data-index', idx);
-              endParaderoSelect.appendChild(opt);
-            });
             endParaderoSelect.addEventListener('change', function() {
-              const idx = this.options[this.selectedIndex].getAttribute('data-index');
-              const paradero = idx !== null ? data[parseInt(idx)] : null;
+              const paradero = data.find(p => p.nombre === this.value);
               mostrarRutasParadero(paradero, 'endRutasInfo');
             });
           }
@@ -3164,342 +2794,7 @@
         const endLatLng = window.endMarker.getLatLng();
         destinoCoords = [endLatLng.lat, endLatLng.lng];
       }
-      
-      // === NUEVA LÓGICA INTELIGENTE: Solo si el modo de inicio es GPS ===
-      const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
-      if (startMode === 'ubicacion') {
-        // Activar navegación inteligente automática
-        iniciarNavegacionInteligente(destinoCoords);
-      } else {
-        // Mantener lógica existente para otros modos
-        iniciarSeguimientoReal(destinoCoords);
-      }
-    }
-
-    // =================== NUEVA LÓGICA INTELIGENTE DE NAVEGACIÓN ===================
-    
-    // Función principal de navegación inteligente
-    async function iniciarNavegacionInteligente(destinoCoords) {
-      try {
-        console.log('🧠 Iniciando navegación inteligente...');
-        
-        // 1. Obtener ubicación GPS actual
-        const ubicacionUsuario = await obtenerUbicacionGPS();
-        if (!ubicacionUsuario) {
-          console.error('❌ No se pudo obtener ubicación GPS');
-          iniciarSeguimientoReal(destinoCoords); // Fallback a lógica existente
-          return;
-        }
-        
-        // 2. Encontrar paradero más cercano automáticamente
-        const paraderoCercano = await encontrarParaderoMasCercano(ubicacionUsuario);
-        if (!paraderoCercano) {
-          console.error('❌ No se encontró paradero cercano');
-          iniciarSeguimientoReal(destinoCoords); // Fallback a lógica existente
-          return;
-        }
-        
-        // 3. Calcular ruta óptima automáticamente
-        const rutaOptima = await calcularRutaOptima(paraderoCercano, destinoCoords);
-        if (!rutaOptima) {
-          console.error('❌ No se pudo calcular ruta óptima');
-          iniciarSeguimientoReal(destinoCoords); // Fallback a lógica existente
-          return;
-        }
-        
-        // 4. Mostrar instrucciones inteligentes
-        mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario);
-        
-        // 5. Iniciar seguimiento inteligente
-        iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
-        
-      } catch (error) {
-        console.error('❌ Error en navegación inteligente:', error);
-        // Fallback a lógica existente
-        iniciarSeguimientoReal(destinoCoords);
-      }
-    }
-    
-    // Función para obtener ubicación GPS
-    function obtenerUbicacionGPS() {
-      return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) {
-          reject(new Error('Geolocalización no soportada'));
-          return;
-        }
-        
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            resolve({
-              lat: pos.coords.latitude,
-              lng: pos.coords.longitude,
-              accuracy: pos.coords.accuracy
-            });
-          },
-          (error) => {
-            reject(new Error(`Error de geolocalización: ${error.message}`));
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 60000
-          }
-        );
-      });
-    }
-    
-    // Función para encontrar paradero más cercano
-    async function encontrarParaderoMasCercano(ubicacionUsuario) {
-      if (!window.rutasTranscaribe || !Array.isArray(window.rutasTranscaribe)) {
-        console.error('❌ No hay datos de paraderos disponibles');
-        return null;
-      }
-      
-      let paraderoMasCercano = null;
-      let distanciaMinima = Infinity;
-      
-      // Filtrar solo paraderos exclusivos
-      const paraderosExclusivos = window.rutasTranscaribe.filter(f => 
-        f.geometry && 
-        f.geometry.type === "Point" && 
-        f.properties && 
-        f.properties.es_exclusivo === true
-      );
-      
-      paraderosExclusivos.forEach(paradero => {
-        const coords = paradero.geometry.coordinates;
-        const lat = coords[1];
-        const lon = coords[0];
-        
-        const distancia = calcularDistanciaHaversine(
-          ubicacionUsuario.lat, ubicacionUsuario.lng,
-          lat, lon
-        );
-        
-        if (distancia < distanciaMinima) {
-          distanciaMinima = distancia;
-          paraderoMasCercano = {
-            nombre: paradero.properties.nombre_paradero || 'Paradero',
-            lat: lat,
-            lon: lon,
-            distancia: distancia,
-            rutas: paradero.properties.rutas || [],
-            tipos_ruta: paradero.properties.tipos_ruta || []
-          };
-        }
-      });
-      
-      console.log('📍 Paradero más cercano encontrado:', paraderoMasCercano);
-      return paraderoMasCercano;
-    }
-    
-    // Función para calcular distancia usando fórmula de Haversine
-    function calcularDistanciaHaversine(lat1, lon1, lat2, lon2) {
-      const R = 6371000; // Radio de la Tierra en metros
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLon/2) * Math.sin(dLon/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-      return R * c;
-    }
-    
-    // Función para calcular ruta óptima
-    async function calcularRutaOptima(paraderoOrigen, destinoCoords) {
-      if (!destinoCoords) {
-        console.error('❌ No hay coordenadas de destino');
-        return null;
-      }
-      
-      // Buscar paradero más cercano al destino
-      const paraderoDestino = await encontrarParaderoMasCercano({
-        lat: destinoCoords[0],
-        lng: destinoCoords[1]
-      });
-      
-      if (!paraderoDestino) {
-        console.error('❌ No se encontró paradero cercano al destino');
-        return null;
-      }
-      
-      // Verificar si hay ruta directa
-      const rutaDirecta = verificarRutaDirecta(paraderoOrigen, paraderoDestino);
-      
-      if (rutaDirecta) {
-        return {
-          tipo: 'directa',
-          paraderoOrigen: paraderoOrigen,
-          paraderoDestino: paraderoDestino,
-          ruta: rutaDirecta.ruta,
-          mensaje: `Toma la ruta ${rutaDirecta.ruta} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`,
-          pasos: [
-            { accion: 'tomar', ruta: rutaDirecta.ruta, desde: paraderoOrigen, hasta: paraderoDestino }
-          ]
-        };
-      } else {
-        // Buscar transbordo
-        const transbordo = encontrarMejorTransbordo(paraderoOrigen, paraderoDestino);
-        
-        if (transbordo) {
-          return {
-            tipo: 'con_transbordo',
-            paraderoOrigen: paraderoOrigen,
-            paraderoDestino: paraderoDestino,
-            paraderoTransbordo: transbordo.paraderoTransbordo,
-            ruta1: transbordo.ruta1,
-            ruta2: transbordo.ruta2,
-            mensaje: `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`,
-            pasos: [
-              { accion: 'tomar', ruta: transbordo.ruta1, desde: paraderoOrigen, hasta: transbordo.paraderoTransbordo },
-              { accion: 'transbordar', en: transbordo.paraderoTransbordo },
-              { accion: 'tomar', ruta: transbordo.ruta2, desde: transbordo.paraderoTransbordo, hasta: paraderoDestino }
-            ]
-          };
-        } else {
-          console.error('❌ No se encontró ruta viable');
-          return null;
-        }
-      }
-    }
-    
-    // Función para verificar ruta directa
-    function verificarRutaDirecta(paraderoOrigen, paraderoDestino) {
-      // Buscar rutas comunes entre origen y destino
-      const rutasOrigen = Array.isArray(paraderoOrigen.rutas) ? paraderoOrigen.rutas : [];
-      const rutasDestino = Array.isArray(paraderoDestino.rutas) ? paraderoDestino.rutas : [];
-      
-      for (const ruta of rutasOrigen) {
-        if (rutasDestino.includes(ruta)) {
-          return { ruta: ruta };
-        }
-      }
-      
-      return null;
-    }
-    
-    // Función para encontrar mejor transbordo
-    function encontrarMejorTransbordo(paraderoOrigen, paraderoDestino) {
-      if (!window.rutasTranscaribe) return null;
-      
-      // Buscar paraderos que conecten las rutas
-      const paraderosTransbordo = window.rutasTranscaribe.filter(f => 
-        f.geometry && 
-        f.geometry.type === "Point" && 
-        f.properties && 
-        f.properties.es_exclusivo === true
-      );
-      
-      let mejorTransbordo = null;
-      let mejorScore = Infinity;
-      
-      paraderosTransbordo.forEach(paradero => {
-        const coords = paradero.geometry.coordinates;
-        const lat = coords[1];
-        const lon = coords[0];
-        
-        const rutasParadero = Array.isArray(paradero.properties.rutas) ? paradero.properties.rutas : [];
-        
-        // Verificar si este paradero conecta origen y destino
-        const rutaDesdeOrigen = verificarRutaDirecta(paraderoOrigen, {
-          nombre: paradero.properties.nombre_paradero,
-          rutas: rutasParadero
-        });
-        
-        const rutaHastaDestino = verificarRutaDirecta({
-          nombre: paradero.properties.nombre_paradero,
-          rutas: rutasParadero
-        }, paraderoDestino);
-        
-        if (rutaDesdeOrigen && rutaHastaDestino) {
-          // Calcular score basado en distancia total
-          const distOrigenTransbordo = calcularDistanciaHaversine(
-            paraderoOrigen.lat, paraderoOrigen.lon,
-            lat, lon
-          );
-          
-          const distTransbordoDestino = calcularDistanciaHaversine(
-            lat, lon,
-            paraderoDestino.lat, paraderoDestino.lon
-          );
-          
-          const score = distOrigenTransbordo + distTransbordoDestino;
-          
-          if (score < mejorScore) {
-            mejorScore = score;
-            mejorTransbordo = {
-              paraderoTransbordo: {
-                nombre: paradero.properties.nombre_paradero,
-                lat: lat,
-                lon: lon
-              },
-              ruta1: rutaDesdeOrigen.ruta,
-              ruta2: rutaHastaDestino.ruta,
-              score: score
-            };
-          }
-        }
-      });
-      
-      return mejorTransbordo;
-    }
-    
-    // Función para mostrar instrucciones inteligentes
-    function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
-      // Crear panel de instrucciones inteligentes
-      let instruccionesHTML = `
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
-          <div style="margin-bottom: 1rem;">
-            <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
-          </div>
-          <div style="margin-bottom: 1rem;">
-            <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
-          </div>
-          <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-            <strong>📋 Instrucciones:</strong><br>
-            ${rutaOptima.mensaje}
-          </div>
-        </div>
-      `;
-      
-      // Insertar instrucciones en el DOM
-      const infoElement = document.getElementById('info');
-      if (infoElement) {
-        infoElement.innerHTML = instruccionesHTML;
-      }
-      
-      console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
-    }
-    
-    // Función para iniciar seguimiento inteligente
-    function iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario) {
-      // Usar la función de seguimiento existente pero con datos inteligentes
-      const destinoCoords = [rutaOptima.paraderoDestino.lat, rutaOptima.paraderoDestino.lon];
-      
-      // Actualizar marcadores en el mapa
-      if (window.startMarker) map.removeLayer(window.startMarker);
-      window.startMarker = L.marker([paraderoCercano.lat, paraderoCercano.lon], {
-        icon: L.icon({
-          iconUrl: 'pin-morado.png',
-          iconSize: [32, 44],
-          iconAnchor: [16, 44]
-        })
-      }).addTo(map).bindPopup(`<b>Paradero más cercano:</b> ${paraderoCercano.nombre}<br><b>Distancia:</b> ${Math.round(paraderoCercano.distancia)}m`).openPopup();
-      
-      if (window.endMarker) map.removeLayer(window.endMarker);
-      window.endMarker = L.marker([rutaOptima.paraderoDestino.lat, rutaOptima.paraderoDestino.lon], {
-        icon: L.icon({
-          iconUrl: 'pin-verde-destino.png',
-          iconSize: [32, 32],
-          iconAnchor: [16, 32]
-        })
-      }).addTo(map).bindPopup(`<b>Destino:</b> ${rutaOptima.paraderoDestino.nombre}`).openPopup();
-      
-      // Iniciar seguimiento real con el destino calculado
       iniciarSeguimientoReal(destinoCoords);
-      
-      console.log('🚀 Seguimiento inteligente iniciado');
     }
 
     function iniciarSeguimientoReal(destinoCoords) {
@@ -3518,10 +2813,7 @@
       document.getElementById('currentSpeed').textContent = '0.0';
       document.getElementById('progressBar').style.width = '0%';
       document.getElementById('statusIndicator').textContent = '📍 Seguimiento real activo';
-      // Asegurar que la barra de progreso esté visible al iniciar
-      var progressBar = document.getElementById('progressBar');
-      if (progressBar) progressBar.parentElement.style.display = '';
-
+      
       // Iniciar seguimiento de ubicación real
       if (realTrackingWatchId) navigator.geolocation.clearWatch(realTrackingWatchId);
       
@@ -3554,14 +2846,7 @@
           document.getElementById('currentSpeed').textContent = speedKmh > 0 ? speedKmh.toFixed(1) : '0.0';
           
           // Estado
-          var statusIndicator = document.getElementById('statusIndicator');
-          if (speedKmh > 0.5) {
-            statusIndicator.textContent = '🟢 En movimiento';
-            statusIndicator.style.color = '';
-          } else {
-            statusIndicator.textContent = '⏸️ Detenido';
-            statusIndicator.style.color = 'red';
-          }
+          document.getElementById('statusIndicator').textContent = speedKmh > 0.5 ? '🟢 En movimiento' : '⏸️ Detenido';
           
           // Mostrar/ocultar etiqueta "Vamos por:" basado en el estado de movimiento
           const locationDisplay = document.getElementById('locationDisplay');
@@ -3575,22 +2860,19 @@
             if (locationDisplay) locationDisplay.style.display = 'block';
             
             // Obtener nombre del barrio/dirección en tiempo real
-            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=16&addressdetails=1`)
               .then(resp => resp.json())
               .then(data => {
                 let barrio = '...';
-                if (data && data.results && data.results.length > 0) {
-                  const addressComponents = data.results[0].address_components;
-                  const barrioComp = addressComponents.find(comp =>
-                    comp.types.includes('neighborhood') ||
-                    comp.types.includes('sublocality') ||
-                    comp.types.includes('locality')
-                  );
-                  if (barrioComp) {
-                    barrio = barrioComp.long_name;
-                  } else {
-                    barrio = data.results[0].formatted_address;
-                  }
+                if (data && data.address) {
+                  // Priorizar nombres de barrios turísticos de Cartagena
+                  barrio = data.address.neighbourhood || 
+                           data.address.suburb || 
+                           data.address.village || 
+                           data.address.town || 
+                           data.address.city || 
+                           data.address.county || 
+                           '...';
                 }
                 if (vamosPorText) vamosPorText.textContent = `📍 Vamos por: ${barrio}`;
               })
@@ -3605,12 +2887,20 @@
             let totalDist = realTrackingDistance + distRestante;
             let progress = totalDist > 0 ? (realTrackingDistance / totalDist) * 100 : 0;
             document.getElementById('progressBar').style.width = progress + '%';
-            // Mostrar barra de progreso si está oculta
-            if (progressBar) progressBar.parentElement.style.display = '';
+            
             // Alarma a 300m
-            if (!realTrackingAlarmaActivada && distRestante <= 300 && distRestante > 30) {
+            if (!realTrackingAlarmaActivada && distRestante <= 300) {
               realTrackingAlarmaActivada = true;
-              mostrarAlertaProximidad();
+              let alarmaDiv = document.getElementById('realTrackingAlarma300m');
+              if (!alarmaDiv) {
+                alarmaDiv = document.createElement('div');
+                alarmaDiv.id = 'realTrackingAlarma300m';
+                alarmaDiv.style = 'position:fixed;top:30px;left:50%;transform:translateX(-50%);background:#ff4136;color:#fff;font-size:1.5rem;font-weight:bold;padding:18px 36px;border-radius:16px;z-index:2000;box-shadow:0 4px 24px rgba(255,65,54,0.25);animation:parpadeoAlarma 1s infinite;';
+                alarmaDiv.innerHTML = '🚨 ¡Faltan menos de 300 metros para llegar a tu destino! 🚨';
+                document.body.appendChild(alarmaDiv);
+              } else {
+                alarmaDiv.style.display = 'block';
+              }
               // Sonido: beep simple
               try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -3623,25 +2913,6 @@
                 o.start();
                 setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
               } catch(e) {}
-            }
-            // --- NUEVO: Detectar llegada al destino (menos de 30 metros) ---
-            if (distRestante <= 30) {
-              // Ocultar alarma de 300m si existe
-              let alarmaDiv = document.getElementById('realTrackingAlarma300m');
-              if (alarmaDiv) alarmaDiv.style.display = 'none';
-              // Dejar barra de progreso visible y estática
-              if (progressBar) progressBar.parentElement.style.display = '';
-              // Mostrar mensaje especial en el panel de estado
-              var statusIndicator = document.getElementById('statusIndicator');
-              statusIndicator.textContent = '🎉 ¡Has llegado a tu destino! Recorrido finalizado.';
-              statusIndicator.style.color = '';
-              // Mostrar el botón finalizeBtn
-              var finalizeBtn = document.getElementById('finalizeBtn');
-              if (finalizeBtn) finalizeBtn.style.display = 'inline-block';
-              // Detener el seguimiento para fijar valores
-              detenerSeguimientoReal();
-              // Opcional: detener el seguimiento automáticamente
-              // detenerSeguimientoReal(); // Si quieres detener el seguimiento automáticamente, descomenta esta línea
             }
           }
         },
@@ -3668,9 +2939,7 @@
       const locationDisplay = document.getElementById('locationDisplay');
       if (locationDisplay) locationDisplay.style.display = 'none';
       
-      var statusIndicator = document.getElementById('statusIndicator');
-      statusIndicator.textContent = '⏸️ Recorrido Finalizado';
-      statusIndicator.style.color = 'red';
+      document.getElementById('statusIndicator').textContent = '⏸️ Seguimiento detenido';
     }
 
     // Event listener para el botón de detener seguimiento
@@ -3699,10 +2968,8 @@
       try {
         const response = await fetch('rutas_transcaribe.geojson');
         const data = await response.json();
-        window.rutasTranscaribe = data.features;
-        console.log('Rutas Transcaribe cargadas:', window.rutasTranscaribe.length);
-        poblarSelectParaderos(document.getElementById('startParaderoSelect'));
-        poblarSelectParaderos(document.getElementById('endParaderoSelect'));
+        rutasTranscaribe = data.features;
+        console.log('Rutas Transcaribe cargadas:', rutasTranscaribe.length);
       } catch (e) {
         console.error('Error cargando rutas Transcaribe:', e);
       }
@@ -3735,237 +3002,9 @@
       });
       return mejorRuta;
     }
-
-    // === ALERTA DE PROXIMIDAD 300M ===
-    function mostrarAlertaProximidad() {
-      // Mostrar modal llamativo
-      var modal = document.getElementById('modal-proximidad');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-proximidad';
-        modal.style = 'display:flex;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;';
-        modal.innerHTML = `<div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
-          <div style=\"font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;\">¡Atención!</div>
-          <div style=\"font-size:1.3em;color:#333;margin-bottom:1em;\">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
-          <button onclick=\"document.getElementById('modal-proximidad').style.display='none'\" style=\"font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;\">Entendido</button>
-        </div>`;
-        document.body.appendChild(modal);
-      } else {
-        modal.style.display = 'flex';
-      }
-      // Notificación del sistema
-      if (window.Notification && Notification.permission === 'granted') {
-        new Notification('¡Faltan menos de 300 metros!', {
-          body: 'Prepárate para descender en tu destino.',
-          icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
-        });
-      } else if (window.Notification && Notification.permission !== 'denied') {
-        Notification.requestPermission().then(function(permission) {
-          if (permission === 'granted') {
-            new Notification('¡Faltan menos de 300 metros!', {
-              body: 'Prepárate para descender en tu destino.',
-              icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
-            });
-          }
-        });
-      }
-      // Vibración si es móvil
-      if (navigator.vibrate) {
-        navigator.vibrate([400, 200, 400]);
-      }
-    }
-
-    // Utilidad para limpiar la dirección y mostrar solo lo relevante
-    function formatearDireccionParaPopup(displayName) {
-      if (!displayName) return '';
-      const partes = displayName.split(',').map(s => s.trim());
-      const irrelevantes = [
-        'Cartagena de indias',
-        'Dique',
-        'Bolívar',
-        'Bolivar',
-        'Cartagena',
-        'Colombia',
-        '130003'
-      ];
-      let partesFiltradas = partes.filter(parte => {
-        const p = parte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        if (irrelevantes.includes(p)) return false;
-        if (/^\d{5,}$/.test(p)) return false; // Elimina cualquier número largo (código postal)
-        return true;
-      });
-      // Elimina duplicados consecutivos
-      partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
-      return partesFiltradas.join(', ');
-    }
-
-    // Reemplazar la carga y uso de 'paraderos' por los features del GeoJSON
-    function poblarSelectParaderos(selectElement) {
-      if (!window.rutasTranscaribe) return;
-      // Filtrar solo paraderos tipo Point, network Transcaribe y es_exclusivo true
-      const paraderosGeo = window.rutasTranscaribe.filter(f =>
-        f.geometry &&
-        f.geometry.type === "Point" &&
-        f.properties &&
-        f.properties.es_exclusivo === true
-      );
-      selectElement.innerHTML = '';
-      paraderosGeo.forEach(f => {
-        const nombre = f.properties && f.properties.nombre_paradero ? f.properties.nombre_paradero : 'Paradero';
-        const option = document.createElement('option');
-        option.value = nombre;
-        option.textContent = nombre;
-        selectElement.appendChild(option);
-      });
-    }
-    // Llamar esta función para poblar los selects de inicio y destino después de cargar el GeoJSON
-    // Ejemplo:
-    // poblarSelectParaderos(document.getElementById('startParaderoSelect'));
-    // poblarSelectParaderos(document.getElementById('endParaderoSelect'));
-
-    // === NUEVA LÓGICA: Marcadores de paraderos desde GeoJSON ===
-    function mostrarParaderosGeoJSONEnMapa() {
-      if (paraderosLayerGroup) {
-        paraderosLayerGroup.clearLayers();
-      } else {
-        paraderosLayerGroup = L.layerGroup().addTo(map);
-      }
-      if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-        window.rutasTranscaribe.forEach(f => {
-          if (f.geometry && f.geometry.type === "Point" && f.properties && f.properties.network === "Transcaribe") {
-            const coords = f.geometry.coordinates;
-            const lat = coords[1], lon = coords[0];
-            const props = f.properties;
-            const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
-              (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
-              (props.rutas ? `<b>Rutas:</b> ${Array.isArray(props.rutas) ? props.rutas.join(', ') : props.rutas}<br>` : '') +
-              (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
-              (props.tipos_ruta ? `<b>Tipos de Ruta:</b> ${Array.isArray(props.tipos_ruta) ? props.tipos_ruta.join(', ') : props.tipos_ruta}<br>` : '') +
-              (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
-            L.marker([lat, lon], {
-              icon: L.icon({
-                iconUrl: 'BUS.jpeg',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32]
-              })
-            }).addTo(paraderosLayerGroup).bindPopup(popup);
-          }
-        });
-      }
-    }
-    // Llamar esta función después de cargar el GeoJSON y de inicializar el mapa
-    // mostrarParaderosGeoJSONEnMapa();
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>
     </footer>
-    // Al final del script, antes de </script>:
-    document.addEventListener('DOMContentLoaded', function() {
-      var finalizeBtn = document.getElementById('finalizeBtn');
-      if (finalizeBtn) {
-        finalizeBtn.addEventListener('click', function() {
-          // Limpiar ruta, marcadores, localStorage, resetear UI
-          if (window.routeLine) { map.removeLayer(window.routeLine); window.routeLine = null; }
-          if (window.startMarker) { map.removeLayer(window.startMarker); window.startMarker = null; }
-          if (window.endMarker) { map.removeLayer(window.endMarker); window.endMarker = null; }
-          if (window.vehicleMarker) { map.removeLayer(window.vehicleMarker); window.vehicleMarker = null; }
-          document.getElementById('distanceTraveled').textContent = '0.0';
-          document.getElementById('timeElapsed').textContent = '00:00';
-          document.getElementById('currentSpeed').textContent = '0.0';
-          document.getElementById('progressBar').style.width = '0%';
-          document.getElementById('statusIndicator').textContent = '⏸️ Esperando movimiento';
-          document.getElementById('statusIndicator').style.color = '';
-          document.getElementById('finalizeBtn').style.display = 'none';
-          if (document.getElementById('progressBar').parentElement) document.getElementById('progressBar').parentElement.style.display = '';
-          // Limpiar localStorage
-          localStorage.removeItem('tuguia_start');
-          localStorage.removeItem('tuguia_end');
-          localStorage.removeItem('tuguia_start_mode');
-          localStorage.removeItem('tuguia_end_mode');
-          // Resetear selectores
-          const startParaderoSelect = document.getElementById('startParaderoSelect');
-          const endParaderoSelect = document.getElementById('endParaderoSelect');
-          if (startParaderoSelect) startParaderoSelect.selectedIndex = 0;
-          if (endParaderoSelect) endParaderoSelect.selectedIndex = 0;
-          // Limpiar inputs
-          const startDireccionInput = document.getElementById('startDireccionInput');
-          const endDireccionInput = document.getElementById('endDireccionInput');
-          if (startDireccionInput) startDireccionInput.value = '';
-          if (endDireccionInput) endDireccionInput.value = '';
-          // Limpiar info
-          document.getElementById('info').textContent = 'Escribe las direcciones, nombres de restaurantes, hoteles, tiendas o negocios, o selecciónalas en el mapa.';
-          // Ocultar panel de seguimiento automático
-          const routeControls = document.getElementById('routeControls');
-          if (routeControls) routeControls.style.display = 'none';
-          // Ocultar trackingMode
-          const trackingMode = document.getElementById('trackingMode');
-          if (trackingMode) trackingMode.style.display = 'none';
-          // Limpiar y ocultar sugerencias de autocompletado
-          const startSuggestions = document.getElementById('startSuggestions');
-          const endSuggestions = document.getElementById('endSuggestions');
-          if (startSuggestions) { startSuggestions.innerHTML = ''; startSuggestions.style.display = 'none'; }
-          if (endSuggestions) { endSuggestions.innerHTML = ''; endSuggestions.style.display = 'none'; }
-          // Limpiar los chips de rutas
-          const startRutasInfo = document.getElementById('startRutasInfo');
-          const endRutasInfo = document.getElementById('endRutasInfo');
-          if (startRutasInfo) startRutasInfo.innerHTML = '';
-          if (endRutasInfo) endRutasInfo.innerHTML = '';
-          // Limpiar etiqueta de barrio y alarmas
-          const barrioLabel = document.getElementById('barrioLabel');
-          const alarmaDiv = document.getElementById('alarma300m');
-          if (barrioLabel) barrioLabel.style.display = 'none';
-          if (alarmaDiv) alarmaDiv.style.display = 'none';
-          // Detener seguimiento automático si está activo
-          if (typeof detenerSeguimientoReal === 'function') detenerSeguimientoReal();
-          // Limpiar variables de tracking real
-          if (typeof realTrackingWatchId !== 'undefined' && realTrackingWatchId) {
-            navigator.geolocation.clearWatch(realTrackingWatchId);
-            realTrackingWatchId = null;
-          }
-          isRealTrackingActive = false;
-        });
-      }
-    });
-
-    if (window.rutasTranscaribe && Array.isArray(window.rutasTranscaribe)) {
-      window.rutasTranscaribe.forEach(f => {
-        if (
-          f.geometry &&
-          f.geometry.type === "Point" &&
-          f.properties &&
-          f.properties.network === "Transcaribe"
-        ) {
-          const coords = f.geometry.coordinates; // [lon, lat]
-          const lat = coords[1];
-          const lon = coords[0];
-          // Log de depuración para ver el feature
-          console.log('Marcador GeoJSON:', f);
-          const marker = L.marker([lat, lon], {
-            icon: L.icon({
-              iconUrl: 'BUS.jpeg',
-              iconSize: [32, 32],
-              iconAnchor: [16, 32]
-            })
-          }).on('click', () => {
-            // Mostrar popup con la info enriquecida del GeoJSON
-            const props = f.properties || {};
-            let rutas = props.rutas || '';
-            if (Array.isArray(rutas)) rutas = rutas.join(', ');
-            let tiposRuta = props.tipos_ruta || '';
-            if (Array.isArray(tiposRuta)) tiposRuta = tiposRuta.join(', ');
-            const popup = `<b>${props.nombre_paradero || 'Paradero'}</b><br>` +
-              (props.coordenadas ? `<b>Coordenadas:</b> ${props.coordenadas}<br>` : '') +
-              (rutas ? `<b>Rutas:</b> ${rutas}<br>` : '') +
-              (props.network ? `<b>Red:</b> ${props.network}<br>` : '') +
-              (tiposRuta ? `<b>Tipos de Ruta:</b> ${tiposRuta}<br>` : '') +
-              (props.fuente ? `<b>Fuente:</b> ${props.fuente}<br>` : '');
-            // Log de depuración para ver el contenido del popup
-            console.log('Popup:', popup);
-            L.popup().setLatLng([lat, lon]).setContent(popup).openOn(map);
-          });
-          paraderosLayerGroup.addLayer(marker);
-        }
-      });
-    }
 </body>
 </html> 

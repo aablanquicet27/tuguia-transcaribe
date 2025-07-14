@@ -7,9 +7,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "La Bodeguita",
-        "coordenadas": "10.4225, -75.5472",
-        "rutas": "X101,X102,X103,X105,X106",
+        "nombre_paradero": "MUELLE DE LA BODEGUITA",
+        "coordenadas": "10.420105, -75.551386",
+        "rutas": "T100E,T101,T103,X101,X102,X103,X104,X105,X106,C017,C018",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -29,9 +29,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Centro",
-        "coordenadas": "10.4238, -75.5489",
-        "rutas": "X101,X102,X103,X105,X106",
+        "nombre_paradero": "CENTRO UNO",
+        "coordenadas": "10.425151, -75.546440",
+        "rutas":  "T100E,T101,T102,X101,X102,X103,X104,X105,X106,C017",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -48,33 +48,13 @@
         ]
       }
     },
+   
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Chambac�",
-        "coordenadas": "10.4265, -75.5431",
-        "rutas": "X101,X102,X103,X106,A108",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales,Alimentadoras",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Chambac�"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.5431,
-          10.4265
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Bazurto",
-        "coordenadas": "10.4172, -75.5284",
-        "rutas": "X101,X102,X103,X104,X105,X106,A108",
+        "nombre_paradero": "MERCADO BAZURTO",
+        "coordenadas": "10.413756, -75.524049",
+        "rutas": "T101,T102,T103,X101,X102,X103,X104,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales,Alimentadoras",
         "fuente": "csv_2025",
@@ -91,50 +71,14 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Mar�a Auxiliadora",
-        "coordenadas": "10.4140, -75.5245",
-        "rutas": "X101,X102,X103,X106",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Mar�a Auxiliadora"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.5245,
-          10.414
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "REPUBLICA DEL LIBANO",
-        "coordenadas": "10.40734, -75.507542",
-        "rutas": "T102,X101,X106",
-        "network": "Transcaribe",
-        "es_exclusivo": true
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.507542,
-          10.40734
-        ]
-      }
-    },
+    
+    
     {
       "type": "Feature",
       "properties": {
         "nombre_paradero": "CUATRO VIENTOS",
         "coordenadas": "10.406451, -75.502601",
-        "rutas": "X101,X102,X103,X106",
+        "rutas": "T100E,T101,T103,X101",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -151,33 +95,13 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Villa Ol�mpica",
-        "coordenadas": "10.4080, -75.5125",
-        "rutas": "X101,X102,X103,X106",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Villa Ol�mpica"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.5125,
-          10.408
-        ]
-      }
-    },
+    
     {
       "type": "Feature",
       "properties": {
         "nombre_paradero": "LOS EJECUTIVOS",
         "coordenadas": "10.399543, -75.493653",
-        "rutas": "X101,X102",
+        "rutas": "T101,T103,X101,X106",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -199,7 +123,7 @@
       "properties": {
         "nombre_paradero": "MADRE BERNARDA",
         "coordenadas": "10.395007, -75.478893",
-        "rutas": "X101,X102,X103",
+        "rutas": "T100E,T101,T102,T103,X102,X103,A103,A104,A105,A107,A108,A111",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -242,7 +166,7 @@
       "properties": {
         "nombre_paradero": "EL PRADO",
         "coordenadas": "10.41104, -75.519531",
-        "rutas": "X101,X102,X103",
+        "rutas": "T101,T102,X103",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -259,55 +183,13 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Espa�a",
-        "coordenadas": "10.3978, -75.4965",
-        "rutas": "X101,X102,X103",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Espa�a"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.4965,
-          10.3978
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Los �ngeles",
-        "coordenadas": "10.3960, -75.4938",
-        "rutas": "X101,X102",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Los �ngeles"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.4938,
-          10.396
-        ]
-      }
-    },
-    {
+    
+       {
       "type": "Feature",
       "properties": {
         "nombre_paradero": "LA CASTELLANA",
-        "coordenadas": "10.394408, -75.486631",
-        "rutas": "X101,X102",
-        "network": "Transcaribe",
+        "coordenadas": "10.394408, -75.486654",
+        "rutas": "T100E,T101,T103,X106",       "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
@@ -326,15 +208,15 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "La Popa",
-        "coordenadas": "10.3925, -75.4884",
-        "rutas": "X101,X102,X104",
+        "nombre_paradero": "PIE DE LA POPA",
+        "coordenadas": "10.420479, -75.531084",
+        "rutas": "T101,T103,X104,X106",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "La Popa",
+        "name": "PIE DE LA POPA",
         "es_exclusivo": true
       },
       "geometry": {
@@ -345,34 +227,13 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Delicias",
-        "coordenadas": "10.3907, -75.4857",
-        "rutas": "X101,X102,X103",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Delicias",
-        "es_exclusivo": true
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.4857,
-          10.3907
-        ]
-      }
-    },
+    
     {
       "type": "Feature",
       "properties": {
         "nombre_paradero": "LO AMADOR",
-        "coordenadas": "10.422358, -75.534597",
-        "rutas": "X101,X102,X103,X105",
+        "coordenadas": "10.422355, -75.534680",
+        "rutas": "X102,X105,X106",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
@@ -6783,7 +6644,7 @@
       "properties": {
         "nombre_paradero": "PATIO PORTAL",
         "coordenadas": "10.395392, -75.472826",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117,C016",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6800,7 +6661,7 @@
       "properties": {
         "nombre_paradero": "LOS ANGELES",
         "coordenadas": "10.395071, -75.49033",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T102,T103",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6817,7 +6678,7 @@
       "properties": {
         "nombre_paradero": "VILLA OLIMPICA",
         "coordenadas": "10.403742, -75.497435",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T101,T102,X101",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6851,7 +6712,7 @@
       "properties": {
         "nombre_paradero": "ESPAÑA",
         "coordenadas": "10.408311, -75.512971",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T101,T103,X101",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6868,7 +6729,7 @@
       "properties": {
         "nombre_paradero": "MARIA AUXILIADORA",
         "coordenadas": "10.408976, -75.51583",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T102,T100E,X101,X106",
         "network": "Transcaribe",
         "es_exclusivo": true
       },
@@ -6885,7 +6746,7 @@
       "properties": {
         "nombre_paradero": "CHAMBACU",
         "coordenadas": "10.425853, -75.540498",
-        "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117",
+        "rutas": "T101,T102,T103,X101,X104",
         "network": "Transcaribe",
         "es_exclusivo": true
       },

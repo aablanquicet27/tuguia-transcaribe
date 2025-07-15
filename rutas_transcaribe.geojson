@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "generator": "Transcaribe Complete Data",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
-  "timestamp": "2025-07-12T00:08:15.637Z",
+  "timestamp": "2025-07-14T00:08:15.637Z",
   "features": [
     {
       "type": "Feature",
@@ -21,8 +21,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5472,
-          10.4225
+          -75.551053,
+	  10.420351
         ]
       }
     },
@@ -30,7 +30,7 @@
       "type": "Feature",
       "properties": {
         "nombre_paradero": "CENTRO UNO",
-        "coordenadas": "10.425151, -75.546440",
+        "coordenadas": "10.425291, -75.546270",
         "rutas":  "T100E,T101,T102,X101,X102,X103,X104,X105,X106,C017",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
@@ -43,8 +43,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5489,
-          10.4238
+          -75.546270,
+          10.425291
         ]
       }
     },
@@ -53,7 +53,7 @@
       "type": "Feature",
       "properties": {
         "nombre_paradero": "MERCADO BAZURTO",
-        "coordenadas": "10.413756, -75.524049",
+        "coordenadas": "10.413713, -75.523973",
         "rutas": "T101,T102,T103,X101,X102,X103,X104,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales,Alimentadoras",
@@ -66,8 +66,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.5284,
-          10.4172
+         -75.523973,
+         10.413713
         ]
       }
     },
@@ -188,8 +188,9 @@
       "type": "Feature",
       "properties": {
         "nombre_paradero": "LA CASTELLANA",
-        "coordenadas": "10.394408, -75.486654",
-        "rutas": "T100E,T101,T103,X106",       "network": "Transcaribe",
+        "coordenadas": "10.394408,-75.486631",
+        "rutas": "T100E,T101,T103,X106",       
+        "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
         "fuente": "csv_2025",
         "highway": "bus_stop",
@@ -222,8 +223,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.4884,
-          10.3925
+          -75.531084,
+          10.420479
         ]
       }
     },
@@ -232,7 +233,7 @@
       "type": "Feature",
       "properties": {
         "nombre_paradero": "LO AMADOR",
-        "coordenadas": "10.422355, -75.534680",
+        "coordenadas": "10.422358, -75.534597",
         "rutas": "X102,X105,X106",
         "network": "Transcaribe",
         "tipos_ruta": "Pretroncales",
@@ -262,8 +263,7 @@
         "highway": "bus_stop",
         "public_transport": "platform",
         "name": "Variante Centro",
-        "es_exclusivo": true
-      },
+       },
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -359,7 +359,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cl�nica Rafael Calvo",
+        "nombre_paradero": "Cl nica Rafael Calvo",
         "coordenadas": "10.3781, -75.4668",
         "rutas": "X101,X102,X103",
         "network": "Transcaribe",
@@ -367,7 +367,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cl�nica Rafael Calvo"
+        "name": "Cl nica Rafael Calvo"
       },
       "geometry": {
         "type": "Point",
@@ -422,7 +422,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Nueva Jerusal�n",
+        "nombre_paradero": "Nueva Jerusal n",
         "coordenadas": "10.3727, -75.4587",
         "rutas": "X101,X102",
         "network": "Transcaribe",
@@ -430,7 +430,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Nueva Jerusal�n"
+        "name": "Nueva Jerusal n"
       },
       "geometry": {
         "type": "Point",
@@ -464,7 +464,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Santa Luc�a",
+        "nombre_paradero": "Santa Luc a",
         "coordenadas": "10.3691, -75.4533",
         "rutas": "X101,X102",
         "network": "Transcaribe",
@@ -472,7 +472,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Santa Luc�a"
+        "name": "Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -674,7 +674,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Los �ngeles",
+        "nombre_paradero": "Los  ngeles",
         "coordenadas": "10.4060, -75.5095",
         "rutas": "X103",
         "network": "Transcaribe",
@@ -682,7 +682,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Los �ngeles"
+        "name": "Los  ngeles"
       },
       "geometry": {
         "type": "Point",
@@ -737,7 +737,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "El Cari�oso",
+        "nombre_paradero": "El Cari oso",
         "coordenadas": "10.3898, -75.4906",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -745,7 +745,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "El Cari�oso"
+        "name": "El Cari oso"
       },
       "geometry": {
         "type": "Point",
@@ -821,7 +821,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Entrada Nuevo Para�so",
+        "nombre_paradero": "Entrada Nuevo Para so",
         "coordenadas": "10.3830, -75.4798",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -829,7 +829,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Entrada Nuevo Para�so"
+        "name": "Entrada Nuevo Para so"
       },
       "geometry": {
         "type": "Point",
@@ -969,7 +969,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Almirante Col�n",
+        "nombre_paradero": "Colegio Almirante Col n",
         "coordenadas": "10.3711, -75.4609",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -977,7 +977,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Almirante Col�n"
+        "name": "Colegio Almirante Col n"
       },
       "geometry": {
         "type": "Point",
@@ -1032,7 +1032,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Salida V�a Perimetral",
+        "nombre_paradero": "Salida V a Perimetral",
         "coordenadas": "10.3660, -75.4528",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -1040,7 +1040,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Salida V�a Perimetral"
+        "name": "Salida V a Perimetral"
       },
       "geometry": {
         "type": "Point",
@@ -1053,7 +1053,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Sector Rafael N��ez",
+        "nombre_paradero": "Sector Rafael N  ez",
         "coordenadas": "10.3643, -75.4501",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -1061,7 +1061,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Sector Rafael N��ez"
+        "name": "Sector Rafael N  ez"
       },
       "geometry": {
         "type": "Point",
@@ -1074,7 +1074,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Olaya Sector El Tanc�n",
+        "nombre_paradero": "Olaya Sector El Tanc n",
         "coordenadas": "10.3626, -75.4474",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -1082,7 +1082,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Olaya Sector El Tanc�n"
+        "name": "Olaya Sector El Tanc n"
       },
       "geometry": {
         "type": "Point",
@@ -1095,7 +1095,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "El L�bano",
+        "nombre_paradero": "El L bano",
         "coordenadas": "10.3609, -75.4447",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -1103,7 +1103,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "El L�bano"
+        "name": "El L bano"
       },
       "geometry": {
         "type": "Point",
@@ -1221,7 +1221,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Chambac� / Centro / La Bodediga",
+        "nombre_paradero": "Chambac  / Centro / La Bodediga",
         "coordenadas": "10.4225, -75.5472",
         "rutas": "X104",
         "network": "Transcaribe",
@@ -1229,7 +1229,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Chambac� / Centro / La Bodediga",
+        "name": "Chambac  / Centro / La Bodediga",
         "es_exclusivo": true
       },
       "geometry": {
@@ -1369,7 +1369,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Edificio Grupo �rea",
+        "nombre_paradero": "Edificio Grupo  rea",
         "coordenadas": "10.4176, -75.5426",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -1377,7 +1377,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Edificio Grupo �rea"
+        "name": "Edificio Grupo  rea"
       },
       "geometry": {
         "type": "Point",
@@ -1429,32 +1429,11 @@
         ]
       }
     },
+    
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "LAS DELICIAS",
-        "coordenadas": "10.41664, -75.527932",
-        "rutas": "X105",
-        "network": "Transcaribe",
-        "tipos_ruta": "Pretroncales",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Las Delicias",
-        "es_exclusivo": true
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.527932,
-          10.41664
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Mart�nez Martelo",
+        "nombre_paradero": "Mart nez Martelo",
         "coordenadas": "10.4150, -75.5260",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -1462,7 +1441,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Mart�nez Martelo"
+        "name": "Mart nez Martelo"
       },
       "geometry": {
         "type": "Point",
@@ -1475,7 +1454,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cancha Mart�nez Martelo",
+        "nombre_paradero": "Cancha Mart nez Martelo",
         "coordenadas": "10.4135, -75.5240",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -1483,7 +1462,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cancha Mart�nez Martelo"
+        "name": "Cancha Mart nez Martelo"
       },
       "geometry": {
         "type": "Point",
@@ -1559,7 +1538,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Restaurante Bumangu�s",
+        "nombre_paradero": "Restaurante Bumangu s",
         "coordenadas": "10.4067, -75.5140",
         "rutas": "X105,A111",
         "network": "Transcaribe",
@@ -1567,7 +1546,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Restaurante Bumangu�s"
+        "name": "Restaurante Bumangu s"
       },
       "geometry": {
         "type": "Point",
@@ -1601,7 +1580,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Postob�n",
+        "nombre_paradero": "Postob n",
         "coordenadas": "10.4033, -75.5090",
         "rutas": "X105,A102,A111",
         "network": "Transcaribe",
@@ -1609,7 +1588,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Postob�n"
+        "name": "Postob n"
       },
       "geometry": {
         "type": "Point",
@@ -1811,7 +1790,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Taller Ma�e",
+        "nombre_paradero": "Taller Ma e",
         "coordenadas": "10.3863, -75.4840",
         "rutas": "X105,A102,A111,A114,A117",
         "network": "Transcaribe",
@@ -1819,7 +1798,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Taller Ma�e"
+        "name": "Taller Ma e"
       },
       "geometry": {
         "type": "Point",
@@ -1874,7 +1853,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Precio F�cil",
+        "nombre_paradero": "Precio F cil",
         "coordenadas": "10.3812, -75.4765",
         "rutas": "X105,A102,A111,A114,A117",
         "network": "Transcaribe",
@@ -1882,7 +1861,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Precio F�cil"
+        "name": "Precio F cil"
       },
       "geometry": {
         "type": "Point",
@@ -1916,7 +1895,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Nueva Jerusal�n La Consolata",
+        "nombre_paradero": "Nueva Jerusal n La Consolata",
         "coordenadas": "10.3778, -75.4715",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -1924,7 +1903,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Nueva Jerusal�n La Consolata"
+        "name": "Nueva Jerusal n La Consolata"
       },
       "geometry": {
         "type": "Point",
@@ -1958,7 +1937,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cl�nica Rafael Calvo",
+        "nombre_paradero": "Cl nica Rafael Calvo",
         "coordenadas": "10.3744, -75.4665",
         "rutas": "X105,A102,A111,A114,A117",
         "network": "Transcaribe",
@@ -1966,7 +1945,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cl�nica Rafael Calvo"
+        "name": "Cl nica Rafael Calvo"
       },
       "geometry": {
         "type": "Point",
@@ -2063,7 +2042,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Centro (Integraci�n)",
+        "nombre_paradero": "Centro (Integraci n)",
         "coordenadas": "10.4239, -75.5485",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -2071,7 +2050,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro (Integraci�n)",
+        "name": "Centro (Integraci n)",
         "es_exclusivo": true
       },
       "geometry": {
@@ -2085,7 +2064,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Mar�a Mulata",
+        "nombre_paradero": "Mar a Mulata",
         "coordenadas": "10.4170, -75.5512",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -2093,7 +2072,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Mar�a Mulata"
+        "name": "Mar a Mulata"
       },
       "geometry": {
         "type": "Point",
@@ -2106,7 +2085,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ol�mpica",
+        "nombre_paradero": "Ol mpica",
         "coordenadas": "10.4158, -75.5518",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -2114,7 +2093,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ol�mpica"
+        "name": "Ol mpica"
       },
       "geometry": {
         "type": "Point",
@@ -2190,7 +2169,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Dulcer�a",
+        "nombre_paradero": "Dulcer a",
         "coordenadas": "10.4110, -75.5541",
         "rutas": "X105",
         "network": "Transcaribe",
@@ -2198,7 +2177,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Dulcer�a"
+        "name": "Dulcer a"
       },
       "geometry": {
         "type": "Point",
@@ -2232,7 +2211,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Gobernaci�n de Bol�var (Turbaco)",
+        "nombre_paradero": "Gobernaci n de Bol var (Turbaco)",
         "coordenadas": "10.3365, -75.4420",
         "rutas": "X106",
         "network": "Transcaribe",
@@ -2240,7 +2219,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Gobernaci�n de Bol�var (Turbaco)"
+        "name": "Gobernaci n de Bol var (Turbaco)"
       },
       "geometry": {
         "type": "Point",
@@ -2463,7 +2442,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Gobernaci�n retorno",
+        "nombre_paradero": "Gobernaci n retorno",
         "coordenadas": "10.3365, -75.4420",
         "rutas": "X106",
         "network": "Transcaribe",
@@ -2471,7 +2450,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Gobernaci�n retorno"
+        "name": "Gobernaci n retorno"
       },
       "geometry": {
         "type": "Point",
@@ -2484,7 +2463,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Gobernaci�n de Bol�var (final)",
+        "nombre_paradero": "Gobernaci n de Bol var (final)",
         "coordenadas": "10.3365, -75.4420",
         "rutas": "X106",
         "network": "Transcaribe",
@@ -2492,7 +2471,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Gobernaci�n de Bol�var (final)"
+        "name": "Gobernaci n de Bol var (final)"
       },
       "geometry": {
         "type": "Point",
@@ -2547,7 +2526,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Zona de Conurbaci�n",
+        "nombre_paradero": "Zona de Conurbaci n",
         "coordenadas": "10.3708, -75.4560",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2555,7 +2534,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Zona de Conurbaci�n"
+        "name": "Zona de Conurbaci n"
       },
       "geometry": {
         "type": "Point",
@@ -2568,7 +2547,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Jard�n de la Orqu�dea",
+        "nombre_paradero": "Jard n de la Orqu dea",
         "coordenadas": "10.3726, -75.4587",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2576,7 +2555,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Jard�n de la Orqu�dea"
+        "name": "Jard n de la Orqu dea"
       },
       "geometry": {
         "type": "Point",
@@ -2589,7 +2568,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Jard�n Camelia",
+        "nombre_paradero": "Jard n Camelia",
         "coordenadas": "10.3744, -75.4614",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2597,7 +2576,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Jard�n Camelia"
+        "name": "Jard n Camelia"
       },
       "geometry": {
         "type": "Point",
@@ -2673,7 +2652,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Centro Comercial M�o",
+        "nombre_paradero": "Centro Comercial M o",
         "coordenadas": "10.3816, -75.4722",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2681,7 +2660,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro Comercial M�o",
+        "name": "Centro Comercial M o",
         "es_exclusivo": true
       },
       "geometry": {
@@ -2737,7 +2716,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Conjunto Jard�n 2",
+        "nombre_paradero": "Conjunto Jard n 2",
         "coordenadas": "10.3870, -75.4803",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2745,7 +2724,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Conjunto Jard�n 2"
+        "name": "Conjunto Jard n 2"
       },
       "geometry": {
         "type": "Point",
@@ -2779,7 +2758,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n I",
+        "nombre_paradero": "Ciudad Jard n I",
         "coordenadas": "10.3906, -75.4857",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2787,7 +2766,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n I"
+        "name": "Ciudad Jard n I"
       },
       "geometry": {
         "type": "Point",
@@ -2800,7 +2779,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n II",
+        "nombre_paradero": "Ciudad Jard n II",
         "coordenadas": "10.3924, -75.4884",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2808,7 +2787,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n II"
+        "name": "Ciudad Jard n II"
       },
       "geometry": {
         "type": "Point",
@@ -2821,7 +2800,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n III",
+        "nombre_paradero": "Ciudad Jard n III",
         "coordenadas": "10.3942, -75.4911",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2829,7 +2808,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n III"
+        "name": "Ciudad Jard n III"
       },
       "geometry": {
         "type": "Point",
@@ -2842,7 +2821,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n IV",
+        "nombre_paradero": "Ciudad Jard n IV",
         "coordenadas": "10.3960, -75.4938",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2850,7 +2829,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n IV"
+        "name": "Ciudad Jard n IV"
       },
       "geometry": {
         "type": "Point",
@@ -2863,7 +2842,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n V",
+        "nombre_paradero": "Ciudad Jard n V",
         "coordenadas": "10.3978, -75.4965",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2871,7 +2850,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n V"
+        "name": "Ciudad Jard n V"
       },
       "geometry": {
         "type": "Point",
@@ -2884,7 +2863,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n VI",
+        "nombre_paradero": "Ciudad Jard n VI",
         "coordenadas": "10.3996, -75.4992",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2892,7 +2871,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n VI"
+        "name": "Ciudad Jard n VI"
       },
       "geometry": {
         "type": "Point",
@@ -2905,7 +2884,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n VII",
+        "nombre_paradero": "Ciudad Jard n VII",
         "coordenadas": "10.4014, -75.5020",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2913,7 +2892,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n VII"
+        "name": "Ciudad Jard n VII"
       },
       "geometry": {
         "type": "Point",
@@ -2926,7 +2905,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n VIII",
+        "nombre_paradero": "Ciudad Jard n VIII",
         "coordenadas": "10.4032, -75.5048",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2934,7 +2913,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n VIII"
+        "name": "Ciudad Jard n VIII"
       },
       "geometry": {
         "type": "Point",
@@ -2947,7 +2926,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n IX",
+        "nombre_paradero": "Ciudad Jard n IX",
         "coordenadas": "10.4050, -75.5076",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2955,7 +2934,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n IX"
+        "name": "Ciudad Jard n IX"
       },
       "geometry": {
         "type": "Point",
@@ -2968,7 +2947,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n X",
+        "nombre_paradero": "Ciudad Jard n X",
         "coordenadas": "10.4068, -75.5104",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2976,7 +2955,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n X"
+        "name": "Ciudad Jard n X"
       },
       "geometry": {
         "type": "Point",
@@ -2989,7 +2968,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n XI",
+        "nombre_paradero": "Ciudad Jard n XI",
         "coordenadas": "10.4086, -75.5132",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -2997,7 +2976,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n XI"
+        "name": "Ciudad Jard n XI"
       },
       "geometry": {
         "type": "Point",
@@ -3010,7 +2989,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n XII",
+        "nombre_paradero": "Ciudad Jard n XII",
         "coordenadas": "10.4104, -75.5160",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -3018,7 +2997,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n XII"
+        "name": "Ciudad Jard n XII"
       },
       "geometry": {
         "type": "Point",
@@ -3031,7 +3010,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n XIII",
+        "nombre_paradero": "Ciudad Jard n XIII",
         "coordenadas": "10.4122, -75.5188",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -3039,7 +3018,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n XIII"
+        "name": "Ciudad Jard n XIII"
       },
       "geometry": {
         "type": "Point",
@@ -3052,7 +3031,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ciudad Jard�n XIV",
+        "nombre_paradero": "Ciudad Jard n XIV",
         "coordenadas": "10.4140, -75.5216",
         "rutas": "A101",
         "network": "Transcaribe",
@@ -3060,7 +3039,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ciudad Jard�n XIV"
+        "name": "Ciudad Jard n XIV"
       },
       "geometry": {
         "type": "Point",
@@ -3073,7 +3052,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Nueva Jerusal�n",
+        "nombre_paradero": "Nueva Jerusal n",
         "coordenadas": "10.3778, -75.4715",
         "rutas": "A102,A111,A114,A117",
         "network": "Transcaribe",
@@ -3081,7 +3060,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Nueva Jerusal�n"
+        "name": "Nueva Jerusal n"
       },
       "geometry": {
         "type": "Point",
@@ -3094,7 +3073,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Universidad Tecnol�gica",
+        "nombre_paradero": "Universidad Tecnol gica",
         "coordenadas": "10.4067, -75.5140",
         "rutas": "A102",
         "network": "Transcaribe",
@@ -3102,7 +3081,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Universidad Tecnol�gica"
+        "name": "Universidad Tecnol gica"
       },
       "geometry": {
         "type": "Point",
@@ -3115,7 +3094,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Santa Luc�a",
+        "nombre_paradero": "Santa Luc a",
         "coordenadas": "10.3655, -75.4479",
         "rutas": "A103,A104,A105,A107,A108,A111",
         "network": "Transcaribe",
@@ -3123,7 +3102,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Santa Luc�a"
+        "name": "Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -3136,7 +3115,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Iglesia Santa Luc�a",
+        "nombre_paradero": "Iglesia Santa Luc a",
         "coordenadas": "10.3668, -75.4495",
         "rutas": "A103,A104,A105",
         "network": "Transcaribe",
@@ -3144,7 +3123,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Iglesia Santa Luc�a"
+        "name": "Iglesia Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -3178,7 +3157,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Juan Jos� Nieto",
+        "nombre_paradero": "Colegio Juan Jos  Nieto",
         "coordenadas": "10.3694, -75.4529",
         "rutas": "A103,A104,A105",
         "network": "Transcaribe",
@@ -3186,7 +3165,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Juan Jos� Nieto"
+        "name": "Colegio Juan Jos  Nieto"
       },
       "geometry": {
         "type": "Point",
@@ -3199,7 +3178,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Dulce Coraz�n de Mar�a",
+        "nombre_paradero": "Colegio Dulce Coraz n de Mar a",
         "coordenadas": "10.3707, -75.4546",
         "rutas": "A103,A104,A105",
         "network": "Transcaribe",
@@ -3207,7 +3186,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Dulce Coraz�n de Mar�a"
+        "name": "Colegio Dulce Coraz n de Mar a"
       },
       "geometry": {
         "type": "Point",
@@ -3262,7 +3241,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Droguer�a Mar�a V",
+        "nombre_paradero": "Droguer a Mar a V",
         "coordenadas": "10.3746, -75.4597",
         "rutas": "A103,A104",
         "network": "Transcaribe",
@@ -3270,7 +3249,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Droguer�a Mar�a V"
+        "name": "Droguer a Mar a V"
       },
       "geometry": {
         "type": "Point",
@@ -3304,7 +3283,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ferreter�a El Chico",
+        "nombre_paradero": "Ferreter a El Chico",
         "coordenadas": "10.3772, -75.4631",
         "rutas": "A103,A104,A105",
         "network": "Transcaribe",
@@ -3312,7 +3291,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ferreter�a El Chico"
+        "name": "Ferreter a El Chico"
       },
       "geometry": {
         "type": "Point",
@@ -3367,7 +3346,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Punto Fr�o El Gavil�n",
+        "nombre_paradero": "Punto Fr o El Gavil n",
         "coordenadas": "10.3811, -75.4682",
         "rutas": "A103,A104,A105",
         "network": "Transcaribe",
@@ -3375,7 +3354,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Punto Fr�o El Gavil�n"
+        "name": "Punto Fr o El Gavil n"
       },
       "geometry": {
         "type": "Point",
@@ -3850,7 +3829,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Santa Luc�a (retorno)",
+        "nombre_paradero": "Santa Luc a (retorno)",
         "coordenadas": "10.3655, -75.4479",
         "rutas": "A103,A104,A105,A107,A108,A111",
         "network": "Transcaribe",
@@ -3858,7 +3837,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Santa Luc�a (retorno)"
+        "name": "Santa Luc a (retorno)"
       },
       "geometry": {
         "type": "Point",
@@ -3955,7 +3934,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Droguer�a y Variedades Mar�a V",
+        "nombre_paradero": "Droguer a y Variedades Mar a V",
         "coordenadas": "10.3746, -75.4597",
         "rutas": "A105",
         "network": "Transcaribe",
@@ -3963,7 +3942,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Droguer�a y Variedades Mar�a V"
+        "name": "Droguer a y Variedades Mar a V"
       },
       "geometry": {
         "type": "Point",
@@ -3976,7 +3955,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Estaci�n Santa Luc�a",
+        "nombre_paradero": "Estaci n Santa Luc a",
         "coordenadas": "10.3668, -75.4495",
         "rutas": "A107",
         "network": "Transcaribe",
@@ -3984,7 +3963,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Estaci�n Santa Luc�a"
+        "name": "Estaci n Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -4018,7 +3997,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cl�nica El Universal",
+        "nombre_paradero": "Cl nica El Universal",
         "coordenadas": "10.3694, -75.4529",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4026,7 +4005,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cl�nica El Universal"
+        "name": "Cl nica El Universal"
       },
       "geometry": {
         "type": "Point",
@@ -4060,7 +4039,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Centro M�dico Buenos Aires",
+        "nombre_paradero": "Centro M dico Buenos Aires",
         "coordenadas": "10.3720, -75.4563",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4068,7 +4047,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro M�dico Buenos Aires",
+        "name": "Centro M dico Buenos Aires",
         "es_exclusivo": true
       },
       "geometry": {
@@ -4082,7 +4061,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Bertha Gede�n",
+        "nombre_paradero": "Colegio Bertha Gede n",
         "coordenadas": "10.3733, -75.4580",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4090,7 +4069,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Bertha Gede�n"
+        "name": "Colegio Bertha Gede n"
       },
       "geometry": {
         "type": "Point",
@@ -4103,7 +4082,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Patin�dromo",
+        "nombre_paradero": "Patin dromo",
         "coordenadas": "10.3746, -75.4597",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4111,7 +4090,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Patin�dromo"
+        "name": "Patin dromo"
       },
       "geometry": {
         "type": "Point",
@@ -4145,7 +4124,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Almirante Col�n",
+        "nombre_paradero": "Colegio Almirante Col n",
         "coordenadas": "10.3772, -75.4631",
         "rutas": "A107",
         "network": "Transcaribe",
@@ -4153,7 +4132,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Almirante Col�n"
+        "name": "Colegio Almirante Col n"
       },
       "geometry": {
         "type": "Point",
@@ -4229,7 +4208,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ol�mpica",
+        "nombre_paradero": "Ol mpica",
         "coordenadas": "10.3824, -75.4699",
         "rutas": "A107",
         "network": "Transcaribe",
@@ -4237,7 +4216,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ol�mpica"
+        "name": "Ol mpica"
       },
       "geometry": {
         "type": "Point",
@@ -4250,7 +4229,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cl�nica Blas de Lezo",
+        "nombre_paradero": "Cl nica Blas de Lezo",
         "coordenadas": "10.3837, -75.4716",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4258,7 +4237,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cl�nica Blas de Lezo"
+        "name": "Cl nica Blas de Lezo"
       },
       "geometry": {
         "type": "Point",
@@ -4292,7 +4271,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cancha El Microf�tbol",
+        "nombre_paradero": "Cancha El Microf tbol",
         "coordenadas": "10.3863, -75.4750",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4300,7 +4279,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cancha El Microf�tbol"
+        "name": "Cancha El Microf tbol"
       },
       "geometry": {
         "type": "Point",
@@ -4313,7 +4292,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Bodytech Santa Luc�a",
+        "nombre_paradero": "Bodytech Santa Luc a",
         "coordenadas": "10.3876, -75.4767",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4321,7 +4300,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Bodytech Santa Luc�a"
+        "name": "Bodytech Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -4334,7 +4313,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "C.C. Santa Luc�a",
+        "nombre_paradero": "C.C. Santa Luc a",
         "coordenadas": "10.3889, -75.4784",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4342,7 +4321,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "C.C. Santa Luc�a"
+        "name": "C.C. Santa Luc a"
       },
       "geometry": {
         "type": "Point",
@@ -4376,7 +4355,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ol�mpica Los Caracoles",
+        "nombre_paradero": "Ol mpica Los Caracoles",
         "coordenadas": "10.3915, -75.4818",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4384,7 +4363,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ol�mpica Los Caracoles"
+        "name": "Ol mpica Los Caracoles"
       },
       "geometry": {
         "type": "Point",
@@ -4418,7 +4397,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Colegio Fern�ndez Baena",
+        "nombre_paradero": "Colegio Fern ndez Baena",
         "coordenadas": "10.3941, -75.4852",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4426,7 +4405,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Colegio Fern�ndez Baena"
+        "name": "Colegio Fern ndez Baena"
       },
       "geometry": {
         "type": "Point",
@@ -4544,7 +4523,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cancha Mart�nez Martelo",
+        "nombre_paradero": "Cancha Mart nez Martelo",
         "coordenadas": "10.4019, -75.4954",
         "rutas": "A107,A108",
         "network": "Transcaribe",
@@ -4552,7 +4531,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cancha Mart�nez Martelo"
+        "name": "Cancha Mart nez Martelo"
       },
       "geometry": {
         "type": "Point",
@@ -4565,7 +4544,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Bong�s",
+        "nombre_paradero": "Bong s",
         "coordenadas": "10.3772, -75.4631",
         "rutas": "A108",
         "network": "Transcaribe",
@@ -4573,7 +4552,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Bong�s"
+        "name": "Bong s"
       },
       "geometry": {
         "type": "Point",
@@ -4628,7 +4607,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ol�mpica Campestre",
+        "nombre_paradero": "Ol mpica Campestre",
         "coordenadas": "10.3824, -75.4699",
         "rutas": "A108",
         "network": "Transcaribe",
@@ -4636,7 +4615,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ol�mpica Campestre"
+        "name": "Ol mpica Campestre"
       },
       "geometry": {
         "type": "Point",
@@ -4649,7 +4628,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Mart�nez Martelo",
+        "nombre_paradero": "Mart nez Martelo",
         "coordenadas": "10.4032, -75.4971",
         "rutas": "A108",
         "network": "Transcaribe",
@@ -4657,7 +4636,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Mart�nez Martelo"
+        "name": "Mart nez Martelo"
       },
       "geometry": {
         "type": "Point",
@@ -4712,7 +4691,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "El Poz�n",
+        "nombre_paradero": "El Poz n",
         "coordenadas": "10.4016, -75.5065",
         "rutas": "A114,A117",
         "network": "Transcaribe",
@@ -4720,7 +4699,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "El Poz�n"
+        "name": "El Poz n"
       },
       "geometry": {
         "type": "Point",
@@ -4796,7 +4775,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Sector La Bendici�n",
+        "nombre_paradero": "Sector La Bendici n",
         "coordenadas": "10.4084, -75.5165",
         "rutas": "A114",
         "network": "Transcaribe",
@@ -4804,7 +4783,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Sector La Bendici�n"
+        "name": "Sector La Bendici n"
       },
       "geometry": {
         "type": "Point",
@@ -5048,7 +5027,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Sastrer�a La Prosperidad",
+        "nombre_paradero": "Sastrer a La Prosperidad",
         "coordenadas": "10.4067, -75.5140",
         "rutas": "A117",
         "network": "Transcaribe",
@@ -5056,7 +5035,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Sastrer�a La Prosperidad"
+        "name": "Sastrer a La Prosperidad"
       },
       "geometry": {
         "type": "Point",
@@ -5217,7 +5196,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Piedra de Bol�var",
+        "nombre_paradero": "Piedra de Bol var",
         "coordenadas": "10.4067, -75.5140",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5225,7 +5204,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Piedra de Bol�var"
+        "name": "Piedra de Bol var"
       },
       "geometry": {
         "type": "Point",
@@ -5322,7 +5301,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Universidad del Sin�",
+        "nombre_paradero": "Universidad del Sin ",
         "coordenadas": "10.3982, -75.5015",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5330,7 +5309,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Universidad del Sin�"
+        "name": "Universidad del Sin "
       },
       "geometry": {
         "type": "Point",
@@ -5343,7 +5322,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Cl�nica El Bosque",
+        "nombre_paradero": "Cl nica El Bosque",
         "coordenadas": "10.3965, -75.4990",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5351,7 +5330,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Cl�nica El Bosque"
+        "name": "Cl nica El Bosque"
       },
       "geometry": {
         "type": "Point",
@@ -5427,7 +5406,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Taller Ma�e",
+        "nombre_paradero": "Taller Ma e",
         "coordenadas": "10.3897, -75.4890",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5435,7 +5414,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Taller Ma�e"
+        "name": "Taller Ma e"
       },
       "geometry": {
         "type": "Point",
@@ -5469,7 +5448,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Instituci�n Educativa San Lucas",
+        "nombre_paradero": "Instituci n Educativa San Lucas",
         "coordenadas": "10.3863, -75.4840",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5477,7 +5456,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Instituci�n Educativa San Lucas"
+        "name": "Instituci n Educativa San Lucas"
       },
       "geometry": {
         "type": "Point",
@@ -5511,7 +5490,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Fe y Alegr�a",
+        "nombre_paradero": "Fe y Alegr a",
         "coordenadas": "10.3829, -75.4790",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5519,7 +5498,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Fe y Alegr�a"
+        "name": "Fe y Alegr a"
       },
       "geometry": {
         "type": "Point",
@@ -5595,7 +5574,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ferreter�a El Educador",
+        "nombre_paradero": "Ferreter a El Educador",
         "coordenadas": "10.3761, -75.4690",
         "rutas": "C001",
         "network": "Transcaribe",
@@ -5603,7 +5582,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ferreter�a El Educador"
+        "name": "Ferreter a El Educador"
       },
       "geometry": {
         "type": "Point",
@@ -5742,7 +5721,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Centro Comercial M�o",
+        "nombre_paradero": "Centro Comercial M o",
         "coordenadas": "10.3746, -75.4580",
         "rutas": "C016",
         "network": "Transcaribe",
@@ -5750,7 +5729,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro Comercial M�o",
+        "name": "Centro Comercial M o",
         "es_exclusivo": true
       },
       "geometry": {
@@ -5848,7 +5827,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Entrada El Poz�n",
+        "nombre_paradero": "Entrada El Poz n",
         "coordenadas": "10.3856, -75.4705",
         "rutas": "C016",
         "network": "Transcaribe",
@@ -5856,7 +5835,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Entrada El Poz�n"
+        "name": "Entrada El Poz n"
       },
       "geometry": {
         "type": "Point",
@@ -5869,7 +5848,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "El Cari�oso",
+        "nombre_paradero": "El Cari oso",
         "coordenadas": "10.3878, -75.4730",
         "rutas": "C016",
         "network": "Transcaribe",
@@ -5877,7 +5856,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "El Cari�oso"
+        "name": "El Cari oso"
       },
       "geometry": {
         "type": "Point",
@@ -6037,7 +6016,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Teatro Adolfo Mej�a",
+        "nombre_paradero": "Teatro Adolfo Mej a",
         "coordenadas": "10.4245, -75.5450",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6045,7 +6024,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Teatro Adolfo Mej�a"
+        "name": "Teatro Adolfo Mej a"
       },
       "geometry": {
         "type": "Point",
@@ -6100,7 +6079,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Droguer�a Inglesa / Edificio Zafiro",
+        "nombre_paradero": "Droguer a Inglesa / Edificio Zafiro",
         "coordenadas": "10.4275, -75.5420",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6108,7 +6087,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Droguer�a Inglesa / Edificio Zafiro"
+        "name": "Droguer a Inglesa / Edificio Zafiro"
       },
       "geometry": {
         "type": "Point",
@@ -6184,7 +6163,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Terrazas de San Sebasti�n",
+        "nombre_paradero": "Terrazas de San Sebasti n",
         "coordenadas": "10.4315, -75.5380",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6192,7 +6171,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Terrazas de San Sebasti�n"
+        "name": "Terrazas de San Sebasti n"
       },
       "geometry": {
         "type": "Point",
@@ -6247,7 +6226,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Parque de las Am�ricas",
+        "nombre_paradero": "Parque de las Am ricas",
         "coordenadas": "10.4345, -75.5350",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6255,7 +6234,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Parque de las Am�ricas"
+        "name": "Parque de las Am ricas"
       },
       "geometry": {
         "type": "Point",
@@ -6352,7 +6331,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Ferreter�a Crespo 70",
+        "nombre_paradero": "Ferreter a Crespo 70",
         "coordenadas": "10.4395, -75.5300",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6360,7 +6339,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Ferreter�a Crespo 70"
+        "name": "Ferreter a Crespo 70"
       },
       "geometry": {
         "type": "Point",
@@ -6373,7 +6352,7 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Frente a Hotel Las Am�ricas",
+        "nombre_paradero": "Frente a Hotel Las Am ricas",
         "coordenadas": "10.4405, -75.5290",
         "rutas": "C017",
         "network": "Transcaribe",
@@ -6381,7 +6360,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Frente a Hotel Las Am�ricas"
+        "name": "Frente a Hotel Las Am ricas"
       },
       "geometry": {
         "type": "Point",
@@ -6509,7 +6488,7 @@
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025",
-        "es_exclusivo": true
+       
       }
     },
     {
@@ -6524,7 +6503,7 @@
       "properties": {
         "nombre_paradero": "Maria Mulata",
         "coordenadas": "10.417, -75.5512",
-        "rutas": "T103",
+        "rutas": "T103,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025"
@@ -6542,11 +6521,11 @@
       "properties": {
         "nombre_paradero": "Olimpica",
         "coordenadas": "10.4158, -75.5518",
-        "rutas": "T103",
+        "rutas": "T103,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025",
-        "es_exclusivo": true
+        
       }
     },
     {
@@ -6561,7 +6540,7 @@
       "properties": {
         "nombre_paradero": "Ambientes",
         "coordenadas": "10.4146, -75.5523",
-        "rutas": "T103",
+        "rutas": "T103,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025"
@@ -6579,7 +6558,7 @@
       "properties": {
         "nombre_paradero": "Crepes & Waffles",
         "coordenadas": "10.4134, -75.5529",
-        "rutas": "T103",
+        "rutas": "T103, X105",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
         "fuente": "csv_2025"
@@ -6646,6 +6625,9 @@
         "coordenadas": "10.395392, -75.472826",
         "rutas": "T101,T102,T103,T100E,X102,X103,A101,A102,A114,A117,C016",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6663,6 +6645,9 @@
         "coordenadas": "10.395071, -75.49033",
         "rutas": "T102,T103",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6680,6 +6665,9 @@
         "coordenadas": "10.403742, -75.497435",
         "rutas": "T101,T102,X101",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6697,6 +6685,9 @@
         "coordenadas": "10.40734, -75.507542",
         "rutas": "T102,X101,X106",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6714,6 +6705,10 @@
         "coordenadas": "10.408311, -75.512971",
         "rutas": "T101,T103,X101",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+
         "es_exclusivo": true
       },
       "geometry": {
@@ -6731,6 +6726,9 @@
         "coordenadas": "10.408976, -75.51583",
         "rutas": "T102,T100E,X101,X106",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6741,6 +6739,28 @@
         ]
       }
     },
+{
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "LAS DELICIAS",
+        "coordenadas": "10.416640, -75.527932",
+        "rutas": "X102,X103,X105,X106",
+        "network": "Transcaribe",
+        "tipos_ruta": "Pretroncales",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Las Delicias",
+        "es_exclusivo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.527932,
+          10.416640
+        ]
+      }
+    },
     {
       "type": "Feature",
       "properties": {
@@ -6748,6 +6768,10 @@
         "coordenadas": "10.425853, -75.540498",
         "rutas": "T101,T102,T103,X101,X104",
         "network": "Transcaribe",
+	"fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+
         "es_exclusivo": true
       },
       "geometry": {

@@ -37,7 +37,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Centro",
+        "name": "Centro Uno",
         "es_exclusivo": true
       },
       "geometry": {
@@ -60,7 +60,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Bazurto",
+        "name": "Mercado Bazurto",
         "es_exclusivo": true
       },
       "geometry": {
@@ -262,7 +262,7 @@
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Variante Centro",
+        "name": "Variante Centro"
        },
       "geometry": {
         "type": "Point",
@@ -6487,7 +6487,7 @@
         "rutas": "T103",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
-        "fuente": "csv_2025",
+        "fuente": "csv_2025"
        
       }
     },
@@ -6524,7 +6524,7 @@
         "rutas": "T103,X105",
         "network": "Transcaribe",
         "tipos_ruta": "Trocal",
-        "fuente": "csv_2025",
+        "fuente": "csv_2025"
         
       }
     },
@@ -6628,6 +6628,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
+ 	"name": "Patio Portal",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6648,6 +6649,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
+ 	"name": "Los Angeles",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6668,6 +6670,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
+ 	"name": "Villa Olimpica",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6688,6 +6691,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
+	 "name": "Republica del Libano",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6708,7 +6712,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-
+ 	"name": "España",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6729,6 +6733,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
+ 	"name": "Maria Auxiliadora",
         "es_exclusivo": true
       },
       "geometry": {
@@ -6771,7 +6776,7 @@
 	"fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-
+ 	"name": "Chambacu",
         "es_exclusivo": true
       },
       "geometry": {

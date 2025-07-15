@@ -6163,21 +6163,21 @@
     {
       "type": "Feature",
       "properties": {
-        "nombre_paradero": "Terrazas de San Sebasti n",
-        "coordenadas": "10.4315, -75.5380",
-        "rutas": "C017",
+        "nombre_paradero": "Terrazas de Granada Eje 6",
+        "coordenadas": "10.392665153526705, -75.47175614028703",
+        "rutas": "A101,A102",
         "network": "Transcaribe",
         "tipos_ruta": "Complementarias",
         "fuente": "csv_2025",
         "highway": "bus_stop",
         "public_transport": "platform",
-        "name": "Terrazas de San Sebasti n"
+        "name": "Terrazas de Granada"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.538,
-          10.4315
+         -75.47175614028703,
+          10.392665153526705
         ]
       }
     },

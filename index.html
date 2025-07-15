@@ -3688,8 +3688,6 @@
         const data = await response.json();
         window.rutasTranscaribe = data.features;
         console.log('Rutas Transcaribe cargadas:', window.rutasTranscaribe.length);
-        poblarSelectParaderos(document.getElementById('startParaderoSelect'));
-        poblarSelectParaderos(document.getElementById('endParaderoSelect'));
       } catch (e) {
         console.error('Error cargando rutas Transcaribe:', e);
       }
@@ -3789,26 +3787,7 @@
     // Restaurar la lógica original para los selects usando array estático
     function poblarSelectParaderos(selectElement) {
       // Datos de paraderos incluidos directamente en el HTML para evitar problemas de CORS
-      const paraderosData = [
-        {"nombre": "PATIO PORTAL", "coords": [10.395392, -75.472826], "direccion": "Avenida Pedro de Heredia, Patio Portal, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MADRE BERNARDA", "coords": [10.395007, -75.478893], "direccion": "Avenida Pedro de Heredia, Barrio Madre Bernarda, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "LA CASTELLANA", "coords": [10.394408, -75.486631], "direccion": "Avenida Pedro de Heredia, Barrio La Castellana, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "LOS ANGELES", "coords": [10.395071, -75.490330], "direccion": "Avenida Pedro de Heredia, Barrio Los Angeles, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "LOS EJECUTIVOS", "coords": [10.399543, -75.493653], "direccion": "Avenida Pedro de Heredia, Barrio Los Ejecutivos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "VILLA OLIMPICA", "coords": [10.403742, -75.497435], "direccion": "Avenida Pedro de Heredia, Villa Olimpica, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "CUATRO VIENTOS", "coords": [10.406451, -75.502601], "direccion": "Avenida Pedro de Heredia, Sector Cuatro Vientos, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "REPUBLICA DEL LIBANO", "coords": [10.407340, -75.507542], "direccion": "Avenida Pedro de Heredia, Barrio República del Líbano, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "ESPAÑA", "coords": [10.408311, -75.512971], "direccion": "Avenida Pedro de Heredia, Barrio España, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MARIA AUXILIADORA", "coords": [10.408976, -75.515830], "direccion": "Avenida Pedro de Heredia, Barrio María Auxiliadora, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "EL PRADO", "coords": [10.411040, -75.519531], "direccion": "Avenida Pedro de Heredia, Barrio El Prado, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MERCADO BAZURTO", "coords": [10.413752, -75.524064], "direccion": "Avenida Pedro de Heredia, Mercado Bazurto, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "LAS DELICIAS", "coords": [10.416640, -75.527932], "direccion": "Las Delicias, Avenida Pedro de Heredia, Barrio Chino, Cartagena de Indias,  Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "PIE DE LA POPA", "coords": [10.417040, -75.531015], "direccion": "Avenida Pedro de Heredia, Barrio Pie de la Popa, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "LO AMADOR", "coords": [10.422358, -75.534597], "direccion": "Lo Amador, TransCaribe, Pie del Cerro, Cartagena de Indias, Dique, Bolívar, 130015, Colombia", "tipo": "Paradero"},
-        {"nombre": "CHAMBACU", "coords": [10.425853, -75.540498], "direccion": "Avenida Pedro de Heredia, Barrio Chambacú, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "CENTRO UNO", "coords": [10.425291, -75.546270], "direccion": "Centro, TransCaribe, San Diego, Cartagena, Bolívar, Colombia", "tipo": "Paradero"},
-        {"nombre": "MUELLE DE LA BODEGUITA", "coords": [10.420351, -75.551053], "direccion": "Muelle de la Bodeguita, Centro Histórico, Cartagena, Bolívar, Colombia", "tipo": "Paradero"}
-      ];
+     
       
       console.log('📋 Paraderos cargados:', paraderosData.length, 'paraderos');
       console.log('📋 Lista de paraderos:', paraderosData.map(p => p.nombre));

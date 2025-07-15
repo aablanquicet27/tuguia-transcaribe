@@ -625,6 +625,7 @@
       const seguimientoHTML = `
         <div style="background: #f8f9fa; border: 2px solid #007bff; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
           <h4 style="margin: 0 0 1rem 0; color: #007bff;">🚀 Seguimiento Inteligente Activo</h4>
+          <div id="leyenda-barrio" style="font-size:1.1em;color:#6b46c1;font-weight:600;margin-bottom:0.7em;"></div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
             <div>
               <strong>📏 Distancia recorrida:</strong><br>
@@ -719,7 +720,17 @@
               intelligentTrackingAlarmaActivada = true;
               mostrarAlertaProximidad();
             }
+            // === NUEVO: Detener automáticamente al llegar al destino ===
+            if (distRestante <= 30 && isIntelligentTrackingActive) {
+              detenerSeguimientoInteligente();
+            }
           }
+          
+          // Actualizar leyenda de barrio
+          obtenerDireccionDesdeCoordenadas(lat, lon).then(direccion => {
+            let barrio = direccion.split(',')[0];
+            document.getElementById('leyenda-barrio').textContent = `Vamos Por: ${barrio}`;
+          });
         },
         function(error) {
           console.error('Error en seguimiento inteligente:', error);
@@ -748,7 +759,7 @@
       // Mostrar resumen
       const resumenHTML = `
         <div style="background: #d4edda; border: 2px solid #28a745; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
-          <h4 style="margin: 0 0 1rem 0; color: #155724;">✅ Seguimiento Finalizado</h4>
+          <h4 style="margin: 0 0 1rem 0; color: #155724;">✅ Recorrido Finalizado</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div>
               <strong>📏 Distancia total:</strong><br>
@@ -950,7 +961,11 @@
               nombre: f.properties && f.properties.name ? f.properties.name : 'Sin nombre',
               lat: f.geometry.coordinates[1],
               lon: f.geometry.coordinates[0],
-              rutas: Array.isArray(f.properties && f.properties.rutas) ? f.properties.rutas : []
+              rutas: Array.isArray(f.properties && f.properties.rutas)
+                ? f.properties.rutas
+                : (typeof f.properties.rutas === 'string' && f.properties.rutas.length > 0
+                    ? f.properties.rutas.split(',').map(r => r.trim())
+                    : [])
             };
           } catch (error) {
             return null;

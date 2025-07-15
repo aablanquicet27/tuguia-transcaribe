@@ -6786,6 +6786,295 @@
           10.425853
         ]
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Parque Maria Mulata",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Parque Maria Mulata"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.550326, 10.414748 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Olimpica",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Olimpica"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.550640, 10.410430 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Farmatodo",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Farmatodo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.551847, 10.407089 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Crepes & Waffles",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Crepes & Waffles"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.553732, 10.404932 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Parrilla Paisa, Bocagrande",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Parrilla Paisa, Bocagrande"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.555572, 10.402734 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Dulceria, Cra 2 Bocagrande",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Dulceria, Cra 2 Bocagrande"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.556490, 10.401789 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "El Pueblito (Kr 2 - Cl 5)",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "El Pueblito (Kr 2 - Cl 5)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.559156, 10.399364 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Club Cartagena, Bocagrande",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Club Cartagena, Bocagrande"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.559909, 10.397612 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Hotel Or Cartagena, calle 5A",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Hotel Or Cartagena, calle 5A"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55764136765733, 10.399414808588741 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Frente Berlitz",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Frente Berlitz"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55521643231016, 10.40180099901731 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Frente Porvenir",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Frente Porvenir"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55430748195208, 10.402825895022554 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Frente Maternidad Bogrande",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Frente Maternidad Bogrande"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55299167568937, 10.404397313666374 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Calle 10",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Calle 10"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55164138730625, 10.405915958057921 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Frente Ed. Grupo Area",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Frente Ed. Grupo Area"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.5508758588157, 10.408149665269992 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Entre Calle 12 y 13",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Entre Calle 12 y 13"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55047236150708, 10.410375513496781 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Edificio La Marina",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Edificio La Marina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55045960269891, 10.414968334041918 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre_paradero": "Bocagrande Calle 5A",
+        "rutas": "T103,X105",
+        "network": "Transcaribe",
+        "tipo_ruta": "Trocal - Pretroncal",
+        "fuente": "csv_2025",
+        "highway": "bus_stop",
+        "public_transport": "platform",
+        "name": "Bocagrande Calle 5A"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -75.55766685266019, 10.399441568982624 ]
+      }
     }
   ]
 }

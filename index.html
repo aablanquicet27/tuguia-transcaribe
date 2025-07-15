@@ -4008,6 +4008,28 @@
         document.getElementById('info').textContent = 'No se pudo obtener la ubicación actual para calcular la ruta.';
       });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // ... otros inicializadores ...
+      const startParaderoSelect = document.getElementById('startParaderoSelect');
+      const endParaderoSelect = document.getElementById('endParaderoSelect');
+      if (startParaderoSelect) {
+        startParaderoSelect.addEventListener('change', function() {
+          const idx = this.selectedIndex;
+          if (window.paraderosData && window.paraderosData[idx]) {
+            mostrarRutasParadero(window.paraderosData[idx], 'startRutasInfo');
+          }
+        });
+      }
+      if (endParaderoSelect) {
+        endParaderoSelect.addEventListener('change', function() {
+          const idx = this.selectedIndex;
+          if (window.paraderosData && window.paraderosData[idx]) {
+            mostrarRutasParadero(window.paraderosData[idx], 'endRutasInfo');
+          }
+        });
+      }
+    });
     </script>
     <footer class="footer-agapai">
       Desarrollado por <a href="https://brochure.agapai.com.co/" target="_blank">AGAPAI</a>

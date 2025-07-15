@@ -7058,23 +7058,7 @@
         "type": "Point",
         "coordinates": [ -75.55045960269891, 10.414968334041918 ]
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nombre_paradero": "Bocagrande Calle 5A",
-        "rutas": "T103,X105",
-        "network": "Transcaribe",
-        "tipo_ruta": "Trocal - Pretroncal",
-        "fuente": "csv_2025",
-        "highway": "bus_stop",
-        "public_transport": "platform",
-        "name": "Bocagrande Calle 5A"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [ -75.55766685266019, 10.399441568982624 ]
-      }
     }
+    
   ]
 }

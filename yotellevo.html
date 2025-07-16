@@ -1575,7 +1575,7 @@ function mostrarAlertaProximidad() {
     });
     </script>
     <script>
-    // ... existente ...
+    // --- FUNCIONES UTILITARIAS GLOBALES ---
     function limpiarDireccionParaMostrar(displayName) {
       if (!displayName) return '';
       const partes = displayName.split(',').map(s => s.trim());
@@ -1588,19 +1588,14 @@ function mostrarAlertaProximidad() {
         'Colombia'
       ];
       let partesFiltradas = partes.filter(parte => {
-        const p = parte.toLowerCase().normalize('NFD').replace(/[ -]/g, '');
+        const p = parte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         return !irrelevantes.includes(parte) && !irrelevantes.includes(p);
       });
       // Elimina duplicados consecutivos
       partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
       return partesFiltradas.join(', ');
     }
-    // ... existente ...
-    // En mostrarInstruccionesInteligentes, reemplaza:
-    // <strong>📍 Tu ubicación:</strong> ${direccion.display_name}
-    // por:
-    // <strong>📍 Tu ubicación:</strong> ${limpiarDireccionParaMostrar(direccion.display_name)}
-    // ... existente ...
+    // ... el resto del código JS ...
     </script>
 </body>
 </html> 

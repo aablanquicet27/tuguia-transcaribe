@@ -2031,66 +2031,56 @@
       // Agregar event listeners para los selects
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
-          console.log('🎯 Paradero de inicio seleccionado:', this.value);
-          if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              console.log('📍 Paradero encontrado:', paradero);
-              // Guardar en localStorage con el modo correcto
-              localStorage.setItem('tuguia_start', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-              localStorage.setItem('tuguia_start_mode', 'paradero');
-              
-              // Crear marcador en el mapa
-              if (window.startMarker) map.removeLayer(window.startMarker);
-              window.startMarker = L.marker(paradero.coords, {
-                icon: L.icon({
-                  iconUrl: 'pin-morado.png',
-                  iconSize: [32, 44],
-                  iconAnchor: [16, 44]
-                })
-              }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
-              map.setView(paradero.coords, 15);
-              // Mostrar chips de rutas
-              mostrarRutasParadero(paradero, 'startRutasInfo');
-            }
+          const paradero = paraderosData.find(p => p.nombre === this.value);
+          mostrarRutasParadero(paradero, 'startRutasInfo');
+          if (paradero) {
+            // Guardar en localStorage con el modo correcto
+            localStorage.setItem('tuguia_start', JSON.stringify({
+              nombre: paradero.nombre,
+              coords: paradero.coords
+            }));
+            localStorage.setItem('tuguia_start_mode', 'paradero');
+            // Crear marcador en el mapa
+            if (window.startMarker) map.removeLayer(window.startMarker);
+            window.startMarker = L.marker(paradero.coords, {
+              icon: L.icon({
+                iconUrl: 'pin-morado.png',
+                iconSize: [32, 44],
+                iconAnchor: [16, 44]
+              })
+            }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + paradero.nombre).openPopup();
+            if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
+            map.setView(paradero.coords, 15);
           }
         });
       }
       
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
-          console.log('🎯 Paradero de destino seleccionado:', this.value);
-          if (this.value) {
-            const paradero = paraderosData.find(p => p.nombre === this.value);
-            if (paradero) {
-              // Limpiar el input de dirección de destino
-              const endDireccionInput = document.getElementById('endDireccionInput');
-              if (endDireccionInput) endDireccionInput.value = '';
-              // Guardar en localStorage con el modo correcto
-              localStorage.setItem('tuguia_end', JSON.stringify({
-                nombre: paradero.nombre,
-                coords: paradero.coords
-              }));
-              localStorage.setItem('tuguia_end_mode', 'paradero');
-              // Crear marcador en el mapa
-              if (window.endMarker) map.removeLayer(window.endMarker);
-              window.endMarker = L.marker(paradero.coords, {
-                icon: L.icon({
-                  iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-                  iconSize: [32, 32],
-                  iconAnchor: [16, 32]
-                })
-              }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + paradero.nombre).openPopup();
-              if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
-              // Centrar mapa en el paradero
-              map.setView(paradero.coords, 15);
-              // Mostrar chips de rutas
-              mostrarRutasParadero(paradero, 'endRutasInfo');
-            }
+          const paradero = paraderosData.find(p => p.nombre === this.value);
+          mostrarRutasParadero(paradero, 'endRutasInfo');
+          if (paradero) {
+            // Limpiar el input de dirección de destino
+            const endDireccionInput = document.getElementById('endDireccionInput');
+            if (endDireccionInput) endDireccionInput.value = '';
+            // Guardar en localStorage con el modo correcto
+            localStorage.setItem('tuguia_end', JSON.stringify({
+              nombre: paradero.nombre,
+              coords: paradero.coords
+            }));
+            localStorage.setItem('tuguia_end_mode', 'paradero');
+            // Crear marcador en el mapa
+            if (window.endMarker) map.removeLayer(window.endMarker);
+            window.endMarker = L.marker(paradero.coords, {
+              icon: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + paradero.nombre).openPopup();
+            if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
+            // Centrar mapa en el paradero
+            map.setView(paradero.coords, 15);
           }
         });
       }

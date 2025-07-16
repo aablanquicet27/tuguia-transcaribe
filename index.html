@@ -3099,16 +3099,26 @@
     }
 
     function mostrarRutasParadero(paradero, contenedorId) {
+      console.log('🟢 mostrarRutasParadero llamada:', { paradero, contenedorId });
       const cont = document.getElementById(contenedorId);
-      if (!cont) return;
+      if (!cont) {
+        console.warn('❌ Contenedor de chips no encontrado:', contenedorId);
+        return;
+      }
+      // Forzar visibilidad del contenedor
+      cont.style.display = 'flex';
       cont.innerHTML = '';
-      if (!paradero) return;
+      if (!paradero) {
+        console.warn('❌ Paradero no definido en mostrarRutasParadero');
+        return;
+      }
       const tipos = [
         { key: 'rutas_troncales', clase: 'ruta-troncal', label: '' },
         { key: 'rutas_pretroncales', clase: 'ruta-pretroncal', label: '' },
         { key: 'rutas_alimentadoras', clase: 'ruta-alimentadora', label: '' },
         { key: 'rutas_complementarias', clase: 'ruta-complementaria', label: '' }
       ];
+      let chipsCount = 0;
       tipos.forEach(tipo => {
         if (Array.isArray(paradero[tipo.key]) && paradero[tipo.key].length > 0) {
           paradero[tipo.key].forEach(ruta => {
@@ -3116,9 +3126,11 @@
             span.className = 'ruta-chip ' + tipo.clase;
             span.textContent = ruta;
             cont.appendChild(span);
+            chipsCount++;
           });
         }
       });
+      console.log('🟢 Chips generados:', chipsCount);
     }
 
     // Eliminado el bloque duplicado que cargaba desde paraderos.json

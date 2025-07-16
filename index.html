@@ -2054,6 +2054,8 @@
               }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + paradero.nombre).openPopup();
               if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
               map.setView(paradero.coords, 15);
+              // Mostrar chips de rutas
+              mostrarRutasParadero(paradero, 'startRutasInfo');
             }
           }
         });
@@ -2086,6 +2088,8 @@
               if (window.endMarker) setTimeout(() => window.endMarker.openPopup(), 0);
               // Centrar mapa en el paradero
               map.setView(paradero.coords, 15);
+              // Mostrar chips de rutas
+              mostrarRutasParadero(paradero, 'endRutasInfo');
             }
           }
         });

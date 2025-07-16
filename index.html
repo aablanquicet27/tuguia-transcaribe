@@ -1172,30 +1172,31 @@
         .rutas-info {
           display: flex !important;
           flex-wrap: wrap;
-          gap: 8px !important;
-          margin-bottom: 1em !important;
-          min-height: 40px !important;
-          background: #fffbe6 !important;
-          border: 3px solid #ff0000 !important;
-          padding: 16px 16px !important;
-          border-radius: 12px !important;
-          box-shadow: 0 2px 12px #ff660044 !important;
+          gap: 4px !important;
+          margin-bottom: 0.5em !important;
+          min-height: 0 !important;
+          background: transparent !important;
+          border: none !important;
+          padding: 0 !important;
+          border-radius: 8px !important;
+          box-shadow: none !important;
           color: #222 !important;
-          z-index: 2000 !important;
+          z-index: 1000 !important;
+          transition: all 0.2s;
         }
         .ruta-chip {
           display: inline-block !important;
-          font-size: 1.5em !important;
-          font-weight: 900 !important;
-          border-radius: 10px !important;
-          padding: 8px 18px !important;
+          font-size: 0.92em !important;
+          font-weight: 600 !important;
+          border-radius: 7px !important;
+          padding: 2px 10px !important;
           color: #fff !important;
-          margin-right: 8px !important;
-          margin-bottom: 8px !important;
-          letter-spacing: 1px !important;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.18) !important;
-          line-height: 2 !important;
-          border: 3px solid #fff !important;
+          margin-right: 3px !important;
+          margin-bottom: 3px !important;
+          letter-spacing: 0.5px !important;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.10) !important;
+          line-height: 1.7 !important;
+          border: none !important;
         }
         .ruta-troncal { background: #ff6600 !important; }
         .ruta-pretroncal { background: #2ecc40 !important; }
@@ -3097,19 +3098,14 @@
     }
 
     function mostrarRutasParadero(paradero, contenedorId) {
-      console.log('🟢 mostrarRutasParadero llamada:', { paradero, contenedorId });
       const cont = document.getElementById(contenedorId);
-      if (!cont) {
-        console.warn('❌ Contenedor de chips no encontrado:', contenedorId);
-        return;
-      }
-      // Forzar visibilidad del contenedor
-      cont.style.display = 'flex';
+      if (!cont) return;
       cont.innerHTML = '';
       if (!paradero) {
-        console.warn('❌ Paradero no definido en mostrarRutasParadero');
+        cont.style.display = 'none';
         return;
       }
+      cont.style.display = 'flex';
       const tipos = [
         { key: 'rutas_troncales', clase: 'ruta-troncal', label: '' },
         { key: 'rutas_pretroncales', clase: 'ruta-pretroncal', label: '' },
@@ -3125,12 +3121,10 @@
             span.textContent = ruta;
             cont.appendChild(span);
             chipsCount++;
-            // Log de depuración
-            console.log('Chip insertado:', span, 'en', cont, 'HTML actual:', cont.innerHTML);
           });
         }
       });
-      console.log('🟢 Chips generados:', chipsCount);
+      if (chipsCount === 0) cont.style.display = 'none';
     }
 
     // Eliminado el bloque duplicado que cargaba desde paraderos.json

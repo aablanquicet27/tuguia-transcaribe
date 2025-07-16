@@ -515,7 +515,7 @@
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
             <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
             <div style="margin-bottom: 1rem;">
-              <strong>📍 Tu ubicación:</strong> ${direccion.display_name}
+              <strong>📍 Tu ubicación:</strong> ${limpiarDireccionParaMostrar(direccion.display_name)}
             </div>
             <div style="margin-bottom: 1rem;">
               <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
@@ -1575,6 +1575,34 @@ function mostrarAlertaProximidad() {
     window.addEventListener('load', function() {
       setTimeout(redibujarMapas, 1000);
     });
+    </script>
+    <script>
+    // ... existente ...
+    function limpiarDireccionParaMostrar(displayName) {
+      if (!displayName) return '';
+      const partes = displayName.split(',').map(s => s.trim());
+      const irrelevantes = [
+        'Cartagena de indias',
+        'Cartagena',
+        'Bolivar',
+        'Bolívar',
+        '130003',
+        'Colombia'
+      ];
+      let partesFiltradas = partes.filter(parte => {
+        const p = parte.toLowerCase().normalize('NFD').replace(/[ -]/g, '');
+        return !irrelevantes.includes(parte) && !irrelevantes.includes(p);
+      });
+      // Elimina duplicados consecutivos
+      partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
+      return partesFiltradas.join(', ');
+    }
+    // ... existente ...
+    // En mostrarInstruccionesInteligentes, reemplaza:
+    // <strong>📍 Tu ubicación:</strong> ${direccion.display_name}
+    // por:
+    // <strong>📍 Tu ubicación:</strong> ${limpiarDireccionParaMostrar(direccion.display_name)}
+    // ... existente ...
     </script>
 </body>
 </html> 

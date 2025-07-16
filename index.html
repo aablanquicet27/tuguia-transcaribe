@@ -4014,9 +4014,7 @@
           if (window.paraderosData && nombre) {
             const paradero = window.paraderosData.find(p => p.nombre === nombre);
             if (paradero) mostrarRutasParadero(paradero, 'startRutasInfo');
-          } else {
-            mostrarRutasParadero(null, 'startRutasInfo');
-          }
+          } 
         });
       }
       if (endParaderoSelect) {
@@ -4025,9 +4023,7 @@
           if (window.paraderosData && nombre) {
             const paradero = window.paraderosData.find(p => p.nombre === nombre);
             if (paradero) mostrarRutasParadero(paradero, 'endRutasInfo');
-          } else {
-            mostrarRutasParadero(null, 'endRutasInfo');
-          }
+          } 
         });
       }
     });

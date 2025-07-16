@@ -3994,17 +3994,23 @@
       const endParaderoSelect = document.getElementById('endParaderoSelect');
       if (startParaderoSelect) {
         startParaderoSelect.addEventListener('change', function() {
-          const idx = this.selectedIndex;
-          if (window.paraderosData && window.paraderosData[idx]) {
-            mostrarRutasParadero(window.paraderosData[idx], 'startRutasInfo');
+          const nombre = this.value;
+          if (window.paraderosData && nombre) {
+            const paradero = window.paraderosData.find(p => p.nombre === nombre);
+            if (paradero) mostrarRutasParadero(paradero, 'startRutasInfo');
+          } else {
+            mostrarRutasParadero(null, 'startRutasInfo');
           }
         });
       }
       if (endParaderoSelect) {
         endParaderoSelect.addEventListener('change', function() {
-          const idx = this.selectedIndex;
-          if (window.paraderosData && window.paraderosData[idx]) {
-            mostrarRutasParadero(window.paraderosData[idx], 'endRutasInfo');
+          const nombre = this.value;
+          if (window.paraderosData && nombre) {
+            const paradero = window.paraderosData.find(p => p.nombre === nombre);
+            if (paradero) mostrarRutasParadero(paradero, 'endRutasInfo');
+          } else {
+            mostrarRutasParadero(null, 'endRutasInfo');
           }
         });
       }

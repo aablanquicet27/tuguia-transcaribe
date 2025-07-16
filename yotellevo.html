@@ -225,6 +225,9 @@
     let rutaOptimaCalculada = null;
     let paraderoCercanoEncontrado = null;
     
+    // Variables globales para alarma/vibración
+    let alarmaFinalInterval = null;
+    
     // Utilidad para calcular distancia entre dos puntos (Haversine)
     function haversine(lat1, lon1, lat2, lon2) {
       const R = 6371000; // Radio de la Tierra en metros
@@ -607,34 +610,37 @@
       
       // Crear panel de seguimiento
       const seguimientoHTML = `
-        <div style="background: #f8f9fa; border: 2px solid #007bff; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
-          <h4 style="margin: 0 0 1rem 0; color: #007bff;">🚀 Seguimiento Inteligente Activo</h4>
-          <div id="leyenda-barrio" style="font-size:1.1em;color:#6b46c1;font-weight:600;margin-bottom:0.7em;"></div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-            <div>
-              <strong>📏 Distancia recorrida:</strong><br>
-              <span id="distanciaRecorrida">0.0 km</span>
-            </div>
-            <div>
-              <strong>⏱️ Tiempo transcurrido:</strong><br>
-              <span id="tiempoTranscurrido">00:00</span>
-            </div>
-            <div>
-              <strong>🚶 Velocidad actual:</strong><br>
-              <span id="velocidadActual">0.0 km/h</span>
-            </div>
-            <div>
-              <strong>📍 Estado:</strong><br>
-              <span id="estadoSeguimiento">📍 Iniciando...</span>
-            </div>
-          </div>
-          <div style="background: #e9ecef; border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem;">
-            <div style="background: #007bff; height: 8px; border-radius: 4px; width: 0%; transition: width 0.3s;" id="barraProgreso"></div>
-          </div>
-          <button id="detenerSeguimientoBtn" style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
-            ⏹️ Detener Seguimiento
-          </button>
+        <h4 style="margin: 0 0 1rem 0; color: #007bff;">🚀 Seguimiento Inteligente Activo</h4>
+        <div style="background: linear-gradient(90deg,#e0ffe6 60%,#b3ffd8 100%); color: #218838; border-radius: 8px; padding: 8px 0; margin-bottom: 12px; font-weight: 700; font-size: 1.13rem; text-align: center; box-shadow: 0 1px 4px rgba(33,136,56,0.07); letter-spacing: 0.5px;">
+          <span style="display:inline-flex;align-items:center;gap:8px;">
+            <span style="font-size:1.3em;">🟢</span> ¡Estás siendo guiado en tiempo real!
+          </span>
         </div>
+        <div id="leyenda-barrio" style="font-size:1.1em;color:#6b46c1;font-weight:600;margin-bottom:0.7em;"></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <strong>📏 Distancia recorrida:</strong><br>
+            <span id="distanciaRecorrida">0.0 km</span>
+          </div>
+          <div>
+            <strong>⏱️ Tiempo transcurrido:</strong><br>
+            <span id="tiempoTranscurrido">00:00</span>
+          </div>
+          <div>
+            <strong>🚶 Velocidad actual:</strong><br>
+            <span id="velocidadActual">0.0 km/h</span>
+          </div>
+          <div>
+            <strong>📍 Estado:</strong><br>
+            <span id="estadoSeguimiento">📍 Iniciando...</span>
+          </div>
+        </div>
+        <div style="background: #e9ecef; border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem;">
+          <div style="background: #007bff; height: 8px; border-radius: 4px; width: 0%; transition: width 0.3s;" id="barraProgreso"></div>
+        </div>
+        <button id="detenerSeguimientoBtn" style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">
+          ⏹️ Detener Seguimiento
+        </button>
       `;
       
       // Reemplazar las instrucciones con el panel de seguimiento
@@ -746,9 +752,9 @@
       
       isIntelligentTrackingActive = false;
       
-      // Mostrar resumen
+      // Mostrar resumen con botón
       const resumenHTML = `
-        <div style="background: #d4edda; border: 2px solid #28a745; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
+        <div style="background: #fffbe6; border: 2.5px solid #ff9800; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
           <h4 style="margin: 0 0 1rem 0; color: #155724;">✅ Recorrido Finalizado</h4>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
             <div>
@@ -760,16 +766,49 @@
               <span>${document.getElementById('tiempoTranscurrido').textContent}</span>
             </div>
           </div>
-          <button onclick="window.location.reload()" style="background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-top: 1rem;">
+          <button id="btnNuevoSeguimiento" style="background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-top: 1rem;">
             🔄 Iniciar Nuevo Seguimiento
           </button>
         </div>
       `;
-      
       const infoElement = document.getElementById('info-ruta');
       if (infoElement) {
         infoElement.innerHTML = resumenHTML;
+        // Activar alarma y vibración repetitiva
+        detenerAlarmaFinal(); // Por si acaso ya hay una activa
+        alarmaFinalInterval = setInterval(() => {
+          if (navigator.vibrate) navigator.vibrate([400, 200, 400]);
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.value = 880;
+            o.connect(g); g.connect(ctx.destination);
+            g.gain.value = 0.2;
+            o.start();
+            setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
+          } catch(e) {}
+        }, 1200);
+        // Botón para detener alarma y vibración
+        setTimeout(() => {
+          const btn = document.getElementById('btnNuevoSeguimiento');
+          if (btn) {
+            btn.onclick = function() {
+              detenerAlarmaFinal();
+              window.location.reload();
+            };
+          }
+        }, 100);
       }
+    }
+    
+    function detenerAlarmaFinal() {
+      if (alarmaFinalInterval) {
+        clearInterval(alarmaFinalInterval);
+        alarmaFinalInterval = null;
+      }
+      if (navigator.vibrate) navigator.vibrate(0);
     }
     
     // Función principal de navegación inteligente

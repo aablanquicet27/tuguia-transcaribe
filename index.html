@@ -3732,6 +3732,7 @@
     }
 
     // === ALERTA DE PROXIMIDAD 300M ===
+    let alarmaInterval = null; // Variable global para controlar la alarma/vibración
     function mostrarAlertaProximidad() {
       // Mostrar modal llamativo
       var modal = document.getElementById('modal-proximidad');
@@ -3739,16 +3740,42 @@
         modal = document.createElement('div');
         modal.id = 'modal-proximidad';
         modal.style = 'display:flex;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;';
-        modal.innerHTML = `<div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
+        modal.innerHTML = `<div style=\"background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;\">
           <div style=\"font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;\">¡Atención!</div>
           <div style=\"font-size:1.3em;color:#333;margin-bottom:1em;\">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
-          <button onclick=\"document.getElementById('modal-proximidad').style.display='none'\" style=\"font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;\">Entendido</button>
+          <button id=\"btnAlertaEntendido\" style=\"font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;\">Entendido</button>
         </div>`;
         document.body.appendChild(modal);
       } else {
         modal.style.display = 'flex';
       }
-      // Notificación del sistema
+
+      // Iniciar alarma y vibración repetitiva (patrón muy molesto)
+      detenerAlarmaVibracion(); // Por si acaso ya hay una activa
+      alarmaInterval = setInterval(() => {
+        // Vibración muy notoria: vibrar 1200ms, pausa 200ms, repetir varias veces
+        if (navigator.vibrate) navigator.vibrate([1200, 200, 1200, 200, 1200, 200, 1200]);
+        // Sonido
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = 'sine';
+          o.frequency.value = 880;
+          o.connect(g); g.connect(ctx.destination);
+          g.gain.value = 0.2;
+          o.start();
+          setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
+        } catch(e) {}
+      }, 2200);
+
+      // Botón para detener alarma y vibración
+      document.getElementById('btnAlertaEntendido').onclick = function() {
+        detenerAlarmaVibracion();
+        modal.style.display = 'none';
+      };
+
+      // Notificación del sistema (opcional, no bloquea la alarma/vibración)
       if (window.Notification && Notification.permission === 'granted') {
         new Notification('¡Faltan menos de 300 metros!', {
           body: 'Prepárate para descender en tu destino.',
@@ -3764,10 +3791,14 @@
           }
         });
       }
-      // Vibración si es móvil
-      if (navigator.vibrate) {
-        navigator.vibrate([400, 200, 400]);
+    }
+
+    function detenerAlarmaVibracion() {
+      if (alarmaInterval) {
+        clearInterval(alarmaInterval);
+        alarmaInterval = null;
       }
+      if (navigator.vibrate) navigator.vibrate(0); // Detener vibración
     }
 
     // Utilidad para limpiar la dirección y mostrar solo lo relevante

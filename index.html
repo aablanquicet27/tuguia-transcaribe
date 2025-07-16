@@ -3445,27 +3445,25 @@
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
       // Crear panel de instrucciones inteligentes
       let instruccionesHTML = `
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
-          <div style="margin-bottom: 1rem;">
+        <div style="background: #fffbe6; border: 2.5px solid #bdbdbd; border-radius: 14px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1.5px 6px rgba(189,189,189,0.10);">
+          <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem; color: #764ba2;">🧠 Tu Guía Inteligente</h3>
+          <div style="margin-bottom: 1rem; color: #222;">
             <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
           </div>
-          <div style="margin-bottom: 1rem;">
+          <div style="margin-bottom: 1rem; color: #222;">
             <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
           </div>
-          <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+          <div style="background: #ffe9b3; color: #b26a00; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
             <strong>📋 Instrucciones:</strong><br>
             ${rutaOptima.mensaje}
           </div>
         </div>
       `;
-      
       // Insertar instrucciones en el DOM
       const infoElement = document.getElementById('info');
       if (infoElement) {
         infoElement.innerHTML = instruccionesHTML;
       }
-      
       console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
     }
     

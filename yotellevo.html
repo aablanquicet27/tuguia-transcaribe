@@ -1580,11 +1580,14 @@ function mostrarAlertaProximidad() {
       if (!displayName) return '';
       const partes = displayName.split(',').map(s => s.trim());
       const irrelevantes = [
-        'Cartagena de indias',
+        'Cartagena de Indias',
         'Cartagena',
         'Bolivar',
         'Bolívar',
         '130003',
+        'Dique',
+        'Tierra Bomba',
+        '130018',
         'Colombia'
       ];
       let partesFiltradas = partes.filter(parte => {

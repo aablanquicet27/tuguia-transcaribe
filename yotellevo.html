@@ -553,45 +553,43 @@
         console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
       }).catch(error => {
         console.error('❌ Error obteniendo dirección:', error);
-        // Fallback: mostrar coordenadas si falla la geocodificación
-        let instruccionesHTML = `
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
-            <div style="margin-bottom: 1rem;">
-              <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
+        // Fallback: intentar obtener la dirección una vez más
+        obtenerDireccionDesdeCoordenadas(ubicacionUsuario.lat, ubicacionUsuario.lng).then(direccionFallback => {
+          let instruccionesHTML = `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+              <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">🧠 Tu Guía Inteligente</h3>
+              <div style="margin-bottom: 1rem;">
+                <strong>📍 Tu ubicación:</strong> ${direccionFallback && direccionFallback.display_name ? limpiarDireccionParaMostrar(direccionFallback.display_name) : `${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}`}
+              </div>
+              <div style="margin-bottom: 1rem;">
+                <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
+              </div>
+              <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                <strong>📋 Instrucciones:</strong><br>
+                ${rutaOptima.mensaje}
+              </div>
+              <div style="margin-top: 1rem; text-align: center;">
+                <button id="iniciarSeguimientoBtn" style="background: #ff6600; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                  🚀 Iniciar Seguimiento Inteligente
+                </button>
+              </div>
             </div>
-            <div style="margin-bottom: 1rem;">
-              <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
-            </div>
-            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
-              <strong>📋 Instrucciones:</strong><br>
-              ${rutaOptima.mensaje}
-            </div>
-            <div style="margin-top: 1rem; text-align: center;">
-              <button id="iniciarSeguimientoBtn" style="background: #ff6600; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
-                🚀 Iniciar Seguimiento Inteligente
-              </button>
-            </div>
-          </div>
-        `;
-        
-        // Insertar instrucciones en el DOM
-        const infoElement = document.getElementById('info-ruta');
-        if (infoElement) {
-          infoElement.innerHTML = instruccionesHTML;
-          
-          // Agregar event listener al botón de iniciar seguimiento
-          setTimeout(() => {
-            const btn = document.getElementById('iniciarSeguimientoBtn');
-            if (btn) {
-              btn.addEventListener('click', () => {
-                iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
-              });
-            }
-          }, 100);
-        }
-        
-        console.log('📋 Instrucciones inteligentes mostradas (fallback):', rutaOptima.mensaje);
+          `;
+          // Insertar instrucciones en el DOM
+          const infoElement = document.getElementById('info-ruta');
+          if (infoElement) {
+            infoElement.innerHTML = instruccionesHTML;
+            setTimeout(() => {
+              const btn = document.getElementById('iniciarSeguimientoBtn');
+              if (btn) {
+                btn.addEventListener('click', () => {
+                  iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
+                });
+              }
+            }, 100);
+          }
+          console.log('📋 Instrucciones inteligentes mostradas (fallback):', rutaOptima.mensaje);
+        });
       });
     }
     

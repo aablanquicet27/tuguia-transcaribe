@@ -469,7 +469,7 @@
       }
       // Normaliza nombres para comparación robusta
       function normalizarTexto(str) {
-        return String(str).toLowerCase().normalize('NFD').replace(/[0-6f]/g, '').trim();
+        return String(str).toLowerCase().normalize('NFD').replace(/[0-\u036f]/g, '').trim();
       }
       const destinoNombreFiltrado = limpiarDireccionParaMostrar(destinoNombreOriginal);
       const nombreParadero = normalizarTexto(paraderoDestino.nombre);

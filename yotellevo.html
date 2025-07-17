@@ -505,23 +505,24 @@
     
     // Función para mostrar instrucciones inteligentes
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
-      // Crear panel de instrucciones inteligentes
       let instruccionesHTML = `
-        <div style="background: #fffbe6; border: 2.5px solid #bdbdbd; border-radius: 14px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1.5px 6px rgba(189,189,189,0.10);">
-          <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem; color: #764ba2;">🧠 Tu Guía Inteligente</h3>
-          <div style="margin-bottom: 1rem; color: #222;">
-            <strong>📍 Tu ubicación:</strong> ${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 1.7rem 1.3rem 1.3rem 1.3rem; margin: 1.2rem 0; box-shadow: 0 2px 16px rgba(44,62,80,0.10); color: #fff; max-width: 420px;">
+          <h3 style="margin: 0 0 1.1rem 0; font-size: 1.35rem; color: #fff; font-weight: 700; letter-spacing: 0.5px;">🧠 Tu Guía Inteligente</h3>
+          <div style="margin-bottom: 1rem; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span style='font-size:1.2em;'>📍</span> <strong>Tu ubicación:</strong> <span style='color:#ffe082;'>${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}</span>
           </div>
-          <div style="margin-bottom: 1rem; color: #222;">
-            <strong>🚌 Paradero más cercano:</strong> ${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)
+          <div style="margin-bottom: 1rem; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span style='font-size:1.2em;'>🚌</span> <strong>Paradero más cercano:</strong> <span style='color:#ffe082;'>${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)</span>
           </div>
-          <div style="background: #ffe9b3; color: #b26a00; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-            <strong>📋 Instrucciones:</strong><br>
-            ${rutaOptima.mensaje}
+          <div style="background: rgba(255,255,255,0.18); color: #fff; padding: 1.1rem 1rem; border-radius: 12px; margin-bottom: 1.2rem; font-size: 1.07rem;">
+            <strong style='display:flex;align-items:center;gap:7px;'><span style='font-size:1.2em;'>📋</span> Instrucciones:</strong>
+            <div style='margin-top:0.5em;'>${rutaOptima.mensaje}</div>
           </div>
+          <button id="btnIniciarSeguimiento" style="background: linear-gradient(90deg, #ff6600 60%, #ff9800 100%); color: #fff; border: none; border-radius: 10px; padding: 0.85em 1.7em; font-size: 1.08em; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(255,102,0,0.13); display: flex; align-items: center; gap: 8px; margin: 0 auto;">
+            <span style='font-size:1.2em;'>🚀</span> Iniciar Seguimiento Inteligente
+          </button>
         </div>
       `;
-      // Insertar instrucciones en el DOM en el panel-guia-inteligente
       const panelGuia = document.getElementById('panel-guia-inteligente');
       if (panelGuia) {
         panelGuia.innerHTML = instruccionesHTML;

@@ -456,7 +456,9 @@
       console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
       if (rutaDirecta && rutaDirecta.todas && rutaDirecta.todas.length > 0) {
         let rutasTexto = rutaDirecta.todas.length === 1 ? `la ruta ${rutaDirecta.todas[0]}` : `las rutas ${rutaDirecta.todas.join(', ')}`;
-        const mensaje = `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
+        const mensaje = (paraderoDestino.nombre !== destinoNombreFiltrado)
+          ? `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}, desde allí te desplazas a pie ${Math.round(distanciaAPie)} metros para llegar a ${limpiarDireccionParaMostrar(destinoDisplayName)}.`
+          : `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
         return {
           tipo: 'directa',
           paraderoOrigen: paraderoOrigen,

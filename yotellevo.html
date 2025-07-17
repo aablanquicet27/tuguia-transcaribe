@@ -459,13 +459,21 @@
       console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
       // Obtener el nombre filtrado del destino para la comparación
       let destinoNombreOriginal = (typeof end === 'string') ? end : (paraderoDestino.nombre || '');
+      // Asegura que destinoNombreOriginal sea un string legible
+      if (typeof destinoNombreOriginal === 'object' && destinoNombreOriginal !== null) {
+        if (destinoNombreOriginal.nombre) {
+          destinoNombreOriginal = destinoNombreOriginal.nombre;
+        } else {
+          destinoNombreOriginal = JSON.stringify(destinoNombreOriginal);
+        }
+      }
       const destinoNombreFiltrado = limpiarDireccionParaMostrar(destinoNombreOriginal);
       // Calcular distancia a pie entre el paradero y el destino
       let distanciaAPie = await obtenerDistanciaCaminando([paraderoDestino.lat, paraderoDestino.lon], destinoCoords);
       if (rutaDirecta && rutaDirecta.todas && rutaDirecta.todas.length > 0) {
         let rutasTexto = rutaDirecta.todas.length === 1 ? `la ruta ${rutaDirecta.todas[0]}` : `las rutas ${rutaDirecta.todas.join(', ')}`;
         const mensaje = (paraderoDestino.nombre !== destinoNombreFiltrado)
-          ? `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}, desde allí te desplazas a pie ${Math.round(distanciaAPie)} metros para llegar a ${limpiarDireccionParaMostrar(destinoNombreOriginal)}.`
+          ? `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}, desde allí te desplazas a pie ${Math.round(distanciaAPie)} metros para llegar a ${destinoNombreFiltrado}.`
           : `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
         return {
           tipo: 'directa',

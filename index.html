@@ -2572,6 +2572,15 @@
           }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
+          // NUEVO: Si ambos puntos están definidos, iniciar navegación inteligente
+          const endMarker = window.endMarker;
+          if (window.startMarker && endMarker) {
+            const startLatLng = window.startMarker.getLatLng();
+            const endLatLng = endMarker.getLatLng();
+            if (startLatLng && endLatLng) {
+              iniciarNavegacionInteligente([endLatLng.lat, endLatLng.lng]);
+            }
+          }
         }
         document.addEventListener('click', function(e) {
           if (!startInput.contains(e.target) && !startSuggestions.contains(e.target)) {
@@ -2644,10 +2653,14 @@
           }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.endMarker = marker;
-          // === NUEVA LÓGICA: Mostrar instrucciones inteligentes ANTES de iniciar recorrido ===
-          const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
-          if (startMode === 'ubicacion') {
-            mostrarInstruccionesAntesDeIniciar([item.lat, item.lon], direccionCorta);
+          // NUEVO: Si ambos puntos están definidos, iniciar navegación inteligente
+          const startMarker = window.startMarker;
+          if (startMarker && window.endMarker) {
+            const startLatLng = startMarker.getLatLng();
+            const endLatLng = window.endMarker.getLatLng();
+            if (startLatLng && endLatLng) {
+              iniciarNavegacionInteligente([endLatLng.lat, endLatLng.lng]);
+            }
           }
         }
         document.addEventListener('click', function(e) {
@@ -2932,6 +2945,15 @@
           }).addTo(map).bindPopup("<img src='pin-morado.png' style='width:22px;vertical-align:middle;margin-right:6px;'>Origen: " + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.startMarker = marker;
+          // NUEVO: Si ambos puntos están definidos, iniciar navegación inteligente
+          const endMarker = window.endMarker;
+          if (window.startMarker && endMarker) {
+            const startLatLng = window.startMarker.getLatLng();
+            const endLatLng = endMarker.getLatLng();
+            if (startLatLng && endLatLng) {
+              iniciarNavegacionInteligente([endLatLng.lat, endLatLng.lng]);
+            }
+          }
         }
         document.addEventListener('click', function(e) {
           if (!startInput.contains(e.target) && !startSuggestions.contains(e.target)) {
@@ -3007,10 +3029,14 @@
           }).addTo(map).bindPopup('<img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" style="width:22px;vertical-align:middle;margin-right:6px;">Destino: ' + direccionCorta).openPopup();
           map.setView([parseFloat(item.lat), parseFloat(item.lon)], 15);
           window.endMarker = marker;
-          // === NUEVA LÓGICA: Mostrar instrucciones inteligentes ANTES de iniciar recorrido ===
-          const startMode = document.querySelector('input[name="startMode"]:checked')?.value;
-          if (startMode === 'ubicacion') {
-            mostrarInstruccionesAntesDeIniciar([item.lat, item.lon], direccionCorta);
+          // NUEVO: Si ambos puntos están definidos, iniciar navegación inteligente
+          const startMarker = window.startMarker;
+          if (startMarker && window.endMarker) {
+            const startLatLng = startMarker.getLatLng();
+            const endLatLng = window.endMarker.getLatLng();
+            if (startLatLng && endLatLng) {
+              iniciarNavegacionInteligente([endLatLng.lat, endLatLng.lng]);
+            }
           }
         }
         document.addEventListener('click', function(e) {

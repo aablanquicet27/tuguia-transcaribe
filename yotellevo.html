@@ -526,6 +526,13 @@
       const panelGuia = document.getElementById('panel-guia-inteligente');
       if (panelGuia) {
         panelGuia.innerHTML = instruccionesHTML;
+        // Asociar funcionalidad al botón
+        const btn = document.getElementById('btnIniciarSeguimiento');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            iniciarSeguimientoInteligente(rutaOptima, paraderoCercano, ubicacionUsuario);
+          });
+        }
       }
       console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
     }

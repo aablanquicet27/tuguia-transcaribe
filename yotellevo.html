@@ -459,12 +459,30 @@
       console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
       // Obtener el nombre filtrado del destino para la comparación
       let destinoNombreOriginal = (typeof end === 'string') ? end : (paraderoDestino.nombre || '');
+      // --- CORRECCIÓN CLAVE ---
+      // Si destinoNombreOriginal es un JSON, extraer solo el campo 'nombre' si existe
+      try {
+        if (typeof destinoNombreOriginal === 'string' && destinoNombreOriginal.trim().startsWith('{')) {
+          const obj = JSON.parse(destinoNombreOriginal);
+          if (obj && obj.nombre) {
+            destinoNombreOriginal = obj.nombre;
+          } else if (obj && obj.display_name) {
+            destinoNombreOriginal = obj.display_name;
+          } else {
+            destinoNombreOriginal = '';
+          }
+        }
+      } catch (e) {
+        // Si falla el parseo, dejar el valor como está
+      }
       // Asegura que destinoNombreOriginal sea un string legible
       if (typeof destinoNombreOriginal === 'object' && destinoNombreOriginal !== null) {
         if (destinoNombreOriginal.nombre) {
           destinoNombreOriginal = destinoNombreOriginal.nombre;
+        } else if (destinoNombreOriginal.display_name) {
+          destinoNombreOriginal = destinoNombreOriginal.display_name;
         } else {
-          destinoNombreOriginal = JSON.stringify(destinoNombreOriginal);
+          destinoNombreOriginal = '';
         }
       }
       // Normaliza nombres para comparación robusta

@@ -1585,5 +1585,44 @@ function detenerAlarmaProximidad() {
     }
     // ... el resto del código JS ...
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('🟣 [INIT] DOMContentLoaded en yotellevo.html');
+      let start = localStorage.getItem('tuguia_start') || '';
+      let end = localStorage.getItem('tuguia_end') || '';
+      let startMode = localStorage.getItem('tuguia_start_mode') || '';
+      let endMode = localStorage.getItem('tuguia_end_mode') || '';
+      console.log('🟣 [INIT] Datos localStorage:', { start, end, startMode, endMode });
+
+      function extraerCoords(str) {
+        if (!str) return null;
+        try {
+          const obj = JSON.parse(str);
+          if (obj && Array.isArray(obj.coords)) return obj.coords;
+        } catch (e) {}
+        let match = str.match(/(-?\d+\.\d+),\s*(-?\d+\.\d+)/);
+        if (match) return [parseFloat(match[1]), parseFloat(match[2])];
+        return null;
+      }
+
+      let startCoords = extraerCoords(start);
+      let endCoords = extraerCoords(end);
+      console.log('🟣 [INIT] Coordenadas extraídas:', { startCoords, endCoords });
+
+      if (!startCoords || !endCoords) {
+        console.warn('🟣 [INIT] Faltan coordenadas de inicio o fin. No se puede mostrar el panel.');
+        return;
+      }
+
+      try {
+        // Simula el flujo de navegación inteligente
+        console.log('🟣 [INIT] Llamando a iniciarNavegacionInteligente con:', endCoords);
+        await iniciarNavegacionInteligente(endCoords);
+        console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
+      } catch (error) {
+        console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);
+      }
+    });
+    </script>
 </body>
 </html> 

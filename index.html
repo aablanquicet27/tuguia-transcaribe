@@ -3549,10 +3549,10 @@
           </div>
         </div>
       `;
-      // Insertar instrucciones en el DOM
-      const infoElement = document.getElementById('info');
-      if (infoElement) {
-        infoElement.innerHTML = instruccionesHTML;
+      // Insertar instrucciones en el nuevo contenedor
+      const panelGuia = document.getElementById('panel-guia-inteligente');
+      if (panelGuia) {
+        panelGuia.innerHTML = instruccionesHTML;
       }
       console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
     }

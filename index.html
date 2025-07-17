@@ -1876,20 +1876,19 @@
     // Función para filtrar solo direcciones de Cartagena y área metropolitana
     function filtrarDireccionesCartagena(data) {
       const municipios = [
-        'cartagena', 'cartagena de indias', 'turbaco', 'turbana', 'arjona', 'santa rosa', 'villanueva',
-        'clemencia', 'santa catalina', 'maria la baja', 'san estanislao', 'santa lucia', 'bolivar'
+        'cartagena', 'turbaco', 'turbana', 'arjona', 'santa rosa', 'villanueva',
+        'clemencia', 'santa catalina', 'maría la baja', 'san estanislao', 'santa lucía', 'bolívar'
       ];
       return data.filter(item => {
-        const displayName = (item.display_name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const displayName = (item.display_name || '').toLowerCase();
         const address = item.address || {};
-        // Buscar municipio en display_name o en los campos de address
         return municipios.some(mun =>
           displayName.includes(mun) ||
-          (address.city && address.city.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(mun)) ||
-          (address.town && address.town.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(mun)) ||
-          (address.village && address.village.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(mun)) ||
-          (address.state_district && address.state_district.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(mun)) ||
-          (address.county && address.county.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(mun))
+          (address.city && address.city.toLowerCase().includes(mun)) ||
+          (address.town && address.town.toLowerCase().includes(mun)) ||
+          (address.village && address.village.toLowerCase().includes(mun)) ||
+          (address.state_district && address.state_district.toLowerCase().includes(mun)) ||
+          (address.county && address.county.toLowerCase().includes(mun))
         );
       });
     }

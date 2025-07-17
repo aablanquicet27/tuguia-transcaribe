@@ -201,7 +201,7 @@
       <div style="background:#fffbe6;border:4px solid #ff9800;border-radius:18px;padding:2em 2em 1.5em 2em;box-shadow:0 8px 32px #0008;text-align:center;max-width:90vw;">
         <div style="font-size:2.2em;color:#ff9800;font-weight:bold;margin-bottom:0.5em;">¡Atención!</div>
         <div style="font-size:1.3em;color:#333;margin-bottom:1em;">Faltan menos de <b>300 metros</b> para llegar a tu destino.<br>Prepárate para descender.</div>
-        <button onclick="document.getElementById('modal-proximidad').style.display='none'" style="font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;">Entendido</button>
+        <button id="btnAlertaEntendido" style="font-size:1.1em;padding:0.5em 1.5em;background:#ff9800;color:#fff;border:none;border-radius:8px;cursor:pointer;">Entendido</button>
       </div>
     </div>
     <footer class="footer-agapai">
@@ -1497,15 +1497,47 @@ window.addEventListener('pagehide', function(e) {
 </script>
 <script>
 // Función para mostrar la alerta de proximidad (modal + notificación + vibración)
+let alarmaProximidadInterval = null;
 function mostrarAlertaProximidad() {
   // Mostrar modal llamativo
   var modal = document.getElementById('modal-proximidad');
   if (modal) modal.style.display = 'flex';
-  // Notificación del sistema
+
+  // Iniciar alarma y vibración repetitiva (patrón muy molesto)
+  detenerAlarmaProximidad(); // Por si acaso ya hay una activa
+  alarmaProximidadInterval = setInterval(() => {
+    // Vibración muy notoria: vibrar 1200ms, pausa 200ms, repetir varias veces
+    if (navigator.vibrate) navigator.vibrate([1200, 200, 1200, 200, 1200, 200, 1200]);
+    // Sonido
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'sine';
+      o.frequency.value = 880;
+      o.connect(g); g.connect(ctx.destination);
+      g.gain.value = 0.2;
+      o.start();
+      setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
+    } catch(e) {}
+  }, 2200);
+
+  // Botón para detener alarma y vibración
+  setTimeout(() => {
+    const btn = document.getElementById('btnAlertaEntendido');
+    if (btn) {
+      btn.onclick = function() {
+        detenerAlarmaProximidad();
+        modal.style.display = 'none';
+      };
+    }
+  }, 100);
+
+  // Notificación del sistema (opcional, no bloquea la alarma/vibración)
   if (window.Notification && Notification.permission === 'granted') {
     new Notification('¡Faltan menos de 300 metros!', {
       body: 'Prepárate para descender en tu destino.',
-      icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png' // ícono de bus
+      icon: 'https://cdn-icons-png.flaticon.com/512/684/684908.png'
     });
   } else if (window.Notification && Notification.permission !== 'denied') {
     Notification.requestPermission().then(function(permission) {
@@ -1517,10 +1549,14 @@ function mostrarAlertaProximidad() {
       }
     });
   }
-  // Vibración si es móvil
-  if (navigator.vibrate) {
-    navigator.vibrate([400, 200, 400]);
+}
+
+function detenerAlarmaProximidad() {
+  if (alarmaProximidadInterval) {
+    clearInterval(alarmaProximidadInterval);
+    alarmaProximidadInterval = null;
   }
+  if (navigator.vibrate) navigator.vibrate(0); // Detener vibración
 }
     </script>
     <script>
@@ -1588,7 +1624,8 @@ function mostrarAlertaProximidad() {
         'Dique',
         'Tierra Bomba',
         '130018',
-        '1300',
+        '130010',
+        '130001',
         'Colombia'
       ];
       let partesFiltradas = partes.filter(parte => {

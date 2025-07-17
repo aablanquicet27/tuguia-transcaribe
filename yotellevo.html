@@ -458,7 +458,8 @@
       const rutaDirecta = verificarRutaDirecta(paraderoOrigen, paraderoDestino);
       console.log('🟢 Resultado de verificarRutaDirecta:', rutaDirecta);
       // Obtener el nombre filtrado del destino para la comparación
-      const destinoNombreFiltrado = limpiarDireccionParaMostrar(destinoDisplayName);
+      let destinoNombreOriginal = (typeof end === 'string') ? end : (paraderoDestino.nombre || '');
+      const destinoNombreFiltrado = limpiarDireccionParaMostrar(destinoNombreOriginal);
       if (rutaDirecta && rutaDirecta.todas && rutaDirecta.todas.length > 0) {
         let rutasTexto = rutaDirecta.todas.length === 1 ? `la ruta ${rutaDirecta.todas[0]}` : `las rutas ${rutaDirecta.todas.join(', ')}`;
         const mensaje = (paraderoDestino.nombre !== destinoNombreFiltrado)

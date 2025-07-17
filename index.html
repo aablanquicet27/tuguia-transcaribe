@@ -3533,7 +3533,6 @@
     
     // Función para mostrar instrucciones inteligentes
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
-      // Crear panel de instrucciones inteligentes
       let instruccionesHTML = `
         <div style="background: #fffbe6; border: 2.5px solid #bdbdbd; border-radius: 14px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1.5px 6px rgba(189,189,189,0.10);">
           <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem; color: #764ba2;">🧠 Tu Guía Inteligente</h3>
@@ -3549,12 +3548,10 @@
           </div>
         </div>
       `;
-      // Insertar instrucciones en el nuevo contenedor
       const panelGuia = document.getElementById('panel-guia-inteligente');
       if (panelGuia) {
         panelGuia.innerHTML = instruccionesHTML;
       }
-      console.log('📋 Instrucciones inteligentes mostradas:', rutaOptima.mensaje);
     }
     
     // Función para iniciar seguimiento inteligente

@@ -1391,6 +1391,12 @@
     async function obtenerDistanciaCaminando(origen, destino) {
       const apiKey = '5b3ce3597851110001cf6248e92a24fdb4744773ab33cab2c808de44';
       const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${apiKey}`;
+      // Log de depuración
+      console.log('[DISTANCIA CAMINANDO] Enviando a ORS:', {
+        origen, destino,
+        origenLonLat: [origen[1], origen[0]],
+        destinoLonLat: [destino[1], destino[0]]
+      });
       const body = {
         coordinates: [
           [origen[1], origen[0]], // [lon, lat]
@@ -1404,13 +1410,20 @@
           body: JSON.stringify(body)
         });
         const data = await response.json();
+        console.log('[DISTANCIA CAMINANDO] Respuesta ORS:', data);
         if (data && data.features && data.features[0]) {
-          return data.features[0].properties.summary.distance; // en metros
+          const distancia = data.features[0].properties.summary.distance;
+          if (typeof distancia === 'number' && distancia > 0) {
+            return distancia;
+          }
         }
-        return null;
+        // Si la API responde mal, usar fallback
+        console.warn('[DISTANCIA CAMINANDO] ORS no devolvió distancia válida, usando haversine.');
+        return haversine(origen[0], origen[1], destino[0], destino[1]);
       } catch (e) {
         console.error('Error consultando ORS:', e);
-        return null;
+        // Fallback a haversine si hay error
+        return haversine(origen[0], origen[1], destino[0], destino[1]);
       }
     }
     </script>

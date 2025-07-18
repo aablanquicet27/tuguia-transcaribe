@@ -3422,7 +3422,9 @@
             paraderoTransbordo: transbordo.paraderoTransbordo,
             ruta1: transbordo.ruta1,
             ruta2: transbordo.ruta2,
-            mensaje: `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`,
+            mensaje: (paraderoDestino.nombre !== destinoNombreFiltrado)
+              ? `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}, desde aquí caminas a pie ${Math.round(distanciaAPie)} metros para llegar a ${formatearDireccionParaPopup(destinoDisplayName)}.`
+              : `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`,
             pasos: [
               { accion: 'tomar', ruta: transbordo.ruta1, desde: paraderoOrigen, hasta: transbordo.paraderoTransbordo },
               { accion: 'transbordar', en: transbordo.paraderoTransbordo },

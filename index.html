@@ -1360,7 +1360,7 @@
           }
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
 </head>
 <body>
     <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:left;display:flex;align-items:center;gap:12px;">
@@ -2425,6 +2425,7 @@
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
           .then(response => response.json())
           .then(data => {
+            console.log('Respuesta Geocoding API:', data); // <-- Línea agregada para depuración
             let direccion = '';
             if (data.results && data.results.length > 0) {
               // Buscar barrio o dirección relevante

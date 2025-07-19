@@ -128,7 +128,7 @@
             background: #f8f9fa;
             padding: 1rem;
             border-radius: 8px;
-            border-left: 4px solid #007bff;
+            border-left: 4px solid #ff5900;
         }
         .info-section ul {
             margin: 0.5rem 0;
@@ -615,16 +615,26 @@
       let start = localStorage.getItem('tuguia_start') || '';
       let startMode = localStorage.getItem('tuguia_start_mode') || '';
       try {
+        let obj = start;
+        if (typeof start === 'string' && start.trim().startsWith('{')) {
+          obj = JSON.parse(start);
+        }
         if (startMode === 'paradero') {
-          const obj = typeof start === 'string' ? JSON.parse(start) : start;
           puntoPartida = obj.nombre || 'Paradero seleccionado';
         } else if (startMode === 'direccion') {
-          const obj = typeof start === 'string' ? JSON.parse(start) : start;
-          puntoPartida = obj.nombre || obj.direccion || start || 'Dirección seleccionada';
+          puntoPartida = obj.nombre || obj.direccion || '';
+          if (!puntoPartida && typeof obj === 'string') {
+            puntoPartida = obj;
+          }
+          if (!puntoPartida && obj.coords) {
+            puntoPartida = obj.coords.join(', ');
+          }
+          if (!puntoPartida) {
+            puntoPartida = 'Dirección seleccionada';
+          }
         } else {
-          puntoPartida = start || 'No disponible';
+          puntoPartida = (typeof obj === 'string') ? obj : (obj.nombre || obj.direccion || 'No disponible');
         }
-        // Filtrar dirección irrelevante SIEMPRE
         if (typeof puntoPartida === 'string') {
           puntoPartida = limpiarDireccionParaMostrar(puntoPartida);
         }

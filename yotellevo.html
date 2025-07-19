@@ -612,11 +612,23 @@
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
       // Determinar el texto del punto de partida
       let puntoPartida = '';
-      if (paraderoCercano && paraderoCercano.nombre) {
-        puntoPartida = paraderoCercano.nombre;
-      } else if (ubicacionUsuario && ubicacionUsuario.direccion) {
-        puntoPartida = ubicacionUsuario.direccion;
-      } else {
+      let start = localStorage.getItem('tuguia_start') || '';
+      let startMode = localStorage.getItem('tuguia_start_mode') || '';
+      try {
+        if (startMode === 'paradero') {
+          const obj = typeof start === 'string' ? JSON.parse(start) : start;
+          puntoPartida = obj.nombre || 'Paradero seleccionado';
+        } else if (startMode === 'direccion') {
+          const obj = typeof start === 'string' ? JSON.parse(start) : start;
+          puntoPartida = obj.nombre || obj.direccion || start || 'Dirección seleccionada';
+        } else {
+          puntoPartida = start || 'No disponible';
+        }
+        // Limpiar si es necesario
+        if (typeof puntoPartida === 'string' && puntoPartida.includes(',')) {
+          puntoPartida = limpiarDireccionParaMostrar(puntoPartida);
+        }
+      } catch(e) {
         puntoPartida = 'No disponible';
       }
       let instruccionesHTML = `

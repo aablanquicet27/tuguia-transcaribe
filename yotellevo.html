@@ -624,8 +624,8 @@
         } else {
           puntoPartida = start || 'No disponible';
         }
-        // Limpiar si es necesario
-        if (typeof puntoPartida === 'string' && puntoPartida.includes(',')) {
+        // Filtrar dirección irrelevante SIEMPRE
+        if (typeof puntoPartida === 'string') {
           puntoPartida = limpiarDireccionParaMostrar(puntoPartida);
         }
       } catch(e) {

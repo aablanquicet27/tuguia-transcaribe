@@ -561,10 +561,7 @@
         let rutasTexto = rutaDirecta.todas.length === 1 ? `la ruta ${rutaDirecta.todas[0]}` : `las rutas ${rutaDirecta.todas.join(', ')}`;
         let mensaje = `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}.`;
         if (endMode !== 'paradero') {
-          // Siempre mostrar caminata si el destino es dirección escrita
-          mensaje = `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}, desde allí te desplazas a pie ${Math.round(distanciaAPie)} metros para llegar a ${destinoNombreFiltrado}.`;
-        } else if (Math.round(distanciaAPie) > 0 && nombreParadero !== nombreDestino) {
-          // Solo para paradero, mostrar caminata si es necesario
+          // Siempre mostrar caminata si el destino es dirección escrita, sin importar la distancia ni coincidencia de nombres
           mensaje = `Toma ${rutasTexto} en ${paraderoOrigen.nombre}. Te llevará directamente a ${paraderoDestino.nombre}, desde allí te desplazas a pie ${Math.round(distanciaAPie)} metros para llegar a ${destinoNombreFiltrado}.`;
         }
         return {
@@ -1720,7 +1717,8 @@ function detenerAlarmaProximidad() {
         '130010',
         '130001',
         'Colombia',
-        'Provicia'
+        'Provicia',
+        'Provicia de Cartagena'
       ];
       let partesFiltradas = partes.filter(parte => {
         const p = parte.toLowerCase().normalize('NFD').replace(/[0-\u036f]/g, '');

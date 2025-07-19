@@ -576,7 +576,10 @@
         // Buscar transbordo
         const transbordo = encontrarMejorTransbordo(paraderoOrigen, paraderoDestino);
         if (transbordo && transbordo.ruta1 && transbordo.ruta2) {
-          const mensaje = `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`;
+          let mensaje = `Toma la ruta ${transbordo.ruta1} hasta ${transbordo.paraderoTransbordo.nombre}. Allí cambia a la ruta ${transbordo.ruta2} hasta ${paraderoDestino.nombre}.`;
+          if (endMode !== 'paradero') {
+            mensaje += ` Desde allí, desplázate a pie ${Math.round(distanciaAPie)} metros para llegar a ${destinoNombreFiltrado}.`;
+          }
           return {
             tipo: 'con_transbordo',
             paraderoOrigen: paraderoOrigen,

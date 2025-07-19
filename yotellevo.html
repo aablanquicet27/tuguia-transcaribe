@@ -1709,14 +1709,19 @@ function detenerAlarmaProximidad() {
         '130018',
         '130010',
         '130001',
-        'Colombia'
+        'Colombia',
+        'Provicia'
       ];
       let partesFiltradas = partes.filter(parte => {
-        const p = parte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const p = parte.toLowerCase().normalize('NFD').replace(/[0-\u036f]/g, '');
         return !irrelevantes.includes(parte) && !irrelevantes.includes(p);
       });
       // Elimina duplicados consecutivos
       partesFiltradas = partesFiltradas.filter((parte, idx, arr) => idx === 0 || parte !== arr[idx-1]);
+      // Si al filtrar queda vacío, mostrar al menos el primer fragmento original
+      if (partesFiltradas.length === 0 && partes.length > 0) {
+        return partes[0];
+      }
       return partesFiltradas.join(', ');
     }
     // ... el resto del código JS ...

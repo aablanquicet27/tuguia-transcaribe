@@ -1911,17 +1911,34 @@ function detenerAlarmaProximidad() {
       if (!window.rutasTranscaribe) return null;
       let mejorRuta = null;
       let mejorScore = Infinity;
+      let mejorSegmento = null;
       window.rutasTranscaribe.forEach(ruta => {
         const coords = ruta.geometry.coordinates;
-        const distOrigen = distanciaPuntoLinea(origen, coords);
-        const distDestino = distanciaPuntoLinea(destino, coords);
-        const score = distOrigen + distDestino;
+        // Buscar el punto más cercano al origen
+        let minDistOrigen = Infinity, idxOrigen = 0;
+        for (let i = 0; i < coords.length; i++) {
+          const d = L.latLng(origen[0], origen[1]).distanceTo(L.latLng(coords[i][1], coords[i][0]));
+          if (d < minDistOrigen) { minDistOrigen = d; idxOrigen = i; }
+        }
+        // Buscar el punto más cercano al destino
+        let minDistDestino = Infinity, idxDestino = 0;
+        for (let i = 0; i < coords.length; i++) {
+          const d = L.latLng(destino[0], destino[1]).distanceTo(L.latLng(coords[i][1], coords[i][0]));
+          if (d < minDistDestino) { minDistDestino = d; idxDestino = i; }
+        }
+        const score = minDistOrigen + minDistDestino;
         if (score < mejorScore) {
           mejorScore = score;
           mejorRuta = ruta;
+          // Extraer el segmento entre idxOrigen y idxDestino
+          if (idxOrigen < idxDestino) {
+            mejorSegmento = coords.slice(idxOrigen, idxDestino + 1);
+          } else {
+            mejorSegmento = coords.slice(idxDestino, idxOrigen + 1).reverse();
+          }
         }
       });
-      return mejorRuta;
+      return mejorRuta && mejorSegmento ? { ruta: mejorRuta, segmento: mejorSegmento } : null;
     }
     // === FIN UTILIDAD ===
     </script>

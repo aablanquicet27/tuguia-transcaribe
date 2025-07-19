@@ -1893,5 +1893,36 @@ function detenerAlarmaProximidad() {
     }
     // ...
     </script>
+    <script>
+    // === UTILIDAD PARA ENCONTRAR RUTA OFICIAL DE TRANSCARIBE ===
+    function distanciaPuntoLinea(punto, linea) {
+      // punto: [lat, lng], linea: array de [lng, lat]
+      let minDist = Infinity;
+      for (let i = 0; i < linea.length; i++) {
+        const d = L.latLng(punto[0], punto[1]).distanceTo(L.latLng(linea[i][1], linea[i][0]));
+        if (d < minDist) minDist = d;
+      }
+      return minDist;
+    }
+
+    function encontrarRutaOficialMasCercana(origen, destino) {
+      // origen/destino: [lat, lng]
+      if (!window.rutasTranscaribe) return null;
+      let mejorRuta = null;
+      let mejorScore = Infinity;
+      window.rutasTranscaribe.forEach(ruta => {
+        const coords = ruta.geometry.coordinates;
+        const distOrigen = distanciaPuntoLinea(origen, coords);
+        const distDestino = distanciaPuntoLinea(destino, coords);
+        const score = distOrigen + distDestino;
+        if (score < mejorScore) {
+          mejorScore = score;
+          mejorRuta = ruta;
+        }
+      });
+      return mejorRuta;
+    }
+    // === FIN UTILIDAD ===
+    </script>
 </body>
 </html> 

@@ -1867,5 +1867,31 @@ function detenerAlarmaProximidad() {
     }
     // ... continuar con la lógica anterior si no hay mejorRuta ...
     </script>
+    <script>
+    // ... después de await crearMapasParaderos(paraderosOrigen, paraderosDestino); ...
+    // === DIBUJAR RECORRIDO EN BUS SOBRE LA RED DE TRANSCARIBE ===
+    if (paraderosOrigen && paraderosOrigen.length > 0 && paraderosDestino && paraderosDestino.length > 0) {
+      // Tomar el paradero más cercano de origen y destino
+      const paraderoOrigenSeleccionado = paraderosOrigen[0];
+      const paraderoDestinoSeleccionado = paraderosDestino[0];
+      // Buscar la ruta oficial más cercana entre los paraderos
+      if (typeof encontrarRutaOficialMasCercana === 'function') {
+        const rutaOficial = encontrarRutaOficialMasCercana(
+          [paraderoOrigenSeleccionado.lat, paraderoOrigenSeleccionado.lon],
+          [paraderoDestinoSeleccionado.lat, paraderoDestinoSeleccionado.lon]
+        );
+        if (rutaOficial && rutaOficial.geometry && rutaOficial.geometry.coordinates) {
+          // Dibujar la polilínea sobre la red de Transcaribe
+          const coords = rutaOficial.geometry.coordinates.map(c => [c[1], c[0]]); // [lat, lng]
+          if (typeof map !== 'undefined') {
+            L.polyline(coords, { color: '#ff6600', weight: 6, opacity: 0.8 }).addTo(map);
+          } else if (typeof mapaPrincipal !== 'undefined') {
+            L.polyline(coords, { color: '#ff6600', weight: 6, opacity: 0.8 }).addTo(mapaPrincipal);
+          }
+        }
+      }
+    }
+    // ...
+    </script>
 </body>
 </html> 

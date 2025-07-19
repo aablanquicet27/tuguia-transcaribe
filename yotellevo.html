@@ -610,11 +610,20 @@
     
     // Función para mostrar instrucciones inteligentes
     function mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario) {
+      // Determinar el texto del punto de partida
+      let puntoPartida = '';
+      if (paraderoCercano && paraderoCercano.nombre) {
+        puntoPartida = paraderoCercano.nombre;
+      } else if (ubicacionUsuario && ubicacionUsuario.direccion) {
+        puntoPartida = ubicacionUsuario.direccion;
+      } else {
+        puntoPartida = 'No disponible';
+      }
       let instruccionesHTML = `
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 1.7rem 1.3rem 1.3rem 1.3rem; margin: 1.2rem 0; box-shadow: 0 2px 16px rgba(44,62,80,0.10); color: #fff; max-width: 420px;">
           <h3 style="margin: 0 0 1.1rem 0; font-size: 1.35rem; color: #fff; font-weight: 700; letter-spacing: 0.5px;">🧠 Tu Guía Inteligente</h3>
           <div style="margin-bottom: 1rem; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
-            <span style='font-size:1.2em;'>📍</span> <strong>Tu ubicación:</strong> <span style='color:#ffe082;'>${ubicacionUsuario.lat.toFixed(6)}, ${ubicacionUsuario.lng.toFixed(6)}</span>
+            <span style='font-size:1.2em;'>📍</span> <strong>Punto de Partida:</strong> <span style='color:#ffe082;'>${puntoPartida}</span>
           </div>
           <div style="margin-bottom: 1rem; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
             <span style='font-size:1.2em;'>🚌</span> <strong>Paradero más cercano:</strong> <span style='color:#ffe082;'>${paraderoCercano.nombre} (${Math.round(paraderoCercano.distancia)}m)</span>
@@ -1738,6 +1747,94 @@ function detenerAlarmaProximidad() {
         console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);
       }
     });
+    </script>
+    <script>
+    // === LÓGICA OPTIMIZADA DE RUTA MÁS CORTA ===
+    async function calcularRutaOptimaTotalmenteOptima(startCoords, endCoords, paraderos) {
+      let paraderosOrigen = paraderos.map(f => {
+        let dist = haversine(startCoords[0], startCoords[1], f.lat, f.lon);
+        return { ...f, dist };
+      }).sort((a, b) => a.dist - b.dist).slice(0, 3);
+      let paraderosDestino = paraderos.map(f => {
+        let dist = haversine(endCoords[0], endCoords[1], f.lat, f.lon);
+        return { ...f, dist };
+      }).sort((a, b) => a.dist - b.dist).slice(0, 3);
+      let mejorOpcion = null;
+      let mejorScore = Infinity;
+      for (let origen of paraderosOrigen) {
+        for (let destino of paraderosDestino) {
+          let caminataInicio = origen.dist;
+          let caminataFin = destino.dist;
+          let rutasComunes = origen.rutas.filter(r => destino.rutas.includes(r));
+          let rutasBus = [];
+          let tipo = '';
+          if (rutasComunes.length > 0) {
+            rutasBus = [rutasComunes[0]];
+            tipo = 'directa';
+          } else {
+            for (let intermedio of paraderos) {
+              if (intermedio === origen || intermedio === destino) continue;
+              let rutas1 = origen.rutas.filter(r => intermedio.rutas.includes(r));
+              let rutas2 = destino.rutas.filter(r => intermedio.rutas.includes(r));
+              if (rutas1.length > 0 && rutas2.length > 0) {
+                let score =
+                  caminataInicio +
+                  haversine(origen.lat, origen.lon, intermedio.lat, intermedio.lon) +
+                  haversine(intermedio.lat, intermedio.lon, destino.lat, destino.lon) +
+                  caminataFin;
+                if (score < mejorScore) {
+                  mejorScore = score;
+                  mejorOpcion = {
+                    tipo: 'transbordo',
+                    origen,
+                    destino,
+                    intermedio,
+                    rutasBus: [rutas1[0], rutas2[0]],
+                    caminataInicio,
+                    caminataFin,
+                    score
+                  };
+                }
+              }
+            }
+          }
+          if (tipo === 'directa') {
+            let score = caminataInicio + caminataFin;
+            if (score < mejorScore) {
+              mejorScore = score;
+              mejorOpcion = {
+                tipo: 'directa',
+                origen,
+                destino,
+                rutasBus,
+                caminataInicio,
+                caminataFin,
+                score
+              };
+            }
+          }
+        }
+      }
+      return mejorOpcion;
+    }
+    // === FIN LÓGICA OPTIMIZADA ===
+
+    // ... dentro de procesarInformacion, después de filtrar/mapear paraderos ...
+    const mejorRuta = await calcularRutaOptimaTotalmenteOptima(startCoords, endCoords, paraderos);
+    if (mejorRuta) {
+      let leyenda = '';
+      if (mejorRuta.tipo === 'directa') {
+        leyenda = `Toma la ruta <b>${mejorRuta.rutasBus[0]}</b> en <b>${mejorRuta.origen.nombre}</b> hasta <b>${mejorRuta.destino.nombre}</b>.`;
+      } else if (mejorRuta.tipo === 'transbordo') {
+        leyenda = `Toma la ruta <b>${mejorRuta.rutasBus[0]}</b> en <b>${mejorRuta.origen.nombre}</b> hasta <b>${mejorRuta.intermedio.nombre}</b>. Allí cambia a la ruta <b>${mejorRuta.rutasBus[1]}</b> hasta <b>${mejorRuta.destino.nombre}</b>.`;
+      }
+      if (endMode !== 'paradero') {
+        leyenda += `<br>Al llegar a <b>${mejorRuta.destino.nombre}</b>, desplácese a pie <b>${Math.round(mejorRuta.caminataFin)} metros</b> para llegar a su destino.`;
+      }
+      document.getElementById('info-ruta').innerHTML = `<div style='background:#e6ffe6;border-left:5px solid #1ca12d;padding:1em;margin-bottom:1em;'>${leyenda}</div>`;
+      return;
+    }
+    // ... continuar con la lógica anterior si no hay mejorRuta ...
     </script>
 </body>
 </html> 

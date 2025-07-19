@@ -1546,6 +1546,9 @@
             input.value = p.nombre;
             sugerencias.innerHTML = '';
             localStorage.setItem(storageKey, JSON.stringify({ nombre: p.nombre, coords: p.coords }));
+            if (storageKey === 'tuguia_end') {
+              localStorage.setItem('tuguia_end_mode', 'direccion');
+            }
           };
           sugerencias.appendChild(div);
         });
@@ -1717,8 +1720,8 @@ function detenerAlarmaProximidad() {
         '130010',
         '130001',
         'Colombia',
-        'Provicia',
-        'Provicia de Cartagena'
+        'Provincia',
+        'Provincia de Cartagena'
       ];
       let partesFiltradas = partes.filter(parte => {
         const p = parte.toLowerCase().normalize('NFD').replace(/[0-\u036f]/g, '');

@@ -1360,7 +1360,7 @@
           }
         }
     </style>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUadVPYtXGXPX1vWMR5nc3lgSrW-FzUls&libraries=places"></script>
 </head>
 <body>
     <header id="headerTitle" style="background:#ff6600;color:#fff;padding:1.5rem 0;text-align:left;display:flex;align-items:center;gap:12px;">
@@ -2422,7 +2422,7 @@
         map.setView([lat, lon], 15);
         
         // Obtener la dirección usando Google Geocoding API
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyBUadVPYtXGXPX1vWMR5nc3lgSrW-FzUls`)
           .then(response => response.json())
           .then(data => {
             console.log('Respuesta Geocoding API:', data); // <-- Línea agregada para depuración
@@ -3659,7 +3659,7 @@
             if (locationDisplay) locationDisplay.style.display = 'block';
             
             // Obtener nombre del barrio/dirección en tiempo real
-            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyDAXb4v-aSTFz_7_tPxQQlxAgCiUno5rds`)
+            fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=AIzaSyBUadVPYtXGXPX1vWMR5nc3lgSrW-FzUls`)
               .then(resp => resp.json())
               .then(data => {
                 let barrio = '...';

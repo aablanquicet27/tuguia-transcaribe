@@ -994,10 +994,11 @@
         mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario);
         console.log('✅ Navegación inteligente completada exitosamente');
         
-              } catch (error) {
-          console.error('❌ Error en navegación inteligente:', error);
-          document.getElementById('panel-guia-inteligente').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Error:</strong> ' + error.message + '</div>';
-        }
+      } catch (error) {
+        console.error('❌ Error en navegación inteligente:', error);
+        document.getElementById('panel-guia-inteligente').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Error:</strong> ' + error.message + '</div>';
+      }
+    }
     }
     // Función para procesar el nombre del paradero
     function procesarNombreParadero(nombreCompleto) {
@@ -1953,73 +1954,7 @@ function detenerAlarmaProximidad() {
       return rutasAlternativas.length > 0 ? rutasAlternativas[0] : null;
     }
     // === FIN LÓGICA OPTIMIZADA ===
-
-    // ... dentro de procesarInformacion, después de filtrar/mapear paraderos ...
-    const rutasAlternativas = await calcularRutasAlternativas(startCoords, endCoords, paraderos);
-    if (rutasAlternativas && rutasAlternativas.length > 0) {
-      let leyendaHTML = '<div style="background:#e6ffe6;border-left:5px solid #1ca12d;padding:1em;margin-bottom:1em;">';
-      leyendaHTML += '<h4 style="margin:0 0 0.8em 0;color:#155724;">🚌 Rutas Disponibles:</h4>';
-      
-      rutasAlternativas.forEach((ruta, index) => {
-        let opcionHTML = '';
-        let icono = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '📋';
-        let color = index === 0 ? '#155724' : '#6c757d';
-        let bgColor = index === 0 ? '#d4edda' : '#f8f9fa';
-        
-        if (ruta.tipo === 'directa') {
-          opcionHTML = `<strong>${ruta.rutasBus[0]}</strong> en <strong>${ruta.origen.nombre}</strong> hasta <strong>${ruta.destino.nombre}</strong>`;
-        } else if (ruta.tipo === 'transbordo') {
-          opcionHTML = `<strong>${ruta.rutasBus[0]}</strong> en <strong>${ruta.origen.nombre}</strong> → <strong>${ruta.intermedio.nombre}</strong> → <strong>${ruta.rutasBus[1]}</strong> hasta <strong>${ruta.destino.nombre}</strong>`;
-        }
-        
-        if (endMode !== 'paradero') {
-          opcionHTML += `<br><small>🚶 Caminata final: ${Math.round(ruta.caminataFin)}m</small>`;
-        }
-        
-        leyendaHTML += `
-          <div style="background:${bgColor};border-left:3px solid ${color};padding:0.8em;margin-bottom:0.5em;border-radius:4px;">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.3em;">
-              <span style="font-size:1.2em;">${icono}</span>
-              <strong style="color:${color};">Opción ${index + 1}</strong>
-            </div>
-            <div style="color:${color};font-size:0.95em;">${opcionHTML}</div>
-          </div>
-        `;
-      });
-      
-      leyendaHTML += '</div>';
-      document.getElementById('info-ruta').innerHTML = leyendaHTML;
-      return;
-    }
-    // ... continuar con la lógica anterior si no hay rutas ...
-    </script>
-    <script>
-    // ... después de await crearMapasParaderos(paraderosOrigen, paraderosDestino); ...
-    // === DIBUJAR RECORRIDO EN BUS SOBRE LA RED DE TRANSCARIBE ===
-    if (paraderosOrigen && paraderosOrigen.length > 0 && paraderosDestino && paraderosDestino.length > 0) {
-      // Tomar el paradero más cercano de origen y destino
-      const paraderoOrigenSeleccionado = paraderosOrigen[0];
-      const paraderoDestinoSeleccionado = paraderosDestino[0];
-      // Buscar la ruta oficial más cercana entre los paraderos
-      if (typeof encontrarRutaOficialMasCercana === 'function') {
-        const rutaOficial = encontrarRutaOficialMasCercana(
-          [paraderoOrigenSeleccionado.lat, paraderoOrigenSeleccionado.lon],
-          [paraderoDestinoSeleccionado.lat, paraderoDestinoSeleccionado.lon]
-        );
-        if (rutaOficial && rutaOficial.geometry && rutaOficial.geometry.coordinates) {
-          // Dibujar la polilínea sobre la red de Transcaribe
-          const coords = rutaOficial.geometry.coordinates.map(c => [c[1], c[0]]); // [lat, lng]
-          if (typeof map !== 'undefined') {
-            L.polyline(coords, { color: '#ff6600', weight: 6, opacity: 0.8 }).addTo(map);
-          } else if (typeof mapaPrincipal !== 'undefined') {
-            L.polyline(coords, { color: '#ff6600', weight: 6, opacity: 0.8 }).addTo(mapaPrincipal);
-          }
-        }
-      }
-    }
-    // ...
-    </script>
-    <script>
+    
     // === UTILIDAD PARA ENCONTRAR RUTA OFICIAL DE TRANSCARIBE ===
     function distanciaPuntoLinea(punto, linea) {
       // punto: [lat, lng], linea: array de [lng, lat]
@@ -2066,6 +2001,5 @@ function detenerAlarmaProximidad() {
       return mejorRuta && mejorSegmento ? { ruta: mejorRuta, segmento: mejorSegmento } : null;
     }
     // === FIN UTILIDAD ===
-    </script>
 </body>
 </html> 

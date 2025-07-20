@@ -1770,7 +1770,7 @@ function detenerAlarmaProximidad() {
     // ... el resto del código JS ...
     </script>
     <script>
-    // Función principal de navegación inteligente (versión global)
+    // Definir la función global ANTES del DOMContentLoaded
     window.iniciarNavegacionInteligente = async function(destinoCoords) {
       try {
         console.log('🧠 Iniciando navegación inteligente...');
@@ -1817,6 +1817,7 @@ function detenerAlarmaProximidad() {
       }
     };
 
+    // Esperar a que el DOM esté listo
     document.addEventListener('DOMContentLoaded', async function() {
       console.log('🟣 [INIT] DOMContentLoaded en yotellevo.html');
       let start = localStorage.getItem('tuguia_start') || '';
@@ -1848,8 +1849,12 @@ function detenerAlarmaProximidad() {
       try {
         // Simula el flujo de navegación inteligente
         console.log('🟣 [INIT] Llamando a iniciarNavegacionInteligente con:', endCoords);
-        await window.iniciarNavegacionInteligente(endCoords);
-        console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
+        if (typeof window.iniciarNavegacionInteligente === 'function') {
+          await window.iniciarNavegacionInteligente(endCoords);
+          console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
+        } else {
+          console.error('🟣 [INIT] La función iniciarNavegacionInteligente no está disponible');
+        }
       } catch (error) {
         console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);
       }

@@ -898,51 +898,32 @@
       try {
         console.log('🧠 Iniciando navegación inteligente...');
         
-        // Mostrar panel flotante inmediatamente
-        mostrarPanelFlotanteGuiaInteligente(destinoCoords);
-        
         // 1. Obtener ubicación GPS actual
         const ubicacionUsuario = await obtenerUbicacionGPS();
         if (!ubicacionUsuario) {
           console.error('❌ No se pudo obtener ubicación GPS');
-          actualizarPanelFlotante('❌ Error: No se pudo obtener tu ubicación GPS', 'error');
           return;
         }
-        
-        // Actualizar panel con ubicación obtenida
-        actualizarPanelFlotante('📍 Ubicación GPS obtenida', 'success');
         
         // 2. Encontrar paradero más cercano automáticamente
         const paraderoCercano = await encontrarParaderoMasCercano(ubicacionUsuario);
         if (!paraderoCercano) {
           console.error('❌ No se encontró paradero cercano');
-          actualizarPanelFlotante('❌ Error: No se encontró paradero cercano', 'error');
           return;
         }
-        
-        // Actualizar panel con paradero encontrado
-        actualizarPanelFlotante(`🚌 Paradero cercano: ${paraderoCercano.nombre}`, 'success');
         
         // 3. Calcular ruta óptima automáticamente
         const rutaOptima = await calcularRutaOptima(paraderoCercano, destinoCoords);
         if (!rutaOptima) {
           console.error('❌ No se pudo calcular ruta óptima');
-          actualizarPanelFlotante('❌ Error: No se pudo calcular ruta óptima', 'error');
           return;
         }
-        
-        // Actualizar panel con ruta calculada
-        actualizarPanelFlotante('✅ Ruta óptima calculada', 'success');
         
         // 4. Mostrar instrucciones inteligentes
         mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario);
         
-        // Actualizar panel final
-        actualizarPanelFlotante('🎯 Navegación inteligente activa', 'final');
-        
       } catch (error) {
         console.error('❌ Error en navegación inteligente:', error);
-        actualizarPanelFlotante(`❌ Error: ${error.message}`, 'error');
       }
     }
     // Función para procesar el nombre del paradero
@@ -1478,43 +1459,15 @@
           }
         }, 500);
         
-        // =================== NAVEGACIÓN INTELIGENTE (Solo se activa manualmente) ===================
-        console.log('🧠 Navegación inteligente disponible (se activará manualmente)...');
+        // =================== ACTIVAR NAVEGACIÓN INTELIGENTE ===================
+        console.log('🧠 Activando navegación inteligente automáticamente...');
         
         // Verificar si tenemos coordenadas de destino válidas
         if (endCoords && Array.isArray(endCoords) && endCoords.length === 2) {
-          console.log('✅ Coordenadas de destino válidas, navegación inteligente disponible');
+          console.log('✅ Coordenadas de destino válidas, iniciando navegación inteligente...');
           
-          // Mostrar botón para activar navegación inteligente
-          const botonNavegacionHTML = `
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 1.7rem 1.3rem 1.3rem 1.3rem; margin: 1.2rem 0; box-shadow: 0 2px 16px rgba(44,62,80,0.10); color: #fff; max-width: 420px;">
-              <h3 style="margin: 0 0 1.1rem 0; font-size: 1.35rem; color: #fff; font-weight: 700; letter-spacing: 0.5px;">🧠 Tu Guía Inteligente</h3>
-              <div style="background: rgba(255,255,255,0.18); color: #fff; padding: 1.1rem 1rem; border-radius: 12px; margin-bottom: 1.2rem; font-size: 1.07rem;">
-                <strong style='display:flex;align-items:center;gap:7px;'><span style='font-size:1.2em;'>📋</span> ¿Quieres navegación inteligente?</strong>
-                <div style='margin-top:0.5em;'>Haz clic en el botón para obtener instrucciones personalizadas con tu ubicación GPS actual.</div>
-              </div>
-              <button id="btnActivarNavegacionInteligente" style="background: linear-gradient(90deg, #ff6600 60%, #ff9800 100%); color: #fff; border: none; border-radius: 10px; padding: 0.85em 1.7em; font-size: 1.08em; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(255,102,0,0.13); display: flex; align-items: center; gap: 8px; margin: 0 auto;">
-                <span style='font-size:1.2em;'>🚀</span> Activar Navegación Inteligente
-              </button>
-            </div>
-          `;
-          
-          const panelGuia = document.getElementById('panel-guia-inteligente');
-          if (panelGuia) {
-            panelGuia.innerHTML = botonNavegacionHTML;
-            
-            // Asociar funcionalidad al botón
-            setTimeout(() => {
-              const btn = document.getElementById('btnActivarNavegacionInteligente');
-              if (btn) {
-                btn.addEventListener('click', function() {
-                  console.log('🧠 Usuario activó navegación inteligente manualmente');
-                  iniciarNavegacionInteligente(endCoords);
-                });
-              }
-            }, 100);
-          }
-          
+          // Iniciar navegación inteligente automáticamente
+          iniciarNavegacionInteligente(endCoords);
         } else {
           console.log('❌ No hay coordenadas de destino válidas para navegación inteligente');
           document.getElementById('info-ruta').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Navegación Inteligente:</strong> No se pudo obtener las coordenadas de destino. Por favor, selecciona un destino válido.</div>';
@@ -1817,9 +1770,14 @@ function detenerAlarmaProximidad() {
         return;
       }
 
-      // Comentado: No se ejecuta automáticamente al cargar la página
-      // El panel se mostrará solo cuando el usuario haga clic en "Iniciar Seguimiento Inteligente"
-      console.log('🟣 [INIT] Página cargada. El panel se mostrará al hacer clic en el botón.');
+      try {
+        // Simula el flujo de navegación inteligente
+        console.log('🟣 [INIT] Llamando a iniciarNavegacionInteligente con:', endCoords);
+        await iniciarNavegacionInteligente(endCoords);
+        console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
+      } catch (error) {
+        console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);
+      }
     });
     </script>
     <script>
@@ -1984,99 +1942,5 @@ function detenerAlarmaProximidad() {
     }
     // === FIN UTILIDAD ===
     </script>
-    <script>
-// Panel flotante fijo para "Tu Guía Inteligente"
-function mostrarPanelFlotanteGuiaInteligente(destinoCoords) {
-  const contenedor = document.getElementById('panel-guia-inteligente');
-  if (!contenedor) return;
-  contenedor.innerHTML = `
-    <div id="panel-flotante-guia" style="
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      z-index: 1000; max-width: 90vw; min-width: 320px;
-      background: #fffbe6; border: 2.5px solid #007bff; border-radius: 14px;
-      padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 2px 10px rgba(0,123,255,0.1);
-      backdrop-filter: blur(10px); transition: transform 0.3s ease;
-    ">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <h4 style="margin: 0; color: #007bff; font-size: 1.2em;">🧠 Tu Guía Inteligente</h4>
-        <button onclick="togglePanelFlotanteGuia()" style="
-          background: #007bff; color: white; border: none; border-radius: 50%;
-          width: 30px; height: 30px; cursor: pointer; font-size: 1.2em;
-          display: flex; align-items: center; justify-content: center;">−</button>
-      </div>
-      <div style="background: #e3f2fd; color: #1976d2; border-radius: 8px; padding: 8px 0; margin-bottom: 12px; font-weight: 700; font-size: 1.13rem; text-align: center;">
-        <span style="display:inline-flex;align-items:center;gap:8px;">
-          <span style="font-size:1.3em;">🔄</span> Cargando navegación inteligente...
-        </span>
-      </div>
-      <div style="font-size:1.1em;color:#6b46c1;font-weight:600;margin-bottom:0.7em;">
-        🎯 Destino: ${destinoCoords ? destinoCoords[0].toFixed(6) + ', ' + destinoCoords[1].toFixed(6) : 'No especificado'}
-      </div>
-      <div style="background: #f8f9fa; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
-        <p style="margin: 0; color: #6c757d; font-size: 0.95em;">
-          <strong>📋 Instrucciones:</strong><br>
-          • Se está calculando la ruta óptima desde tu ubicación actual<br>
-          • Se buscarán los paraderos más cercanos<br>
-          • Se mostrarán las mejores opciones de transporte
-        </p>
-      </div>
-    </div>
-  `;
-}
-
-// Función para minimizar/maximizar el panel flotante
-function togglePanelFlotanteGuia() {
-  const panel = document.getElementById('panel-flotante-guia');
-  if (panel) {
-    const isMinimized = panel.style.transform.includes('translateY(-100%)');
-    if (isMinimized) {
-      panel.style.transform = 'translateX(-50%)';
-    } else {
-      panel.style.transform = 'translateX(-50%) translateY(-100%)';
-    }
-  }
-}
-
-// Función para actualizar el contenido del panel flotante
-function actualizarPanelFlotante(mensaje, tipo = 'info') {
-  const panel = document.getElementById('panel-flotante-guia');
-  if (!panel) return;
-  
-  const statusDiv = panel.querySelector('div[style*="background: #e3f2fd"]');
-  if (!statusDiv) return;
-  
-  let color, bgColor, icon;
-  
-  switch (tipo) {
-    case 'success':
-      color = '#1976d2';
-      bgColor = '#e8f5e8';
-      icon = '✅';
-      break;
-    case 'error':
-      color = '#d32f2f';
-      bgColor = '#ffebee';
-      icon = '❌';
-      break;
-    case 'final':
-      color = '#2e7d32';
-      bgColor = '#e8f5e8';
-      icon = '🎯';
-      break;
-    default:
-      color = '#1976d2';
-      bgColor = '#e3f2fd';
-      icon = '🔄';
-  }
-  
-  statusDiv.style.background = bgColor;
-  statusDiv.style.color = color;
-  statusDiv.innerHTML = `
-    <span style="display:inline-flex;align-items:center;gap:8px;">
-      <span style="font-size:1.3em;">${icon}</span> ${mensaje}
-    </span>
-  `;
-}
-</script>
 </body>
 </html> 

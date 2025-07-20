@@ -6,11 +6,7 @@
   "scripts": {
     "start": "http-server -p 8080 -c-1",
     "build": "echo 'Build completado'",
-    "build-apk": "bubblewrap build",
-    "init-bubblewrap": "bubblewrap init --manifest https://tu-dominio.com/manifest.json",
-    "update": "bubblewrap update",
-    "validate": "bubblewrap validate",
-    "install": "bubblewrap install"
+    "dev": "echo 'Servidor iniciado'"
   },
   "keywords": [
     "cartagena",
@@ -23,7 +19,6 @@
   "author": "AGAPAI",
   "license": "MIT",
   "devDependencies": {
-    "@bubblewrap/cli": "^1.20.0",
     "http-server": "^14.1.1"
   },
   "engines": {

@@ -1600,24 +1600,24 @@ function mostrarAlertaProximidad() {
   var modal = document.getElementById('modal-proximidad');
   if (modal) modal.style.display = 'flex';
 
-  // Iniciar alarma y vibración repetitiva (patrón muy molesto)
+  // Iniciar alarma y vibración repetitiva (patrón MUY MOLESTO para despertar)
   detenerAlarmaProximidad(); // Por si acaso ya hay una activa
   alarmaProximidadInterval = setInterval(() => {
-    // Vibración muy notoria: vibrar 1200ms, pausa 200ms, repetir varias veces
-    if (navigator.vibrate) navigator.vibrate([1200, 200, 1200, 200, 1200, 200, 1200]);
-    // Sonido
+    // Vibración MUY AGRESIVA: vibrar 1500ms, pausa 100ms, repetir varias veces
+    if (navigator.vibrate) navigator.vibrate([1500, 100, 1500, 100, 1500, 100, 1500, 100, 1500]);
+    // Sonido MÁS CONTINUO Y RUIDOSO
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const o = ctx.createOscillator();
       const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.value = 880;
+      o.type = 'square'; // Cambio a onda cuadrada para sonido más agresivo
+      o.frequency.value = 660; // Frecuencia más baja para sonido más molesto
       o.connect(g); g.connect(ctx.destination);
-      g.gain.value = 0.2;
+      g.gain.value = 0.8; // VOLUMEN MUCHO MÁS ALTO (80%)
       o.start();
-      setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 500);
+      setTimeout(()=>{g.gain.value=0; o.stop(); ctx.close();}, 800); // Sonido más largo
     } catch(e) {}
-  }, 2200);
+  }, 1500); // Intervalo más corto para sonido más continuo
 
   // Botón para detener alarma y vibración
   setTimeout(() => {
@@ -1781,92 +1781,144 @@ function detenerAlarmaProximidad() {
     });
     </script>
     <script>
-    // === LÓGICA OPTIMIZADA DE RUTA MÁS CORTA ===
-    async function calcularRutaOptimaTotalmenteOptima(startCoords, endCoords, paraderos) {
+    // === LÓGICA OPTIMIZADA DE MÚLTIPLES RUTAS ALTERNATIVAS ===
+    async function calcularRutasAlternativas(startCoords, endCoords, paraderos) {
+      // Evaluar más paraderos para encontrar más opciones
       let paraderosOrigen = paraderos.map(f => {
         let dist = haversine(startCoords[0], startCoords[1], f.lat, f.lon);
         return { ...f, dist };
-      }).sort((a, b) => a.dist - b.dist).slice(0, 3);
+      }).sort((a, b) => a.dist - b.dist).slice(0, 8); // Aumentado de 3 a 8
+      
       let paraderosDestino = paraderos.map(f => {
         let dist = haversine(endCoords[0], endCoords[1], f.lat, f.lon);
         return { ...f, dist };
-      }).sort((a, b) => a.dist - b.dist).slice(0, 3);
-      let mejorOpcion = null;
-      let mejorScore = Infinity;
+      }).sort((a, b) => a.dist - b.dist).slice(0, 8); // Aumentado de 3 a 8
+      
+      let todasLasRutas = [];
+      
       for (let origen of paraderosOrigen) {
         for (let destino of paraderosDestino) {
           let caminataInicio = origen.dist;
           let caminataFin = destino.dist;
+          
+          // === RUTAS DIRECTAS ===
           let rutasComunes = origen.rutas.filter(r => destino.rutas.includes(r));
-          let rutasBus = [];
-          let tipo = '';
           if (rutasComunes.length > 0) {
-            rutasBus = [rutasComunes[0]];
-            tipo = 'directa';
-          } else {
-            for (let intermedio of paraderos) {
-              if (intermedio === origen || intermedio === destino) continue;
-              let rutas1 = origen.rutas.filter(r => intermedio.rutas.includes(r));
-              let rutas2 = destino.rutas.filter(r => intermedio.rutas.includes(r));
-              if (rutas1.length > 0 && rutas2.length > 0) {
-                let score =
-                  caminataInicio +
-                  haversine(origen.lat, origen.lon, intermedio.lat, intermedio.lon) +
-                  haversine(intermedio.lat, intermedio.lon, destino.lat, destino.lon) +
-                  caminataFin;
-                if (score < mejorScore) {
-                  mejorScore = score;
-                  mejorOpcion = {
-                    tipo: 'transbordo',
-                    origen,
-                    destino,
-                    intermedio,
-                    rutasBus: [rutas1[0], rutas2[0]],
-                    caminataInicio,
-                    caminataFin,
-                    score
-                  };
+            // Evaluar TODAS las rutas comunes, no solo la primera
+            for (let ruta of rutasComunes) {
+              let score = caminataInicio + caminataFin;
+              todasLasRutas.push({
+                tipo: 'directa',
+                origen,
+                destino,
+                rutasBus: [ruta],
+                caminataInicio,
+                caminataFin,
+                score,
+                prioridad: score + (caminataInicio > 500 ? 200 : 0) // Penalizar caminatas largas
+              });
+            }
+          }
+          
+          // === RUTAS CON TRANSBORDO ===
+          for (let intermedio of paraderos) {
+            if (intermedio === origen || intermedio === destino) continue;
+            
+            let rutas1 = origen.rutas.filter(r => intermedio.rutas.includes(r));
+            let rutas2 = destino.rutas.filter(r => intermedio.rutas.includes(r));
+            
+            if (rutas1.length > 0 && rutas2.length > 0) {
+              let distOrigenIntermedio = haversine(origen.lat, origen.lon, intermedio.lat, intermedio.lon);
+              let distIntermedioDestino = haversine(intermedio.lat, intermedio.lon, destino.lat, destino.lon);
+              
+              // Evaluar combinaciones de rutas
+              for (let ruta1 of rutas1) {
+                for (let ruta2 of rutas2) {
+                  if (ruta1 !== ruta2) { // Evitar transbordo innecesario
+                    let score = caminataInicio + distOrigenIntermedio + distIntermedioDestino + caminataFin;
+                    todasLasRutas.push({
+                      tipo: 'transbordo',
+                      origen,
+                      destino,
+                      intermedio,
+                      rutasBus: [ruta1, ruta2],
+                      caminataInicio,
+                      caminataFin,
+                      score,
+                      prioridad: score + 100 // Penalizar transbordos
+                    });
+                  }
                 }
               }
             }
           }
-          if (tipo === 'directa') {
-            let score = caminataInicio + caminataFin;
-            if (score < mejorScore) {
-              mejorScore = score;
-              mejorOpcion = {
-                tipo: 'directa',
-                origen,
-                destino,
-                rutasBus,
-                caminataInicio,
-                caminataFin,
-                score
-              };
-            }
-          }
         }
       }
-      return mejorOpcion;
+      
+      // Ordenar por prioridad y eliminar duplicados
+      todasLasRutas.sort((a, b) => a.prioridad - b.prioridad);
+      
+      // Eliminar rutas duplicadas (misma ruta, mismos paraderos)
+      let rutasUnicas = [];
+      let rutasVistas = new Set();
+      
+      for (let ruta of todasLasRutas) {
+        let key = `${ruta.tipo}-${ruta.origen.nombre}-${ruta.destino.nombre}-${ruta.rutasBus.join(',')}`;
+        if (!rutasVistas.has(key)) {
+          rutasVistas.add(key);
+          rutasUnicas.push(ruta);
+        }
+      }
+      
+      // Retornar las 5 mejores opciones
+      return rutasUnicas.slice(0, 5);
+    }
+    
+    // Función original mantenida para compatibilidad
+    async function calcularRutaOptimaTotalmenteOptima(startCoords, endCoords, paraderos) {
+      const rutasAlternativas = await calcularRutasAlternativas(startCoords, endCoords, paraderos);
+      return rutasAlternativas.length > 0 ? rutasAlternativas[0] : null;
     }
     // === FIN LÓGICA OPTIMIZADA ===
 
     // ... dentro de procesarInformacion, después de filtrar/mapear paraderos ...
-    const mejorRuta = await calcularRutaOptimaTotalmenteOptima(startCoords, endCoords, paraderos);
-    if (mejorRuta) {
-      let leyenda = '';
-      if (mejorRuta.tipo === 'directa') {
-        leyenda = `Toma la ruta <b>${mejorRuta.rutasBus[0]}</b> en <b>${mejorRuta.origen.nombre}</b> hasta <b>${mejorRuta.destino.nombre}</b>.`;
-      } else if (mejorRuta.tipo === 'transbordo') {
-        leyenda = `Toma la ruta <b>${mejorRuta.rutasBus[0]}</b> en <b>${mejorRuta.origen.nombre}</b> hasta <b>${mejorRuta.intermedio.nombre}</b>. Allí cambia a la ruta <b>${mejorRuta.rutasBus[1]}</b> hasta <b>${mejorRuta.destino.nombre}</b>.`;
-      }
-      if (endMode !== 'paradero') {
-        leyenda += `<br>Al llegar a <b>${mejorRuta.destino.nombre}</b>, desplácese a pie <b>${Math.round(mejorRuta.caminataFin)} metros</b> para llegar a su destino.`;
-      }
-      document.getElementById('info-ruta').innerHTML = `<div style='background:#e6ffe6;border-left:5px solid #1ca12d;padding:1em;margin-bottom:1em;'>${leyenda}</div>`;
+    const rutasAlternativas = await calcularRutasAlternativas(startCoords, endCoords, paraderos);
+    if (rutasAlternativas && rutasAlternativas.length > 0) {
+      let leyendaHTML = '<div style="background:#e6ffe6;border-left:5px solid #1ca12d;padding:1em;margin-bottom:1em;">';
+      leyendaHTML += '<h4 style="margin:0 0 0.8em 0;color:#155724;">🚌 Rutas Disponibles:</h4>';
+      
+      rutasAlternativas.forEach((ruta, index) => {
+        let opcionHTML = '';
+        let icono = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '📋';
+        let color = index === 0 ? '#155724' : '#6c757d';
+        let bgColor = index === 0 ? '#d4edda' : '#f8f9fa';
+        
+        if (ruta.tipo === 'directa') {
+          opcionHTML = `<strong>${ruta.rutasBus[0]}</strong> en <strong>${ruta.origen.nombre}</strong> hasta <strong>${ruta.destino.nombre}</strong>`;
+        } else if (ruta.tipo === 'transbordo') {
+          opcionHTML = `<strong>${ruta.rutasBus[0]}</strong> en <strong>${ruta.origen.nombre}</strong> → <strong>${ruta.intermedio.nombre}</strong> → <strong>${ruta.rutasBus[1]}</strong> hasta <strong>${ruta.destino.nombre}</strong>`;
+        }
+        
+        if (endMode !== 'paradero') {
+          opcionHTML += `<br><small>🚶 Caminata final: ${Math.round(ruta.caminataFin)}m</small>`;
+        }
+        
+        leyendaHTML += `
+          <div style="background:${bgColor};border-left:3px solid ${color};padding:0.8em;margin-bottom:0.5em;border-radius:4px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.3em;">
+              <span style="font-size:1.2em;">${icono}</span>
+              <strong style="color:${color};">Opción ${index + 1}</strong>
+            </div>
+            <div style="color:${color};font-size:0.95em;">${opcionHTML}</div>
+          </div>
+        `;
+      });
+      
+      leyendaHTML += '</div>';
+      document.getElementById('info-ruta').innerHTML = leyendaHTML;
       return;
     }
-    // ... continuar con la lógica anterior si no hay mejorRuta ...
+    // ... continuar con la lógica anterior si no hay rutas ...
     </script>
     <script>
     // ... después de await crearMapasParaderos(paraderosOrigen, paraderosDestino); ...

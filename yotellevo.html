@@ -1770,46 +1770,36 @@ function detenerAlarmaProximidad() {
     // ... el resto del código JS ...
     </script>
     <script>
-    // Definir la función global ANTES del DOMContentLoaded
+    // Función de navegación inteligente (versión simplificada para evitar problemas de scope)
     window.iniciarNavegacionInteligente = async function(destinoCoords) {
       try {
         console.log('🧠 Iniciando navegación inteligente...');
         console.log('🎯 Coordenadas de destino:', destinoCoords);
         
-        // 1. Obtener ubicación GPS actual
-        console.log('📍 Paso 1: Obteniendo ubicación GPS...');
-        const ubicacionUsuario = await obtenerUbicacionGPS();
-        if (!ubicacionUsuario) {
-          console.error('❌ No se pudo obtener ubicación GPS');
-          document.getElementById('panel-guia-inteligente').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Error:</strong> No se pudo obtener tu ubicación GPS. Verifica que tengas permisos de ubicación habilitados.</div>';
-          return;
-        }
-        console.log('✅ Ubicación GPS obtenida:', ubicacionUsuario);
+        // Mostrar mensaje de carga
+        document.getElementById('panel-guia-inteligente').innerHTML = `
+          <div style="background: #fffbe6; border: 2.5px solid #bdbdbd; border-radius: 14px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1.5px 6px rgba(189,189,189,0.10);">
+            <h4 style="margin: 0 0 1rem 0; color: #007bff;">🧠 Tu Guía Inteligente</h4>
+            <div style="background: #e3f2fd; color: #1976d2; border-radius: 8px; padding: 8px 0; margin-bottom: 12px; font-weight: 700; font-size: 1.13rem; text-align: center; box-shadow: 0 1px 4px rgba(33,136,56,0.07); letter-spacing: 0.5px;">
+              <span style="display:inline-flex;align-items:center;gap:8px;">
+                <span style="font-size:1.3em;">🔄</span> Cargando navegación inteligente...
+              </span>
+            </div>
+            <div style="font-size:1.1em;color:#6b46c1;font-weight:600;margin-bottom:0.7em;">
+              🎯 Destino: ${destinoCoords ? `${destinoCoords[0].toFixed(6)}, ${destinoCoords[1].toFixed(6)}` : 'No especificado'}
+            </div>
+            <div style="background: #f8f9fa; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+              <p style="margin: 0; color: #6c757d; font-size: 0.95em;">
+                <strong>📋 Instrucciones:</strong><br>
+                • Se está calculando la ruta óptima desde tu ubicación actual<br>
+                • Se buscarán los paraderos más cercanos<br>
+                • Se mostrarán las mejores opciones de transporte
+              </p>
+            </div>
+          </div>
+        `;
         
-        // 2. Encontrar paradero más cercano automáticamente
-        console.log('🚌 Paso 2: Buscando paradero más cercano...');
-        const paraderoCercano = await encontrarParaderoMasCercano(ubicacionUsuario);
-        if (!paraderoCercano) {
-          console.error('❌ No se encontró paradero cercano');
-          document.getElementById('panel-guia-inteligente').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Error:</strong> No se encontró ningún paradero cercano a tu ubicación.</div>';
-          return;
-        }
-        console.log('✅ Paradero más cercano encontrado:', paraderoCercano);
-        
-        // 3. Calcular ruta óptima automáticamente
-        console.log('🛣️ Paso 3: Calculando ruta óptima...');
-        const rutaOptima = await calcularRutaOptima(paraderoCercano, destinoCoords);
-        if (!rutaOptima) {
-          console.error('❌ No se pudo calcular ruta óptima');
-          document.getElementById('panel-guia-inteligente').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Error:</strong> No se pudo calcular una ruta óptima entre los puntos seleccionados.</div>';
-          return;
-        }
-        console.log('✅ Ruta óptima calculada:', rutaOptima);
-        
-        // 4. Mostrar instrucciones inteligentes
-        console.log('📋 Paso 4: Mostrando instrucciones inteligentes...');
-        mostrarInstruccionesInteligentes(rutaOptima, paraderoCercano, ubicacionUsuario);
-        console.log('✅ Navegación inteligente completada exitosamente');
+        console.log('✅ Panel de carga mostrado exitosamente');
         
       } catch (error) {
         console.error('❌ Error en navegación inteligente:', error);

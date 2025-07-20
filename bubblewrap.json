@@ -1,0 +1,53 @@
+{
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "enableNotifications": true,
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "isIconGenerated": true,
+  "isPlayBillingSupported": false,
+  "launcherName": "Tu Guia Cartagena",
+  "maskableIcon": {
+    "sources": {
+      "iconPng": "logoagapai-ok2.png"
+    }
+  },
+  "monochromeIcon": {
+    "sources": {
+      "iconPng": "logoagapai-ok2.png"
+    }
+  },
+  "packageId": "com.agapai.tuguia",
+  "shortcuts": [
+    {
+      "chosenIconUrl": "logoagapai-ok2.png",
+      "density": "xxxhdpi",
+      "formFactor": "phone",
+      "icon": {},
+      "name": "Iniciar Ruta",
+      "shortName": "Ruta",
+      "url": "/"
+    },
+    {
+      "chosenIconUrl": "logoagapai-ok2.png",
+      "density": "xxxhdpi",
+      "formFactor": "phone",
+      "icon": {},
+      "name": "Yo te llevo",
+      "shortName": "Llevo",
+      "url": "/yotellevo.html"
+    }
+  ],
+  "signingKey": {
+    "alias": "android",
+    "path": "android.keystore"
+  },
+  "sourceDirectory": ".",
+  "startUrl": "/",
+  "themeColor": "#ff6600",
+  "webManifestUrl": "https://tu-dominio.com/manifest.json"
+} 

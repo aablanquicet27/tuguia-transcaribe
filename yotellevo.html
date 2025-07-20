@@ -1478,15 +1478,13 @@
           }
         }, 500);
         
-        // =================== ACTIVAR NAVEGACIÓN INTELIGENTE ===================
-        console.log('🧠 Activando navegación inteligente automáticamente...');
+        // =================== NAVEGACIÓN INTELIGENTE (Solo se activa manualmente) ===================
+        console.log('🧠 Navegación inteligente disponible (se activará manualmente)...');
         
         // Verificar si tenemos coordenadas de destino válidas
         if (endCoords && Array.isArray(endCoords) && endCoords.length === 2) {
-          console.log('✅ Coordenadas de destino válidas, iniciando navegación inteligente...');
-          
-          // Iniciar navegación inteligente automáticamente
-          iniciarNavegacionInteligente(endCoords);
+          console.log('✅ Coordenadas de destino válidas, navegación inteligente disponible');
+          // NO se ejecuta automáticamente - solo se ejecutará cuando el usuario haga clic en el botón
         } else {
           console.log('❌ No hay coordenadas de destino válidas para navegación inteligente');
           document.getElementById('info-ruta').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Navegación Inteligente:</strong> No se pudo obtener las coordenadas de destino. Por favor, selecciona un destino válido.</div>';
@@ -1789,14 +1787,9 @@ function detenerAlarmaProximidad() {
         return;
       }
 
-      try {
-        // Simula el flujo de navegación inteligente
-        console.log('🟣 [INIT] Llamando a iniciarNavegacionInteligente con:', endCoords);
-        await iniciarNavegacionInteligente(endCoords);
-        console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
-      } catch (error) {
-        console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);
-      }
+      // Comentado: No se ejecuta automáticamente al cargar la página
+      // El panel se mostrará solo cuando el usuario haga clic en "Iniciar Seguimiento Inteligente"
+      console.log('🟣 [INIT] Página cargada. El panel se mostrará al hacer clic en el botón.');
     });
     </script>
     <script>

@@ -12,6 +12,7 @@
             min-height: 100vh;
             padding: 2rem 0;
         }
+       
   header {
       position: fixed;
       top: 0;
@@ -200,6 +201,20 @@
             .map-area {
                 height: 320px;
             }
+        }
+        #panel-guia-inteligente {
+          position: relative;
+          z-index: 10;
+        }
+        #info-ruta {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          top: 100%; /* Justo debajo del panel-guia-inteligente */
+          width: 420px;
+          max-width: 90vw;
+          z-index: 20;
+          margin-top: 16px;
         }
     </style>
 </head>

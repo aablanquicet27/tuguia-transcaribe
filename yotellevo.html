@@ -1849,11 +1849,17 @@ function detenerAlarmaProximidad() {
       try {
         // Simula el flujo de navegación inteligente
         console.log('🟣 [INIT] Llamando a iniciarNavegacionInteligente con:', endCoords);
+        console.log('🟣 [INIT] Verificando disponibilidad de la función...');
+        console.log('🟣 [INIT] window.iniciarNavegacionInteligente:', typeof window.iniciarNavegacionInteligente);
+        console.log('🟣 [INIT] window.iniciarNavegacionInteligente value:', window.iniciarNavegacionInteligente);
+        
         if (typeof window.iniciarNavegacionInteligente === 'function') {
+          console.log('🟣 [INIT] Función encontrada, ejecutando...');
           await window.iniciarNavegacionInteligente(endCoords);
           console.log('🟣 [INIT] Panel Tu Guía Inteligente debería mostrarse si todo fue bien.');
         } else {
           console.error('🟣 [INIT] La función iniciarNavegacionInteligente no está disponible');
+          console.error('🟣 [INIT] Tipo de window.iniciarNavegacionInteligente:', typeof window.iniciarNavegacionInteligente);
         }
       } catch (error) {
         console.error('🟣 [INIT] Error al intentar mostrar el panel:', error);

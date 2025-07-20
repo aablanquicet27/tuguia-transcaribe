@@ -1484,7 +1484,37 @@
         // Verificar si tenemos coordenadas de destino válidas
         if (endCoords && Array.isArray(endCoords) && endCoords.length === 2) {
           console.log('✅ Coordenadas de destino válidas, navegación inteligente disponible');
-          // NO se ejecuta automáticamente - solo se ejecutará cuando el usuario haga clic en el botón
+          
+          // Mostrar botón para activar navegación inteligente
+          const botonNavegacionHTML = `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; padding: 1.7rem 1.3rem 1.3rem 1.3rem; margin: 1.2rem 0; box-shadow: 0 2px 16px rgba(44,62,80,0.10); color: #fff; max-width: 420px;">
+              <h3 style="margin: 0 0 1.1rem 0; font-size: 1.35rem; color: #fff; font-weight: 700; letter-spacing: 0.5px;">🧠 Tu Guía Inteligente</h3>
+              <div style="background: rgba(255,255,255,0.18); color: #fff; padding: 1.1rem 1rem; border-radius: 12px; margin-bottom: 1.2rem; font-size: 1.07rem;">
+                <strong style='display:flex;align-items:center;gap:7px;'><span style='font-size:1.2em;'>📋</span> ¿Quieres navegación inteligente?</strong>
+                <div style='margin-top:0.5em;'>Haz clic en el botón para obtener instrucciones personalizadas con tu ubicación GPS actual.</div>
+              </div>
+              <button id="btnActivarNavegacionInteligente" style="background: linear-gradient(90deg, #ff6600 60%, #ff9800 100%); color: #fff; border: none; border-radius: 10px; padding: 0.85em 1.7em; font-size: 1.08em; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(255,102,0,0.13); display: flex; align-items: center; gap: 8px; margin: 0 auto;">
+                <span style='font-size:1.2em;'>🚀</span> Activar Navegación Inteligente
+              </button>
+            </div>
+          `;
+          
+          const panelGuia = document.getElementById('panel-guia-inteligente');
+          if (panelGuia) {
+            panelGuia.innerHTML = botonNavegacionHTML;
+            
+            // Asociar funcionalidad al botón
+            setTimeout(() => {
+              const btn = document.getElementById('btnActivarNavegacionInteligente');
+              if (btn) {
+                btn.addEventListener('click', function() {
+                  console.log('🧠 Usuario activó navegación inteligente manualmente');
+                  iniciarNavegacionInteligente(endCoords);
+                });
+              }
+            }, 100);
+          }
+          
         } else {
           console.log('❌ No hay coordenadas de destino válidas para navegación inteligente');
           document.getElementById('info-ruta').innerHTML = '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1rem; color: #856404;"><strong>⚠️ Navegación Inteligente:</strong> No se pudo obtener las coordenadas de destino. Por favor, selecciona un destino válido.</div>';
